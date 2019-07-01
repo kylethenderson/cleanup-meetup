@@ -44,7 +44,7 @@ class RegisterPage extends Component {
           </h2>
         )}
 
-        <Grid container item xs={9} id="loginForm">
+        <Grid container item xs={9} id="loginForm" className="grid-item-text-center">
           <form autoComplete="off" onSubmit={this.registerUser}>
             <h1>Register</h1>
             <TextField
@@ -64,11 +64,11 @@ class RegisterPage extends Component {
               onChange={this.handleInputChangeFor('password')}
               margin="normal"
             />
-            <Grid item xs={12}>
-              <Button variant="contained" color="primary" type="submit">Register</Button>
-            </Grid>
           </form>
           <Grid item xs={12}>
+              <Button variant="contained" color="primary" type="submit">Register</Button>
+            </Grid>
+          <Grid className="grid-item-text-center" item xs={12}>
             <Button
               type="button"
               onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
