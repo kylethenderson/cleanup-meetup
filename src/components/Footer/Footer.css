@@ -1,0 +1,21 @@
+footer {
+    background-color: rgba(0, 143, 12, 1);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+footer h4 {
+    font-size: 20px;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 15px 0px;
+}
+footer span {
+    font-size: 10px;
+    letter-spacing: 1px;
+}
