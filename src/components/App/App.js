@@ -14,7 +14,10 @@ import Footer from '../Footer/Footer';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import HomePage from '../HomePage';
-import InfoPage from '../InfoPage/InfoPage';
+import MyPins from '../MyPins';
+// import MyMeetups from '../MyMeetups';
+// import Profile from '../Profile';
+
 
 import './App.css';
 
@@ -45,7 +48,7 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/info"
-              component={InfoPage}
+              component={MyPins}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

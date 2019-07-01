@@ -11,7 +11,7 @@ import {
 
 class Map extends Component {
     state = {
-        selectedPark: null,
+        selectedPin: null,
         defaultLat: null,
         defaultLong: null,
     }
@@ -23,24 +23,24 @@ class Map extends Component {
             })
     }
 
-    setSelectedPark = (value) => {
+    setSelectedPin = (value) => {
         this.setState({
             ...this.state,
-            selectedPark: value,
+            selectedPin: value,
         })
     }
 
     handleClick = (event) => {
-        console.log(this.state.selectedPark)
+        console.log(this.state.selectedPin)
     }
     organizeMeetup = () => {
         axios.post('/api/add-meetup', {
-            pinId: this.state.selectedPark.pinId,
-            userId: this.state.selectedPark.created_by
+            pinId: this.state.selectedPin.pinId,
+            userId: this.state.selectedPin.created_by
         })
             .then(response => {
                 this.setState({
-                    selectedPark: null,
+                    selectedPin: null,
                 })
                 axios.get('/api/data')
                     .then(response => {
@@ -63,30 +63,30 @@ class Map extends Component {
                     defaultZoom={11.5}
                     defaultCenter={{ lat: this.props.defaultLat, lng: this.props.defaultLong }}
                 >
-                    {this.props.pinList && this.props.pinList.map(park => (
+                    {this.props.pinList && this.props.pinList.map(pin => (
                         <Marker
-                            key={park.pin_id}
+                            key={pin.pin_id}
                             position={{
-                                lat: Number(park.latitude),
-                                lng: Number(park.longitude),
+                                lat: Number(pin.latitude),
+                                lng: Number(pin.longitude),
                             }}
-                            onClick={() => { this.setSelectedPark(park) }}
+                            onClick={() => { this.setSelectedPin(pin) }}
                         />
                     ))}
 
-                    {this.state.selectedPark &&
+                    {this.state.selectedPin &&
                         <InfoWindow
                             position={{
-                                lat: Number(this.state.selectedPark.latitude),
-                                lng: Number(this.state.selectedPark.longitude),
+                                lat: Number(this.state.selectedPin.latitude),
+                                lng: Number(this.state.selectedPin.longitude),
                             }}
-                            onCloseClick={() => { this.setSelectedPark(null) }}
+                            onCloseClick={() => { this.setSelectedPin(null) }}
                         >
 
-                            {this.state.selectedPark.ref_organized_by ?
+                            {this.state.selectedPin.ref_organized_by ?
                                 <div>
-                                    <h5>Date: {this.state.selectedPark.date}</h5>
-                                    <h5>Time: {this.state.selectedPark.time}</h5>
+                                    <h5>Date: {this.state.selectedPin.date}</h5>
+                                    <h5>Time: {this.state.selectedPin.time}</h5>
                                     <button onClick={this.handleClick}>View</button>
                                 </div>
                                 :
