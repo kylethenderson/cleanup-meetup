@@ -15,8 +15,8 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import HomePage from '../HomePage';
 import MyPins from '../MyPins';
-// import MyMeetups from '../MyMeetups';
-// import Profile from '../Profile';
+import MyMeetups from '../MyMeetups';
+import Profile from '../Profile';
 
 
 import './App.css';
@@ -49,6 +49,16 @@ class App extends Component {
               exact
               path="/info"
               component={MyPins}
+            />
+            <ProtectedRoute
+              exact
+              path="/info"
+              component={MyMeetups}
+            />
+            <ProtectedRoute
+              exact
+              path="/info"
+              component={Profile}
             />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />

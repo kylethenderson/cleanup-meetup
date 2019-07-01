@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField'
 
 class RegisterPage extends Component {
   state = {
@@ -19,7 +22,7 @@ class RegisterPage extends Component {
         },
       });
     } else {
-      this.props.dispatch({type: 'REGISTRATION_INPUT_ERROR'});
+      this.props.dispatch({ type: 'REGISTRATION_INPUT_ERROR' });
     }
   } // end registerUser
 
@@ -31,7 +34,7 @@ class RegisterPage extends Component {
 
   render() {
     return (
-      <div>
+      <Grid id="loginWrapper" container justify="center">
         {this.props.errors.registrationMessage && (
           <h2
             className="alert"
@@ -40,49 +43,41 @@ class RegisterPage extends Component {
             {this.props.errors.registrationMessage}
           </h2>
         )}
-        <form onSubmit={this.registerUser}>
-          <h1>Register User</h1>
-          <div>
-            <label htmlFor="username">
-              Username:
-              <input
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleInputChangeFor('username')}
-              />
-            </label>
-          </div>
-          <div>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                name="password"
-                value={this.state.password}
-                onChange={this.handleInputChangeFor('password')}
-              />
-            </label>
-          </div>
-          <div>
-            <input
-              className="register"
-              type="submit"
-              name="submit"
-              value="Register"
+
+        <Grid container item xs={9} id="loginForm">
+          <form autoComplete="off" onSubmit={this.registerUser}>
+            <h1>Register</h1>
+            <TextField
+              fullWidth
+              id="username"
+              label="Username"
+              value={this.state.username}
+              onChange={this.handleInputChangeFor('username')}
+              margin="normal"
             />
-          </div>
-        </form>
-        <center>
-          <button
-            type="button"
-            className="link-button"
-            onClick={() => {this.props.dispatch({type: 'SET_TO_LOGIN_MODE'})}}
-          >
-            Login
-          </button>
-        </center>
-      </div>
+            <TextField
+              fullWidth
+              id="password"
+              label="Password"
+              type="password"
+              value={this.state.password}
+              onChange={this.handleInputChangeFor('password')}
+              margin="normal"
+            />
+            <Grid item xs={12}>
+              <Button variant="contained" color="primary" type="submit">Register</Button>
+            </Grid>
+          </form>
+          <Grid item xs={12}>
+            <Button
+              type="button"
+              onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}
+            >
+              Log In
+          </Button>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }
