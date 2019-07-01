@@ -5,15 +5,14 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
+// Components
+import Header from '../Header'
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import AboutPage from '../AboutPage/AboutPage';
 import HomePage from '../HomePage';
 import InfoPage from '../InfoPage/InfoPage';
 
@@ -27,18 +26,11 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-          <Nav />
+        <div className="app">
+          <Header />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
-            {/* Visiting localhost:3000/about will show the about page.
-            This is a route anyone can see, no login necessary */}
-            <Route
-              exact
-              path="/about"
-              component={AboutPage}
-            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the HomePage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
