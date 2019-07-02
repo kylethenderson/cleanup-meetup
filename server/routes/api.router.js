@@ -17,7 +17,7 @@ router.get('/data', (req, res) => {
   })
   
   router.post('/add-meetup', (req, res) => {
-    const queryText = `INSERT INTO "meetups" ("ref_pin_id", "organized_by", "date", "time", "supplies") VALUES
+    const queryText = `INSERT INTO "meetups" ("ref_pin_id", "ref_organized_by", "date", "time", "supplies") VALUES
                         ($1, $2, $3, $4, $5);`
     pool.query(queryText, [req.body.pinId, req.body.userId, '7-6-2019', '10:00', 'trash bags, drinks, rubber gloves'])
         .then( result => {

@@ -24,30 +24,23 @@ class Map extends Component {
     }
 
     setSelectedPin = (pin) => {
-        console.log(pin);
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
-        // this.setState({
-        //     ...this.state,
-        //     selectedPin: value,
-        // })
     }
 
     handleClick = (event) => {
         console.log(this.props.selectedPin)
     }
+
     organizeMeetup = () => {
+        console.log(this.props.selectedPin);
         axios.post('/api/add-meetup', {
-            pinId: this.props.selectedPin.pinId,
-            userId: this.props.selectedPin.created_by
+            pinId: this.props.selectedPin.pin_id,
+            userId: this.props.selectedPin.ref_created_by
         })
             .then(response => {
                 this.props.dispatch({type: 'CLEAR_SELECTED_PIN'});
-                // this.setState({
-                //     selectedPin: null,
-                // })
                 axios.get('/api/data')
                     .then(response => {
-                        console.log(response);
                         this.props.dispatch({ type: 'SET_PIN_LIST', payload: response.data })
                     })
             })
