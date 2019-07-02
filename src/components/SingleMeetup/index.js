@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import WrappedMap from './SingleMeetupMap'
@@ -31,10 +32,6 @@ class SingleMeetup extends Component {
         }
     }
 
-    formatDate = (date) => {
-
-    }
-
     render() {
         const meetup = this.props.location.state;
         return (
@@ -42,25 +39,30 @@ class SingleMeetup extends Component {
                 {meetup ?
                     <>
                         <div className="mapContainer">
-                            <WrappedMap
-                                defaultLat={Number(meetup.latitude)}
-                                defaultLong={Number(meetup.longitude)}
-                                googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
+                            <WrappedMap                        
+                                googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${MAPS_KEY}`}
                                 loadingElement={<div style={{ height: "100%" }} />}
                                 containerElement={<div style={{ height: "100%" }} />}
                                 mapElement={<div style={{ height: "100%" }} />}
                                 className="mapWrapper"
                                 meetup={meetup}
+                                defaultLat={Number(meetup.latitude)}
+                                defaultLong={Number(meetup.longitude)}
                             />
                         </div>
                         <div id="singleMeetDeets">
-                            <p>Date: {meetup.date}</p>
-                            <p>Time: {meetup.time}</p>
+                            <p>Date: {meetup.date.substring(5, 7) + "/" + meetup.date.substring(8, 10) + "/" + meetup.date.substring(0, 4)}</p>
+                            <p>Time: {meetup.time.substring(0,5)}</p>
                             <p>Description: {meetup.description}</p>
                             <p>Recommended Supplies: {meetup.supplies}</p>
                             <p>Users Joined: {this.state.usersJoined}</p>
+                            <pre>{JSON.stringify(meetup, null, 2)}</pre>
                         </div>
-                        <pre>{JSON.stringify(meetup, null, 2)}</pre>
+                        {meetup.ref_created_by === this.props.user.id ? 
+                        <>created by current user</>
+                        :
+                        <>not created by current user</>
+                        }
                     </>
                     :
                     <>
@@ -72,4 +74,8 @@ class SingleMeetup extends Component {
     }
 }
 
-export default SingleMeetup
+const mapStateToProps = reduxState => ({
+    user: reduxState.user,
+})
+
+export default connect(mapStateToProps)(SingleMeetup)
