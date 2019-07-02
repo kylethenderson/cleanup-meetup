@@ -99,21 +99,21 @@ class MeetupForm extends Component {
                     <Redirect to="/" />
                 }
             </>
-            )
-        }
+        )
     }
-    
+}
+
 const mapStateToProps = reduxState => ({
-                    selectedPin: reduxState.pins.selectedPin,
-            })
-            
-            export default connect(mapStateToProps)(MeetupForm);
-            
-            
-            
+    selectedPin: reduxState.pins.selectedPin,
+})
+
+export default connect(mapStateToProps)(MeetupForm);
+
+
+
 // import React, {Component} from 'react'
 // import {connect} from 'react-redux'
-                
+
 // class Organize extends Component {
 
 //     organizeMeetup = () => {

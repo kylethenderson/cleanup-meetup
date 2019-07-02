@@ -53,7 +53,7 @@ class TestMap extends Component {
         return (
             <>
             {/* {JSON.stringify(this.props.reduxState.pins.pinList)} */}
-                <div id="mapContainer">
+                <div className="mapContainer">
                     {this.state.userLat ?
                             <WrappedMap
                             defaultLat={this.state.userLat}
@@ -62,7 +62,7 @@ class TestMap extends Component {
                             loadingElement={<div style={{ height: "100%" }} />}
                             containerElement={<div style={{ height: "100%" }} />}
                             mapElement={<div style={{ height: "100%" }} />}
-                            id="mapWrapper"
+                            className="mapWrapper"
                             history={this.props.history}
                         />
                         :
