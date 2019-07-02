@@ -23,8 +23,11 @@ class Map extends Component {
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
     }
 
-    handleClick = (event) => {
-        console.log(this.props.selectedPin)
+    viewMeetup = (meetup) => {
+        this.props.history.push({
+            pathname: '/meetup',
+            state: meetup,
+        })
     }
 
     render() {
@@ -62,9 +65,9 @@ class Map extends Component {
 
                             {this.props.selectedPin.ref_organized_by ?
                                 <div>
-                                    <h5>Date: {this.props.selectedPin.date}</h5>
+                                    <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                     <h5>Time: {this.props.selectedPin.time}</h5>
-                                    <button onClick={this.handleClick}>View</button>
+                                    <button onClick={()=>this.viewMeetup(this.props.selectedPin)}>View</button>
                                 </div>
                                 :
                                 <button onClick={() => this.props.history.push('/organize-meetup')}>Add Meetup</button>

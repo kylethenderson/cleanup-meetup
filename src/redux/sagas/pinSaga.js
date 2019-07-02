@@ -21,15 +21,7 @@ function* fetchPins(action) {
     // pins in the database
     const response = yield axios.get('/api/pins', config);
 
-    // format the incoming date to be mm/dd/yyyy
-    const pinsArray = response.data.map(pin => {
-      const newPinObject = {
-        ...pin, date: pin.date.substring(5, 7) + "/" + pin.date.substring(8, 10) + "/" + pin.date.substring(0, 4)
-      }
-      return newPinObject
-    })
-
-  yield put({ type: 'SET_PIN_LIST', payload: pinsArray });
+  yield put({ type: 'SET_PIN_LIST', payload: response.data });
 } catch (error) {
   console.log('User get request failed', error);
 }
