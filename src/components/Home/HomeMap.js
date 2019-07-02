@@ -17,10 +17,7 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        axios.get('/api/data')
-            .then(response => {
-                this.props.dispatch({ type: 'SET_PIN_LIST', payload: response.data })
-            })
+        this.props.dispatch({type: 'FETCH_PINS'});
     }
 
     setSelectedPin = (pin) => {
@@ -33,17 +30,13 @@ class Map extends Component {
 
     organizeMeetup = () => {
         console.log(this.props.selectedPin);
-        axios.post('/api/add-meetup', {
-            pinId: this.props.selectedPin.pin_id,
-            userId: this.props.selectedPin.ref_created_by
+        this.props.dispatch({
+            type: 'ADD_MEETUP',
+            payload: {
+                pinId: this.props.selectedPin.pin_id,
+                userId: this.props.selectedPin.ref_created_by
+            }
         })
-            .then(response => {
-                this.props.dispatch({type: 'CLEAR_SELECTED_PIN'});
-                axios.get('/api/data')
-                    .then(response => {
-                        this.props.dispatch({ type: 'SET_PIN_LIST', payload: response.data })
-                    })
-            })
     }
 
     render() {
@@ -86,7 +79,7 @@ class Map extends Component {
                                     <button onClick={this.handleClick}>View</button>
                                 </div>
                                 :
-                                <button onClick={this.organizeMeetup}>Without Meetup</button>
+                                <button onClick={this.organizeMeetup}>Add Meetup</button>
                             }
                         </InfoWindow>
                     }

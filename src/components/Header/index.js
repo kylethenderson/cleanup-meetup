@@ -16,6 +16,12 @@ class Header extends Component {
         }
         this.setState({ ...this.state, [side]: open });
     };
+
+    logout = () => {
+        this.props.dispatch({ type: 'LOGOUT' });
+        this.toggleDrawer('left', false);
+    }
+
     render() {
         return (
             <>
@@ -27,26 +33,26 @@ class Header extends Component {
                     {this.props.user.id && (
                         <>
                             <Icon size="large" onClick={this.toggleDrawer('left', true)} id="navMenuButton">menu</Icon>
-                            <Drawer onClick={this.toggleDrawer('left', false)} id="navDrawer" open={this.state.left}>
+                            <Drawer id="navDrawer" open={this.state.left}>
                                 <button onClick={this.toggleDrawer('left', false)} className="nav-link close-drawer">
-                                    <Icon>close</Icon>
+                                    <Icon onClick={this.toggleDrawer('left', false)}>close</Icon>
                                 </button>
-                                <Link className="nav-link" to="/home">
+                                <Link onClick={this.toggleDrawer('left', false)} className="nav-link" to="/home">
                                     Home
                                     </Link>
-                                <Link className="nav-link" to="/my-pins">
+                                <Link onClick={this.toggleDrawer('left', false)} className="nav-link" to="/my-pins">
                                     My Pins
                                     </Link>
-                                <Link className="nav-link" to="/my-meetups">
+                                <Link onClick={this.toggleDrawer('left', false)} className="nav-link" to="/my-meetups">
                                     My Meetups
                                     </Link>
-                                <Link className="nav-link" to="/profile">
+                                <Link onClick={this.toggleDrawer('left', false)} className="nav-link" to="/profile">
                                     Profile
                                     </Link>
                                 <button
                                     id="logoutButton"
                                     className="nav-link"
-                                    onClick={() => this.props.dispatch({ type: 'LOGOUT' })}
+                                    onClick={this.logout}
                                 >
                                     Log Out
                                 </button>
