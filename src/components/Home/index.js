@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import WrappedMap from './HomeMap'
-// import axios from 'axios';
 import { connect } from 'react-redux'
 import { ClipLoader } from 'react-spinners';
 import Button from '@material-ui/core/Button'
@@ -12,8 +11,8 @@ const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class TestMap extends Component {
     state = {
-        defaultLat: null,
-        defaultLong: null,
+        userLat: null,
+        userLong: null,
     }
 
     componentDidMount() {
@@ -29,8 +28,8 @@ class TestMap extends Component {
                 }
                 this.setState({
                     ...this.state,
-                    defaultLat: userLocation.latitude,
-                    defaultLong: userLocation.longitude,
+                    userLat: userLocation.latitude,
+                    userLong: userLocation.longitude,
                 })
             }
         );
@@ -43,30 +42,22 @@ class TestMap extends Component {
                     latitude: position.coords.latitude,
                     longitude: position.coords.longitude,
                 }
-                // console.log(userLocation);
                 this.props.dispatch({
                     type: 'ADD_PIN',
                     payload: userLocation,
                 })
-                // axios.post('/api/pins', userLocation)
-                //     .then(response => {
-                //         axios.get('/api/data')
-                //             .then(response => {
-                //                 this.props.dispatch({ type: 'SET_PIN_LIST', payload: response.data })
-                //             })
-                //     })
             }
         );
     }
     render() {
         return (
             <>
-            {/* {JSON.stringify(this.props.reduxState)} */}
+            {/* {JSON.stringify(this.props.reduxState.pins.pinList)} */}
                 <div id="mapContainer">
-                    {this.state.defaultLat ?
+                    {this.state.userLat ?
                             <WrappedMap
-                            defaultLat={this.state.defaultLat}
-                            defaultLong={this.state.defaultLong}
+                            defaultLat={this.state.userLat}
+                            defaultLong={this.state.userLong}
                             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
                             loadingElement={<div style={{ height: "100%" }} />}
                             containerElement={<div style={{ height: "100%" }} />}

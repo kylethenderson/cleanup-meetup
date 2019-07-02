@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
 
 class Meetups extends Component {
 
     componentDidMount() {
-        axios.get('api/user-meetups')
-        .then( response => {
-            this.props.dispatch({type: 'SET_USER_MEETUPS', payload: response.data})
-        })
-        .catch( error => {
-            console.log('Error in getting user meetups', error);
-        })
+        this.props.dispatch({type: 'FETCH_USER_MEETUPS'})
+    }
+
+    viewMeetup = (meetup) => {
+        return this.props.history.push({
+            pathname: '/meetup',
+            state: meetup,
+            })
     }
 
     render() {
@@ -22,7 +22,7 @@ class Meetups extends Component {
                     <span>{meetup.meetup_id}</span>
                     <span>{meetup.description}</span>
                     { meetup.ref_organized_by === this.props.user.id ? 
-                        <button>View</button>
+                        <button onClick={()=>this.viewMeetup(meetup)}>View</button>
                         :
                         <button>Leave</button>
                     }
