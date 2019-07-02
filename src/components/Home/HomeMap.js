@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+// import axios from 'axios'
 import { connect } from 'react-redux'
 import {
     GoogleMap,
@@ -26,17 +26,6 @@ class Map extends Component {
 
     handleClick = (event) => {
         console.log(this.props.selectedPin)
-    }
-
-    organizeMeetup = () => {
-        console.log(this.props.selectedPin);
-        this.props.dispatch({
-            type: 'ADD_MEETUP',
-            payload: {
-                pinId: this.props.selectedPin.pin_id,
-                userId: this.props.selectedPin.ref_created_by
-            }
-        })
     }
 
     render() {
@@ -79,7 +68,7 @@ class Map extends Component {
                                     <button onClick={this.handleClick}>View</button>
                                 </div>
                                 :
-                                <button onClick={this.organizeMeetup}>Add Meetup</button>
+                                <button onClick={() => this.props.history.push('/organize-meetup')}>Add Meetup</button>
                             }
                         </InfoWindow>
                     }

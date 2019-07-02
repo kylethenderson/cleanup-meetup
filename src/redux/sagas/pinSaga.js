@@ -4,10 +4,11 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* pinsSaga() {
     yield takeLatest('FETCH_PINS', fetchPins);
+    yield takeLatest('ADD_PIN', addPin)
   }
 
   
-function* fetchPins() {
+function* fetchPins(action) {
   try {
     const config = {
       headers: { 'Content-Type': 'application/json' },
@@ -26,6 +27,21 @@ function* fetchPins() {
     yield put({ type: 'SET_PIN_LIST', payload: response.data });
   } catch (error) {
     console.log('User get request failed', error);
+  }
+}
+
+function* addPin(action) {
+  try {
+    const config = {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    };
+
+
+    yield axios.post('/api/pins', action.payload, config );
+    yield put({type: 'FETCH_PINS'});
+  } catch (error) {
+
   }
 }
 

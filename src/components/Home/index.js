@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import WrappedMap from './HomeMap'
-import axios from 'axios';
+// import axios from 'axios';
 import { connect } from 'react-redux'
 import { ClipLoader } from 'react-spinners';
 import Button from '@material-ui/core/Button'
@@ -44,13 +44,17 @@ class TestMap extends Component {
                     longitude: position.coords.longitude,
                 }
                 // console.log(userLocation);
-                axios.post('/api/pins', userLocation)
-                    .then(response => {
-                        axios.get('/api/data')
-                            .then(response => {
-                                this.props.dispatch({ type: 'SET_PIN_LIST', payload: response.data })
-                            })
-                    })
+                this.props.dispatch({
+                    type: 'ADD_PIN',
+                    payload: userLocation,
+                })
+                // axios.post('/api/pins', userLocation)
+                //     .then(response => {
+                //         axios.get('/api/data')
+                //             .then(response => {
+                //                 this.props.dispatch({ type: 'SET_PIN_LIST', payload: response.data })
+                //             })
+                //     })
             }
         );
     }
@@ -68,6 +72,7 @@ class TestMap extends Component {
                             containerElement={<div style={{ height: "100%" }} />}
                             mapElement={<div style={{ height: "100%" }} />}
                             id="mapWrapper"
+                            history={this.props.history}
                         />
                         :
                         <div id="mapLoader">
@@ -84,12 +89,6 @@ class TestMap extends Component {
                 <div id="buttonContainer">
                     <Button variant="contained" color="primary" onClick={this.addPin}>Add Pin</Button>
                 </div>
-                {/* <Link to='/new-meetup-form'>
-                    <p>Form</p>
-                </Link>
-                <Link to='/single-meetup'>
-                    <p>Single</p>
-                </Link> */}
             </>
         )
     }
