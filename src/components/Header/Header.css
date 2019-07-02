@@ -13,6 +13,19 @@ header h1 {
     padding: 15px 0px;
     text-transform: uppercase;
 }
+#navDrawer {
+    position: relative;
+}
+.MuiDrawer-paperAnchorLeft {
+    background-color: rgba(0, 143, 12, 1) !important;
+}
+#logoutButton {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    cursor: pointer;
+    outline: 0;
+}
 .nav-link {
   color: #f2f2f2;
   background-color: rgba(0, 143, 12, 1);
@@ -22,25 +35,14 @@ header h1 {
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: 2px;
-
-  /* these last two make the logout button in
-  the nav bar look like another link */
-  border:none;
-  cursor: pointer;
-  outline:0;
+  border: none;
+  border-bottom: 1px solid rgba(256, 256, 256, .25);
 }
 .close-drawer {
-    background-color: rgba(0, 143, 12, 1);
     text-align: right;
-    border: none;
     outline: 0;
-    color: white;
+    padding: 10px 5px;
 }
-
-.nav-link:hover {
-  background-color: #008183;
-}
-
 .nav-right {
   float: right;
 }

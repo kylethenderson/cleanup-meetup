@@ -12,15 +12,15 @@
     position: relative;
     top: 100px;
 }
-#loginForm form {
-    margin-bottom: 25px;
-}
 #loginForm h1 {
     font-size: 2.25rem;
     text-transform: uppercase;
     font-weight: 400;
     letter-spacing: 4px;
     margin: 0;
+}
+#loginForm .submit-button {
+    margin-top: 25px;
 }
 input {
     margin: 5px;

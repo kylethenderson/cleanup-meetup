@@ -60,10 +60,10 @@ class LoginPage extends Component {
               onChange={this.handleInputChangeFor('password')}
               margin="normal"
             />
-          </form>
-          <Grid item xs={12}>
-              <Button variant="contained" color="primary" type="submit">Log In</Button>
+            <Grid item xs={12}>
+              <Button className="submit-button" variant="contained" color="primary" type="submit">Log In</Button>
             </Grid>
+          </form>
           <Grid item xs={12} className="grid-item-text-center">
             <Button
               type="button"

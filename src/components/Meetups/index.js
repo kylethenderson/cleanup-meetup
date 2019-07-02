@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-class Profile extends Component {
+class Meetups extends Component {
     render() {
         return (
             <>
-                <h1>Profile</h1>
+                <h1>My MeetUps</h1>
             </>
         )
     }
@@ -15,4 +15,4 @@ const mapStateToProps = (reduxState) => ({
     reduxState
 })
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(Meetups);

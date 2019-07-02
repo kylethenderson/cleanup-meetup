@@ -23,27 +23,28 @@ class Header extends Component {
                     <Link id="mainLogo" to="/">
                         <h1>CleanUp<br />MeetUp</h1>
                     </Link>
-                    {/* Show the link to the info page and the logout button if the user is logged in */}
+                    {/* Only show the menu option if user is logged in */}
                     {this.props.user.id && (
                         <>
                             <Icon size="large" onClick={this.toggleDrawer('left', true)} id="navMenuButton">menu</Icon>
-                            <Drawer id="navDrawer" open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-                                <button onClick={this.toggleDrawer('left', false)}  className="close-drawer">
+                            <Drawer onClick={this.toggleDrawer('left', false)} id="navDrawer" open={this.state.left}>
+                                <button onClick={this.toggleDrawer('left', false)} className="nav-link close-drawer">
                                     <Icon>close</Icon>
                                 </button>
                                 <Link className="nav-link" to="/home">
                                     Home
-                                </Link>
+                                    </Link>
                                 <Link className="nav-link" to="/my-pins">
                                     My Pins
-                                </Link>
+                                    </Link>
                                 <Link className="nav-link" to="/my-meetups">
                                     My Meetups
-                                </Link>
-                                <Link className="nav-link" to="/my-profile">
+                                    </Link>
+                                <Link className="nav-link" to="/profile">
                                     Profile
-                                </Link>
+                                    </Link>
                                 <button
+                                    id="logoutButton"
                                     className="nav-link"
                                     onClick={() => this.props.dispatch({ type: 'LOGOUT' })}
                                 >

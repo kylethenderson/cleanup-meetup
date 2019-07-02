@@ -13,9 +13,9 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import HomePage from '../HomePage';
-import MyPins from '../MyPins';
-import MyMeetups from '../MyMeetups';
+import Home from '../Home';
+import MyPins from '../Pins';
+import MyMeetups from '../Meetups';
 import Profile from '../Profile';
 
 
@@ -41,23 +41,23 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/home"
-              component={HomePage}
+              component={Home}
             />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
             <ProtectedRoute
               exact
-              path="/info"
+              path="/my-pins"
               component={MyPins}
             />
             <ProtectedRoute
               exact
-              path="/info"
+              path="/my-meetups"
               component={MyMeetups}
             />
             <ProtectedRoute
               exact
-              path="/info"
+              path="/profile"
               component={Profile}
             />
             {/* If none of the other routes matched, we will show a 404. */}
