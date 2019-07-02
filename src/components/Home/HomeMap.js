@@ -23,25 +23,28 @@ class Map extends Component {
             })
     }
 
-    setSelectedPin = (value) => {
-        this.setState({
-            ...this.state,
-            selectedPin: value,
-        })
+    setSelectedPin = (pin) => {
+        console.log(pin);
+        this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
+        // this.setState({
+        //     ...this.state,
+        //     selectedPin: value,
+        // })
     }
 
     handleClick = (event) => {
-        console.log(this.state.selectedPin)
+        console.log(this.props.selectedPin)
     }
     organizeMeetup = () => {
         axios.post('/api/add-meetup', {
-            pinId: this.state.selectedPin.pinId,
-            userId: this.state.selectedPin.created_by
+            pinId: this.props.selectedPin.pinId,
+            userId: this.props.selectedPin.created_by
         })
             .then(response => {
-                this.setState({
-                    selectedPin: null,
-                })
+                this.props.dispatch({type: 'CLEAR_SELECTED_PIN'});
+                // this.setState({
+                //     selectedPin: null,
+                // })
                 axios.get('/api/data')
                     .then(response => {
                         console.log(response);
@@ -74,19 +77,19 @@ class Map extends Component {
                         />
                     ))}
 
-                    {this.state.selectedPin &&
+                    {this.props.selectedPin &&
                         <InfoWindow
                             position={{
-                                lat: Number(this.state.selectedPin.latitude),
-                                lng: Number(this.state.selectedPin.longitude),
+                                lat: Number(this.props.selectedPin.latitude),
+                                lng: Number(this.props.selectedPin.longitude),
                             }}
-                            onCloseClick={() => { this.setSelectedPin(null) }}
+                            onCloseClick={() => { this.props.dispatch({type:'CLEAR_SELECTED_PIN'}) }}
                         >
 
-                            {this.state.selectedPin.ref_organized_by ?
+                            {this.props.selectedPin.ref_organized_by ?
                                 <div>
-                                    <h5>Date: {this.state.selectedPin.date}</h5>
-                                    <h5>Time: {this.state.selectedPin.time}</h5>
+                                    <h5>Date: {this.props.selectedPin.date}</h5>
+                                    <h5>Time: {this.props.selectedPin.time}</h5>
                                     <button onClick={this.handleClick}>View</button>
                                 </div>
                                 :
@@ -101,7 +104,8 @@ class Map extends Component {
 }
 
 const mapReduxStateToProps = (reduxState) => ({
-    reduxState
+    pinList: reduxState.pins.pinList,
+    selectedPin: reduxState.pins.selectedPin,
 })
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));

@@ -57,7 +57,7 @@ class TestMap extends Component {
     render() {
         return (
             <>
-            {/* {JSON.stringify(this.props.pinList)} */}
+            {/* {JSON.stringify(this.props.reduxState)} */}
                 <div id="mapContainer">
                     {this.state.defaultLat ?
                             <WrappedMap
@@ -67,7 +67,6 @@ class TestMap extends Component {
                             loadingElement={<div style={{ height: "100%" }} />}
                             containerElement={<div style={{ height: "100%" }} />}
                             mapElement={<div style={{ height: "100%" }} />}
-                            pinList={this.props.pinList}
                             id="mapWrapper"
                         />
                         :
@@ -97,7 +96,7 @@ class TestMap extends Component {
 }
 
 const mapStateToProps = (reduxState) => ({
-    pinList: reduxState.pins,
+    reduxState
 })
 
 export default connect(mapStateToProps)(TestMap);
