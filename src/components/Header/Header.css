@@ -6,6 +6,7 @@ header {
   text-decoration: none;
 }
 header h1 {
+    display: inline-block;
     color: white;
     font-weight: 300;
     letter-spacing: 4px;
