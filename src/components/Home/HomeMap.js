@@ -7,6 +7,7 @@ import {
     Marker,
     InfoWindow,
 } from 'react-google-maps'
+import Button from '@material-ui/core/Button'
 
 class Map extends Component {
     state = {
@@ -28,6 +29,7 @@ class Map extends Component {
             pathname: '/meetup',
             state: meetup,
         })
+        this.props.dispatch({type: 'CLEAR_SELECTED_PIN'})
     }
 
     render() {
@@ -61,16 +63,23 @@ class Map extends Component {
                                 lng: Number(this.props.selectedPin.longitude),
                             }}
                             onCloseClick={() => { this.props.dispatch({type:'CLEAR_SELECTED_PIN'}) }}
+                            defaultOptions={{
+                                pixelOffset: {height: -40}
+                            }}
                         >
 
                             {this.props.selectedPin.ref_organized_by ?
-                                <div>
+                                <div id="infoWindow">
+                                    <h4>Meetup Details: {this.props.selectedPin.meetup_id}</h4>
                                     <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                     <h5>Time: {this.props.selectedPin.time}</h5>
-                                    <button onClick={()=>this.viewMeetup(this.props.selectedPin)}>View</button>
+                                    <Button variant="contained" color="primary" size="small" onClick={()=>this.viewMeetup(this.props.selectedPin)}>View</Button>
                                 </div>
                                 :
-                                <button onClick={() => this.props.history.push('/organize-meetup')}>Add Meetup</button>
+                                <div id="infoWindow">
+                                    <h4>Organize Meetup</h4>
+                                    <Button variant="contained" color="primary" size="small" onClick={() => this.props.history.push('/organize-meetup')}>Organize</Button>
+                                </div>
                             }
                         </InfoWindow>
                     }

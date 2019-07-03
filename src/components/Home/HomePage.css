@@ -12,3 +12,26 @@
     letter-spacing: 2px;
     font-weight: 300;
 }
+#infoWindow {
+    text-align: center;
+}
+#infoWindow h4 {
+    margin-top: 5px;
+    margin-bottom: 0;
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+#infoWindow h5:first-of-type {
+    margin-top: 10px;
+}
+#infoWindow h5 {
+    text-align: left;
+    margin: 5px 0px;
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+#infoWindow button {
+    margin: 15px 0px 10px 0px;
+}

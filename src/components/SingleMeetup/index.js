@@ -51,6 +51,7 @@ class SingleMeetup extends Component {
                             />
                         </div>
                         <div id="singleMeetDeets">
+                            <p>Meetup Id: {meetup.meetup_id}</p>
                             <p>Date: {meetup.date.substring(5, 7) + "/" + meetup.date.substring(8, 10) + "/" + meetup.date.substring(0, 4)}</p>
                             <p>Time: {meetup.time.substring(0, 5)}</p>
                             <p>Description: {meetup.description}</p>
