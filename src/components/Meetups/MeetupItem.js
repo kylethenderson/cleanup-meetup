@@ -12,6 +12,16 @@ class MeetupItem extends Component {
         })
     }
 
+    leaveMeetup = (id) => {
+        // this.props.dispatch({
+        //     type: 'LEAVE_MEETUP', 
+        //     payload: {
+        //         meetupId: id,
+        //         userId: this.props.user.id,
+        //     }});
+        console.log(`meetupid: ${id}, userId: ${this.props.user.id}`);
+    }
+
     render() {
         return (
             <Grid item container xs={12} justify="center" alignItems="center" className="meetup-card">
@@ -25,7 +35,7 @@ class MeetupItem extends Component {
                     {this.props.meetup.ref_organized_by === this.props.user.id ?
                         <Button onClick={() => this.viewMeetup(this.props.meetup)} size="small" variant="contained" color="primary">View</Button>
                         :
-                        <Button onClick={this.leaveMeetup} size="small" variant="contained" color="primary">Leave</Button>
+                        <Button onClick={() => this.leaveMeetup(this.props.meetup.meetup_id)} size="small" variant="contained" color="primary">Leave</Button>
                     }
                 </Grid>
             </Grid>
