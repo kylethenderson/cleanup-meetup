@@ -32,6 +32,11 @@ class Map extends Component {
         this.props.dispatch({type: 'CLEAR_SELECTED_PIN'})
     }
 
+    organizeMeetup = () => {
+        this.props.history.push('/organize-meetup');
+        this.props.dispatch({type: 'CLEAR_SELECTED_PIN'})
+      }
+
     render() {
         return (
             <>
@@ -77,8 +82,8 @@ class Map extends Component {
                                 </div>
                                 :
                                 <div id="infoWindow">
-                                    <h4>Organize Meetup</h4>
-                                    <Button variant="contained" color="primary" size="small" onClick={() => this.props.history.push('/organize-meetup')}>Organize</Button>
+                                    <h4>Organize Meetup: {this.props.selectedPin.pin_id}</h4>
+                                    <Button variant="contained" color="primary" size="small" onClick={this.organizeMeetup}>Organize</Button>
                                 </div>
                             }
                         </InfoWindow>

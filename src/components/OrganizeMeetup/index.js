@@ -58,7 +58,7 @@ class MeetupForm extends Component {
                 {this.props.selectedPin ?
                     <Grid container justify="center">
                         <Grid item xs={10}>
-                            {JSON.stringify(this.props.selectedPin)}
+                            {/* {JSON.stringify(this.props.selectedPin)} */}
                             <h2>Organize Meetup</h2>
                             <form onSubmit={this.submitMeetup} noValidate autoComplete="off">
                                 <TextField
