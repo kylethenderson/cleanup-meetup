@@ -5,7 +5,8 @@
 .alert {
     background-color: #ff4545;
     margin: 50px;
-}.grid-item-text-center {
+}
+.grid-item-text-center {
     text-align: center;
 }
 #loginForm {

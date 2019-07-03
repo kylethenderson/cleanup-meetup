@@ -1,33 +1,30 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import MeetupItem from './MeetupItem'
+import Grid from '@material-ui/core/Grid'
+import './Meetups.css'
 
 class Meetups extends Component {
 
     componentDidMount() {
-        this.props.dispatch({type: 'FETCH_USER_MEETUPS'})
+        this.props.dispatch({ type: 'FETCH_USER_MEETUPS' })
     }
 
     viewMeetup = (meetup) => {
         return this.props.history.push({
             pathname: '/meetup',
             state: meetup,
-            })
+        })
     }
 
     render() {
         return (
-            <>
-                <h1>My MeetUps</h1>
-                {this.props.userMeetups.map( meetup => <div key={meetup.meetup_id}>
-                    <span>{meetup.meetup_id}</span>
-                    <span>{meetup.description}</span>
-                    { meetup.ref_organized_by === this.props.user.id ? 
-                        <button onClick={()=>this.viewMeetup(meetup)}>View</button>
-                        :
-                        <button>Leave</button>
-                    }
-                    </div>)}
-            </>
+            <div id="myMeetups">
+                <h2>My MeetUps</h2>
+                <Grid container direction="row" justify="center" alignItems="center">
+                    {this.props.userMeetups.map(meetup => <MeetupItem key={meetup.meetup_id} meetup={meetup} />)}
+                </Grid>
+            </div>
         )
     }
 }

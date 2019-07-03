@@ -39,7 +39,7 @@ class SingleMeetup extends Component {
                 {meetup ?
                     <>
                         <div className="mapContainer">
-                            <WrappedMap                        
+                            <WrappedMap
                                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${MAPS_KEY}`}
                                 loadingElement={<div style={{ height: "100%" }} />}
                                 containerElement={<div style={{ height: "100%" }} />}
@@ -52,17 +52,17 @@ class SingleMeetup extends Component {
                         </div>
                         <div id="singleMeetDeets">
                             <p>Date: {meetup.date.substring(5, 7) + "/" + meetup.date.substring(8, 10) + "/" + meetup.date.substring(0, 4)}</p>
-                            <p>Time: {meetup.time.substring(0,5)}</p>
+                            <p>Time: {meetup.time.substring(0, 5)}</p>
                             <p>Description: {meetup.description}</p>
                             <p>Recommended Supplies: {meetup.supplies}</p>
                             <p>Users Joined: {this.state.usersJoined}</p>
+                            {meetup.ref_created_by === this.props.user.id ?
+                                <><p>created by current user</p></>
+                                :
+                                <><p>not created by current user</p></>
+                            }
                             <pre>{JSON.stringify(meetup, null, 2)}</pre>
                         </div>
-                        {meetup.ref_created_by === this.props.user.id ? 
-                        <>created by current user</>
-                        :
-                        <>not created by current user</>
-                        }
                     </>
                     :
                     <>
