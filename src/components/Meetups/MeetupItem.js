@@ -4,6 +4,14 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 class MeetupItem extends Component {
+    
+    viewMeetup = (meetup) => {
+        return this.props.history.push({
+            pathname: '/meetup',
+            state: meetup,
+        })
+    }
+
     render() {
         return (
             <Grid item container xs={12} justify="center" alignItems="center" className="meetup-card">
@@ -15,9 +23,9 @@ class MeetupItem extends Component {
                 </Grid>
                 <Grid item xs={3} className="grid-item-text-center">
                     {this.props.meetup.ref_organized_by === this.props.user.id ?
-                        <Button size="small" variant="contained" color="primary">View</Button>
+                        <Button onClick={() => this.viewMeetup(this.props.meetup)} size="small" variant="contained" color="primary">View</Button>
                         :
-                        <Button size="small" variant="contained" color="primary">Leave</Button>
+                        <Button onClick={this.leaveMeetup} size="small" variant="contained" color="primary">Leave</Button>
                     }
                 </Grid>
             </Grid>

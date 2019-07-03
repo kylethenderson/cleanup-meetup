@@ -8,7 +8,9 @@
 #myMeetups .meetup-card {
     border: 1px solid rgba(34, 34, 34, .25);
     box-shadow: 4px 4px 8px -4px rgba(34, 34, 34, .5);
-    margin: 4px 0px;
+    margin: 4px;
+    border-radius: 5px;
+    min-height: 50px;
     padding: 0px 10px;
 }
 #myMeetups p {

@@ -22,7 +22,7 @@ class Meetups extends Component {
             <div id="myMeetups">
                 <h2>My MeetUps</h2>
                 <Grid container direction="row" justify="center" alignItems="center">
-                    {this.props.userMeetups.map(meetup => <MeetupItem key={meetup.meetup_id} meetup={meetup} />)}
+                    {this.props.userMeetups.map(meetup => <MeetupItem history={this.props.history} key={meetup.meetup_id} meetup={meetup} />)}
                 </Grid>
             </div>
         )
