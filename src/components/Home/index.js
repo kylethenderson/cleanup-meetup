@@ -52,10 +52,10 @@ class TestMap extends Component {
     render() {
         return (
             <>
-            {/* {JSON.stringify(this.props.reduxState.pins.pinList)} */}
+                {/* {JSON.stringify(this.props.reduxState.pins.pinList)} */}
                 <div className="mapContainer">
                     {this.state.userLat ?
-                            <WrappedMap
+                        <WrappedMap
                             defaultLat={this.state.userLat}
                             defaultLong={this.state.userLong}
                             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}

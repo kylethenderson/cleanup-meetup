@@ -34,7 +34,6 @@ class Map extends Component {
 
     organizeMeetup = () => {
         this.props.history.push('/organize-meetup');
-        this.props.dispatch({type: 'CLEAR_SELECTED_PIN'})
       }
 
     render() {
