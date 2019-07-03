@@ -6,7 +6,7 @@ import WrappedMap from './MyPinsMap'
 // import the key from .env - keeps key secure
 const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
-class SingleMeetup extends Component {
+class MyPins extends Component {
     state = {
         userLat: null,
         userLong: null,
@@ -34,7 +34,7 @@ class SingleMeetup extends Component {
 
     render() {
         return (
-            <div id="singleMeetup">
+            <div id="myPins">
                 {this.props.pinList ?
                     <>
                         <div className="mapContainer">
@@ -64,4 +64,4 @@ const mapStateToProps = reduxState => ({
     pinList: reduxState.pins.pinList,
 })
 
-export default connect(mapStateToProps)(SingleMeetup)
+export default connect(mapStateToProps)(MyPins)
