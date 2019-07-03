@@ -46,6 +46,7 @@ class MyPins extends Component {
                                 className="mapWrapper"
                                 defaultLat={this.state.userLat}
                                 defaultLong={this.state.userLong}
+                                history={this.props.history}
                             />
                         </div>
                     </>
