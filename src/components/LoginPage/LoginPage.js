@@ -24,7 +24,7 @@ class LoginPage extends Component {
     } else {
       this.props.dispatch({ type: 'LOGIN_INPUT_ERROR' });
     }
-    
+
   } // end login
 
   handleInputChangeFor = propertyName => (event) => {
@@ -41,17 +41,33 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <Grid container item xs={9} id="loginForm" className="grid-item-text-center">
-          <form autoComplete="off" onSubmit={this.login}>
+        <Grid container item xs={6} id="loginForm" className="grid-item-text-center" justify="center">
+          <Grid item xs={12}>
             <h1>Login</h1>
-            <TextField
-              fullWidth
-              id="username"
-              label="Username"
-              value={this.state.username}
-              onChange={this.handleInputChangeFor('username')}
-              margin="normal"
-            />
+          </Grid>
+          <Grid item xs={12}>
+            <form autoComplete="off" onSubmit={this.login}>
+              <TextField
+                fullWidth
+                id="username"
+                label="Username"
+                value={this.state.username}
+                onChange={this.handleInputChangeFor('username')}
+                margin="normal"
+              />
+              <TextField
+                fullWidth
+                id="password"
+                label="Password"
+                type="password"
+                value={this.state.password}
+                onChange={this.handleInputChangeFor('password')}
+                margin="normal"
+              />
+              <Button className="submit-button" variant="contained" color="primary" type="submit">Log In</Button>
+            </form>
+          </Grid>
+          {/* <Grid item xs={12}>
             <TextField
               fullWidth
               id="password"
@@ -61,10 +77,12 @@ class LoginPage extends Component {
               onChange={this.handleInputChangeFor('password')}
               margin="normal"
             />
-            <Grid item xs={12}>
-              <Button className="submit-button" variant="contained" color="primary" type="submit">Log In</Button>
-            </Grid>
-          </form>
+          </Grid>
+
+          <Grid item xs={12}>
+            <Button className="submit-button" variant="contained" color="primary" type="submit">Log In</Button>
+          </Grid>
+          */}
           <Grid item xs={12} className="grid-item-text-center">
             <Button
               type="button"
