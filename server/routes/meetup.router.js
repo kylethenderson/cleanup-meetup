@@ -77,4 +77,29 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
             console.log('Error SELECTING meetup organizer id', error);
         })
 })
+
+router.put('/', (req, res) => {
+    const updateText = `UPDATE "meetups" SET
+                        "date" = $1,
+                        "time" = $2,
+                        "supplies" = $3
+                        WHERE "meetup_id" = $4;`
+    pool.query(updateText, [req.body.date, req.body.time, req.body.supplies, req.body.meetupId])
+        .then( result => {
+            pool.query(`UPDATE "pins" SET "description" = $1 WHERE "pin_id" = $2;`, [req.body.description, req.body.pinId])
+                .then(result => {
+                    res.sendStatus(200)
+                })
+                .catch(error => {
+                    console.log('Error with UPDATE query', error)
+                    res.sendStatus(500);
+                })
+        })
+        .catch( error => {
+            console.log('Error with UPDATE query', error)
+            res.sendStatus(500)
+        })
+})
+
+
 module.exports = router;

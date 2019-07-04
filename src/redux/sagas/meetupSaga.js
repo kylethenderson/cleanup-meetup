@@ -29,6 +29,14 @@ function* getMeetups() {
     }
 }
 
+function* editMeetup(action) {
+  try{
+    yield axios.put('/api/meetups', action.payload);
+  } catch(error) {
+    console.log('Error in editing meetup', error)
+  }
+}
+
 function* deleteMeetup(action) {
   try {
     const response = yield axios.delete(`/api/meetups/${action.payload}`)
@@ -42,6 +50,7 @@ function* meetupSaga() {
   yield takeLatest('ADD_MEETUP', addMeetup);
   yield takeLatest('FETCH_USER_MEETUPS', getMeetups)
   yield takeLatest('DELETE_MEETUP', deleteMeetup)
+  yield takeLatest('EDIT_MEETUP', editMeetup)
 }
 
 export default meetupSaga;
