@@ -61,3 +61,7 @@ button.large-button-text {
     font-size: 1.25rem;
     letter-spacing: 3px;
 }
+button.medium-button-text {
+    font-size: 1rem;
+    letter-spacing: 2px;
+}

@@ -11,7 +11,6 @@ import rootSaga from './redux/sagas'; // imports ./redux/sagas/index.js
 import App from './components/App/App';
 import { createMuiTheme, } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { yellow, green, lightGreen, amber, blueGrey,orange } from '@material-ui/core/colors';
 
 import './index.css';
 
