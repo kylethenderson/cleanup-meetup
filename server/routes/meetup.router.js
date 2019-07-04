@@ -12,13 +12,13 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
             const meetupId = result.rows[0].meetup_id;
             pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id") VALUES
             ($1, $2);`, [meetupId, req.user.id])
-                .then( result => {
+                .then(result => {
                     res.sendStatus(200);
                 })
                 .catch(error => {
                     console.log('Error inserting join from meetup', error);
                 })
-            
+
         })
         .catch(error => {
             console.log('Error in posting to meetup table', error);
@@ -48,23 +48,33 @@ router.get('/joins', rejectUnauthenticated, (req, res) => {
     LEFT JOIN "meetup_joins" ON "meetups"."meetup_id" = "meetup_joins"."ref_meetup_id"
     WHERE "meetups"."meetup_id" = $1;`
     pool.query(queryText, [req.query.id])
-    .then(response => {
-      res.send(response.rows[0].count);
-    })
-    .catch(error => {
-        console.log('Error in getting meetup joins', error);
-    })
+        .then(result => {
+            res.send(result.rows[0].count);
+        })
+        .catch(error => {
+            console.log('Error in getting meetup joins', error);
+        })
 })
 
-router.delete('/:id', (req, res) => {
-    pool.query(`DELETE FROM "meetup_joins" WHERE "ref_meetup_id" = $1;`, [req.params.id])
-        .then( response => {
-            pool.query(`DELETE FROM "meetups" WHERE "meetup_id" = $1`, [req.params.id])
-                .then( response => {
-                    res.sendStatus(200)
-                })
-                .catch(error => res.sendStatus(500))
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT "ref_organized_by" AS "id" FROM "meetups" WHERE "meetup_id" = $1;`, [req.params.id])
+        .then(result => {
+            if (result.rows[0].id === req.user.id) {
+                pool.query(`DELETE FROM "meetup_joins" WHERE "ref_meetup_id" = $1;`, [req.params.id])
+                    .then(result => {
+                        pool.query(`DELETE FROM "meetups" WHERE "meetup_id" = $1`, [req.params.id])
+                            .then(result => {
+                                res.sendStatus(200)
+                            })
+                            .catch(error => res.sendStatus(500))
+                    })
+                    .catch(error => res.sendStatus(500))
+            } else {
+                res.sendStatus(401)
+            }
         })
-        .catch(error => res.sendStatus(500))
+        .catch(error => {
+            console.log('Error SELECTING meetup organizer id', error);
+        })
 })
 module.exports = router;

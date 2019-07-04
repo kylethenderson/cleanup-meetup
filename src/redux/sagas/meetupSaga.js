@@ -31,7 +31,8 @@ function* getMeetups() {
 
 function* deleteMeetup(action) {
   try {
-    yield axios.delete(`/api/meetups/${action.payload}`)
+    const response = yield axios.delete(`/api/meetups/${action.payload}`)
+    console.log(response);
   } catch (error) {
     console.log('Error deleting meetup', error);
   }
