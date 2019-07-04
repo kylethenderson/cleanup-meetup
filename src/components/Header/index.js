@@ -32,6 +32,7 @@ class Header extends Component {
                     {/* Only show the menu option if user is logged in */}
                     {this.props.user.id && (
                         <>
+                            {/* Icon is only clickable once the user's location is updated */}
                             {this.props.user.latitude ?
                                 <Icon size="large" onClick={this.toggleDrawer(true)} id="navMenuButton">menu</Icon>
                                 :
