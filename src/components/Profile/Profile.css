@@ -1,0 +1,10 @@
+#profilePage h2 {
+    font-weight: 400;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 15px 0px 5px 0px;
+}
+#profilePage button {
+    margin-top: 25px;
+}
