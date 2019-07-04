@@ -5,6 +5,7 @@ import axios from 'axios'
 import WrappedMap from './SingleMeetupMap'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
+import TextField from '@material-ui/core/TextField'
 
 import './SingleMeetup.css'
 
@@ -14,11 +15,24 @@ const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 class SingleMeetup extends Component {
     state = {
         usersJoined: 0,
-        formattedDate: '',
         editMode: false,
+        date: '',
+        time: '',
+        description: '',
+        supplies: '',
     }
     componentDidMount() {
         this.getUsersJoined();
+        if ( this.props.location.state){
+            this.setState({
+                ...this.state, 
+                date:  this.props.location.state.date.substring(0, 4) + "-" + this.props.location.state.date.substring(5, 7) + "-" + this.props.location.state.date.substring(8, 10),
+                time: this.props.location.state.time,
+                description: this.props.location.state.description,
+                supplies: this.props.location.state.supplies,
+            })
+        }
+        
     }
 
     getUsersJoined = () => {
@@ -35,14 +49,37 @@ class SingleMeetup extends Component {
         }
     }
 
+    handleChange = (event) => {
+        this.setState({
+            ...this.state, [event.target.id]: event.target.value,
+        })
+    }
+
     editMeetup = () => {
-        console.log(this.props.location.state);
+        this.setState({
+            ...this.state, editMode: false,
+        })
+        console.log({
+            date: this.state.date,
+            time: this.state.time, 
+            supplies: this.state.supplies, 
+            description: this.state.description, 
+            meetupId: this.props.location.state.meetup_id,
+            pinId: this.props.location.state.pin_id,
+        })
+        // above is the object that i'll send to the update meetup saga
+        // pinId needed to update pin description
+        // meetupId for the rest of the data within the meetups table
     }
 
     deleteMeetup = () => {
         console.log(this.props.location.state);
-        this.props.dispatch({type: 'DELETE_MEETUP', payload: this.props.location.state.meetup_id});
+        this.props.dispatch({ type: 'DELETE_MEETUP', payload: this.props.location.state.meetup_id });
         this.props.history.push('/home');
+    }
+
+    formatDate = (dateString) => {
+        return dateString.substring(5, 7) + "/" + dateString.substring(8, 10) + "/" + dateString.substring(0, 4)
     }
 
     render() {
@@ -65,23 +102,75 @@ class SingleMeetup extends Component {
                         </div>
                         <Grid container justify="center" id="singleMeetDeets">
                             <Grid item xs={5}>
-                                <p>Date: {meetup.date.substring(5, 7) + "/" + meetup.date.substring(8, 10) + "/" + meetup.date.substring(0, 4)}</p>
+                                {this.state.editMode ?
+                                    <TextField
+                                        value={this.state.date}
+                                        id="date"
+                                        type="date"
+                                        margin="normal"
+                                        label="MeetUp Date"
+                                        fullWidth
+                                        onChange={this.handleChange}
+                                    />
+                                    :
+                                    <p>Date: {this.formatDate(meetup.date)}</p>
+                                }
                             </Grid>
                             <Grid item xs={5}>
-                                <p>Time: {meetup.time.substring(0, 5)}</p>
+                                {this.state.editMode ?
+                                    <TextField
+                                        value={this.state.time}
+                                        id="time"
+                                        type="time"
+                                        label="MeetUp Time"
+                                        margin="normal"
+                                        fullWidth
+                                        onChange={this.handleChange}
+                                    />
+                                    :
+                                    <p>Time: {meetup.time.substring(0, 5)}</p>
+                                }
                             </Grid>
                             <Grid item xs={10}>
-                                <p>Description: {meetup.description}</p>
+                                {this.state.editMode ?
+                                    <TextField
+                                        value={this.state.description}
+                                        id="description"
+                                        label="Description"
+                                        margin="normal"
+                                        multiline
+                                        rows="4"
+                                        fullWidth
+                                        variant="outlined"
+                                        onChange={this.handleChange}
+                                    />
+                                    :
+                                    <p>Description: {meetup.description}</p>
+                                }
                             </Grid>
                             <Grid item xs={10}>
-                                <p>Recommended Supplies: {meetup.supplies}</p>
+                                {this.state.editMode ?
+                                    <TextField
+                                        value={this.state.supplies}
+                                        id="supplies"
+                                        label="Recommended Supplies"
+                                        margin="normal"
+                                        multiline
+                                        rows="4"
+                                        fullWidth
+                                        variant="outlined"
+                                        onChange={this.handleChange}
+                                    />
+                                    :
+                                    <p>Recommended Supplies: {meetup.supplies}</p>
+                                }
                             </Grid>
                             <Grid item xs={10}>
                                 <p>Users Joined: {this.state.usersJoined}</p>
                             </Grid>
                             <Grid id="buttonContainer" item xs={10} container justify="center" className="grid-item-text-center">
                                 <Grid item xs={6}>
-                                    {this.props.user.admin || meetup.ref_created_by === this.props.user.id ? 
+                                    {this.props.user.admin || meetup.ref_created_by === this.props.user.id ?
                                         <Button variant="contained" className="error-background" onClick={this.deleteMeetup}>Delete</Button>
                                         :
                                         <></>
@@ -89,7 +178,13 @@ class SingleMeetup extends Component {
                                 </Grid>
                                 <Grid item xs={6}>
                                     {meetup.ref_created_by === this.props.user.id ?
-                                        <Button variant="contained" color="primary" onClick={this.editMeetup}>Edit</Button>
+                                        <>
+                                            {this.state.editMode ?
+                                                <Button variant="contained" color="primary" onClick={this.editMeetup}>Update</Button>
+                                                :
+                                                <Button variant="contained" color="primary" onClick={() => this.setState({ ...this.state, editMode: true, })}>Edit</Button>
+                                            }
+                                        </>
                                         :
                                         <></>
                                     }
