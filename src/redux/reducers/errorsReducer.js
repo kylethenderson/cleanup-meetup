@@ -9,9 +9,9 @@ const loginMessage = (state = '', action) => {
     case 'LOGIN_INPUT_ERROR':
       return 'Enter username and password!';
     case 'LOGIN_FAILED':
-      return 'Username and password didn\'t match. Try again!';
+      return 'Username and password didn\'t match.';
     case 'LOGIN_FAILED_NO_CODE':
-      return 'Something\'s not right! The server running?';
+      return 'Hmmm...something went awry.';
     default:
       return state;
   }
