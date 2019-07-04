@@ -56,4 +56,15 @@ router.get('/joins', rejectUnauthenticated, (req, res) => {
     })
 })
 
+router.delete('/:id', (req, res) => {
+    pool.query(`DELETE FROM "meetup_joins" WHERE "ref_meetup_id" = $1;`, [req.params.id])
+        .then( response => {
+            pool.query(`DELETE FROM "meetups" WHERE "meetup_id" = $1`, [req.params.id])
+                .then( response => {
+                    res.sendStatus(200)
+                })
+                .catch(error => res.sendStatus(500))
+        })
+        .catch(error => res.sendStatus(500))
+})
 module.exports = router;

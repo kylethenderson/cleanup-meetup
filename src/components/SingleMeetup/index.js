@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import WrappedMap from './SingleMeetupMap'
+import Grid from '@material-ui/core/Grid'
+import Button from '@material-ui/core/Button'
 
 import './SingleMeetup.css'
 
@@ -13,6 +15,7 @@ class SingleMeetup extends Component {
     state = {
         usersJoined: 0,
         formattedDate: '',
+        editMode: false,
     }
     componentDidMount() {
         this.getUsersJoined();
@@ -30,6 +33,16 @@ class SingleMeetup extends Component {
                     console.log(error)
                 })
         }
+    }
+
+    editMeetup = () => {
+        console.log(this.props.location.state);
+    }
+
+    deleteMeetup = () => {
+        console.log(this.props.location.state);
+        this.props.dispatch({type: 'DELETE_MEETUP', payload: this.props.location.state.meetup_id});
+        this.props.history.push('/home');
     }
 
     render() {
@@ -50,20 +63,40 @@ class SingleMeetup extends Component {
                                 defaultLong={Number(meetup.longitude)}
                             />
                         </div>
-                        <div id="singleMeetDeets">
-                            <p>Meetup Id: {meetup.meetup_id}</p>
-                            <p>Date: {meetup.date.substring(5, 7) + "/" + meetup.date.substring(8, 10) + "/" + meetup.date.substring(0, 4)}</p>
-                            <p>Time: {meetup.time.substring(0, 5)}</p>
-                            <p>Description: {meetup.description}</p>
-                            <p>Recommended Supplies: {meetup.supplies}</p>
-                            <p>Users Joined: {this.state.usersJoined}</p>
-                            {meetup.ref_created_by === this.props.user.id ?
-                                <><p>created by current user</p></>
-                                :
-                                <><p>not created by current user</p></>
-                            }
-                            <pre>{JSON.stringify(meetup, null, 2)}</pre>
-                        </div>
+                        <Grid container justify="center" id="singleMeetDeets">
+                            <Grid item xs={5}>
+                                <p>Date: {meetup.date.substring(5, 7) + "/" + meetup.date.substring(8, 10) + "/" + meetup.date.substring(0, 4)}</p>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <p>Time: {meetup.time.substring(0, 5)}</p>
+                            </Grid>
+                            <Grid item xs={10}>
+                                <p>Description: {meetup.description}</p>
+                            </Grid>
+                            <Grid item xs={10}>
+                                <p>Recommended Supplies: {meetup.supplies}</p>
+                            </Grid>
+                            <Grid item xs={10}>
+                                <p>Users Joined: {this.state.usersJoined}</p>
+                            </Grid>
+                            <Grid id="buttonContainer" item xs={10} container justify="center" className="grid-item-text-center">
+                                <Grid item xs={6}>
+                                    {this.props.user.admin || meetup.ref_created_by === this.props.user.id ? 
+                                        <Button variant="contained" className="error-background" onClick={this.deleteMeetup}>Delete</Button>
+                                        :
+                                        <></>
+                                    }
+                                </Grid>
+                                <Grid item xs={6}>
+                                    {meetup.ref_created_by === this.props.user.id ?
+                                        <Button variant="contained" color="primary" onClick={this.editMeetup}>Edit</Button>
+                                        :
+                                        <></>
+                                    }
+                                </Grid>
+                            </Grid>
+                            {/* <pre>{JSON.stringify(meetup, null, 2)}</pre> */}
+                        </Grid>
                     </>
                     :
                     <>

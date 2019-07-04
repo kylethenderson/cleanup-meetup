@@ -17,7 +17,7 @@ import './index.css';
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#486b00',
+      main: 'rgba(72, 107, 0, .825)',
       contrastText: '#fff'
     },
     secondary: {

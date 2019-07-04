@@ -82,7 +82,7 @@ class MeetupForm extends Component {
                                 <TextField
                                     value={this.state.supplies}
                                     id="supplies"
-                                    label="Recommended Supplies"
+                                    label="Description"
                                     margin="normal"
                                     multiline
                                     rows="6"

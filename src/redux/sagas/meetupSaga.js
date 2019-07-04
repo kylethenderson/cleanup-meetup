@@ -1,12 +1,5 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
-
-
-function* meetupSaga() {
-    yield takeLatest('ADD_MEETUP', addMeetup);
-    yield takeLatest('FETCH_USER_MEETUPS', getMeetups)
-  }
-
   
 function* addMeetup(action) {
   try {
@@ -36,12 +29,18 @@ function* getMeetups() {
     }
 }
 
-export default meetupSaga;
+function* deleteMeetup(action) {
+  try {
+    yield axios.delete(`/api/meetups/${action.payload}`)
+  } catch (error) {
+    console.log('Error deleting meetup', error);
+  }
+}
 
-// axios.get('api/user-meetups')
-//         .then( response => {
-//             this.props.dispatch({type: 'SET_USER_MEETUPS', payload: response.data})
-//         })
-//         .catch( error => {
-//             console.log('Error in getting user meetups', error);
-//         })
+function* meetupSaga() {
+  yield takeLatest('ADD_MEETUP', addMeetup);
+  yield takeLatest('FETCH_USER_MEETUPS', getMeetups)
+  yield takeLatest('DELETE_MEETUP', deleteMeetup)
+}
+
+export default meetupSaga;

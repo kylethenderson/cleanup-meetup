@@ -1,9 +1,15 @@
 #singleMeetDeets {
     margin-top: 15px;
-    margin-left: 15px;
     padding-bottom: 75px;
 }
 #singleMeetDeets p {
     margin: 5px;
     letter-spacing: 1px;
+}
+#singleMeetup #buttonContainer {
+    margin-top: 25px;
+}
+#singleMeetup .error-background {
+    background-color:  #8d230f;
+    color: white;
 }

@@ -69,14 +69,14 @@ class Map extends Component {
 
                             {this.props.selectedPin.ref_organized_by ?
                                 <div id="infoWindow">
-                                    <h4>Meetup Details: {this.props.selectedPin.meetup_id}</h4>
+                                    <h4>Meetup Details</h4>
                                     <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                     <h5>Time: {this.props.selectedPin.time}</h5>
                                     <Button variant="contained" color="secondary" size="small" onClick={()=>this.viewMeetup(this.props.selectedPin)}>View</Button>
                                 </div>
                                 :
                                 <div id="infoWindow">
-                                    <h4>Organize Meetup: {this.props.selectedPin.pin_id}</h4>
+                                    <h4>Organize Meetup</h4>
                                     <Button variant="contained" color="secondary" size="small" onClick={this.organizeMeetup}>Organize</Button>
                                 </div>
                             }
