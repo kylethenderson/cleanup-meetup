@@ -40,4 +40,25 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+
+// update the user's data from the profile page
+router.put('/', rejectUnauthenticated, (req, res) => {
+  const queryText = `UPDATE "user" SET 
+                      "username" = $1,
+                      "first_name" = $2,
+                      "last_name" = $3,
+                      "email" = $4,
+                      "phone" = $5
+                      WHERE "id" = $6;`;
+  const queryValues = [req.body.username, req.body.firstName, req.body.lastName, req.body.email, req.body.phone, req.user.id];
+  pool.query(queryText, queryValues)
+      .then( result => {
+        res.sendStatus(200)
+      })
+      .catch( error => {
+        res.sendStatus(500);
+        console.log('Error in UPDATE query', error);
+      })
+})
+
 module.exports = router;

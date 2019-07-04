@@ -36,6 +36,10 @@ class Profile extends Component {
     updateUserData = () => {
         console.log(this.state);
         // update the db with new data later
+        this.props.dispatch({
+            type: 'UPDATE_USER_DATA',
+            payload: this.state
+        })
         this.setState({
             ...this.state, editMode: false,
         })
