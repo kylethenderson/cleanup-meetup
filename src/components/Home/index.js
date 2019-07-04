@@ -10,11 +10,6 @@ import './HomePage.css'
 const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class TestMap extends Component {
-    state = {
-        userLat: null,
-        userLong: null,
-    }
-
     componentDidMount() {
         this.getUserLocation();
     }
@@ -22,14 +17,12 @@ class TestMap extends Component {
     getUserLocation = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
-                const userLocation = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                }
-                this.setState({
-                    ...this.state,
-                    userLat: userLocation.latitude,
-                    userLong: userLocation.longitude,
+                this.props.dispatch({
+                    type: 'SET_USER_LOCATION',
+                    payload: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    }
                 })
             }
         );
@@ -54,10 +47,10 @@ class TestMap extends Component {
             <>
                 {/* {JSON.stringify(this.props.reduxState.pins.pinList)} */}
                 <div className="mapContainer">
-                    {this.state.userLat ?
+                    {this.props.user.latitude ?
                         <WrappedMap
-                            defaultLat={this.state.userLat}
-                            defaultLong={this.state.userLong}
+                            defaultLat={this.props.user.latitude}
+                            defaultLong={this.props.user.longitude}
                             googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
                             loadingElement={<div style={{ height: "100%" }} />}
                             containerElement={<div style={{ height: "100%" }} />}
@@ -86,7 +79,7 @@ class TestMap extends Component {
 }
 
 const mapStateToProps = (reduxState) => ({
-    reduxState
+    user: reduxState.user
 })
 
 export default connect(mapStateToProps)(TestMap);

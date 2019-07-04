@@ -10,11 +10,6 @@ import {
 import Button from '@material-ui/core/Button'
 
 class Map extends Component {
-    state = {
-        selectedPin: null,
-        defaultLat: null,
-        defaultLong: null,
-    }
 
     componentDidMount() {
         this.props.dispatch({type: 'FETCH_PINS'});

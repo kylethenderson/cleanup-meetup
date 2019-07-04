@@ -7,11 +7,6 @@ import WrappedMap from './MyPinsMap'
 const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class MyPins extends Component {
-    state = {
-        userLat: null,
-        userLong: null,
-    }
-
     componentDidMount() {
         this.getUserLocation();
     }
@@ -19,14 +14,12 @@ class MyPins extends Component {
     getUserLocation = () => {
         navigator.geolocation.getCurrentPosition(
             position => {
-                const userLocation = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                }
-                this.setState({
-                    ...this.state,
-                    userLat: userLocation.latitude,
-                    userLong: userLocation.longitude,
+                this.props.dispatch({
+                    type: 'SET_USER_LOCATION',
+                    payload: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    }
                 })
             }
         );
@@ -44,8 +37,8 @@ class MyPins extends Component {
                                 containerElement={<div style={{ height: "100%" }} />}
                                 mapElement={<div style={{ height: "100%" }} />}
                                 className="mapWrapper"
-                                defaultLat={this.state.userLat}
-                                defaultLong={this.state.userLong}
+                                defaultLat={this.props.user.latitude}
+                                defaultLong={this.props.user.longitude}
                                 history={this.props.history}
                             />
                         </div>

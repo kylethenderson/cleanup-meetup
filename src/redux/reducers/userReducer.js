@@ -4,6 +4,12 @@ const userReducer = (state = {}, action) => {
       return action.payload;
     case 'UNSET_USER':
       return {};
+    case 'SET_USER_LOCATION':
+      return {
+        ...state, 
+        latitude: action.payload.latitude,
+        longitude: action.payload.longitude, 
+      }
     default:
       return state;
   }
