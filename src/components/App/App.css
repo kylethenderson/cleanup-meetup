@@ -57,3 +57,7 @@ input {
     overflow: hidden;
     box-shadow: 3px 4px 10px -5px rgba(34, 34, 34, .5);
 }
+button.large-button-text {
+    font-size: 1.25rem;
+    letter-spacing: 3px;
+}

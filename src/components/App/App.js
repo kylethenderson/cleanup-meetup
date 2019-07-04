@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import {connect} from 'react-redux';
 
+
 // Components
 import Header from '../Header'
 import Footer from '../Footer/Footer';

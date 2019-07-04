@@ -71,7 +71,7 @@ class TestMap extends Component {
                     }
                 </div>
                 <div id="buttonContainer">
-                    <Button size="large" variant="contained" color="primary" onClick={this.addPin}>Add Pin</Button>
+                    <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.addPin}>Add Pin</Button>
                 </div>
             </>
         )
