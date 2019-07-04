@@ -59,17 +59,6 @@ class SingleMeetup extends Component {
         this.setState({
             ...this.state, editMode: false,
         })
-        console.log({
-            date: this.state.date,
-            time: this.state.time, 
-            supplies: this.state.supplies, 
-            description: this.state.description, 
-            meetupId: this.props.location.state.meetup_id,
-            pinId: this.props.location.state.pin_id,
-        })
-        // above is the object that i'll send to the update meetup saga
-        // pinId needed to update pin description
-        // meetupId for the rest of the data within the meetups table
         this.props.dispatch({
             type: 'EDIT_MEETUP',
             payload: {

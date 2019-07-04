@@ -47,6 +47,11 @@ class Map extends Component {
                     {this.props.pinList && this.props.pinList.map(pin => (
                         <Marker
                             key={pin.pin_id}
+                            icon={pin.meetup_id ? 
+                                {url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'}
+                                :
+                                {url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'}
+                            }
                             position={{
                                 lat: Number(pin.latitude),
                                 lng: Number(pin.longitude),

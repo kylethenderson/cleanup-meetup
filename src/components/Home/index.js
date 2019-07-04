@@ -45,7 +45,6 @@ class TestMap extends Component {
     render() {
         return (
             <>
-                {/* {JSON.stringify(this.props.reduxState.pins.pinList)} */}
                 <div className="mapContainer">
                     {this.props.user.latitude ?
                         <WrappedMap
@@ -79,7 +78,8 @@ class TestMap extends Component {
 }
 
 const mapStateToProps = (reduxState) => ({
-    user: reduxState.user
+    user: reduxState.user,
+
 })
 
 export default connect(mapStateToProps)(TestMap);
