@@ -26,9 +26,14 @@ class Header extends Component {
         return (
             <>
                 <header>
-                    <Link id="mainLogo" to="/">
-                        <h1>CleanUp<br />MeetUp</h1>
-                    </Link>
+                    <div id="mainLogo" onClick={()=>this.props.history.push('/')}>
+                        <div>
+                            <h1 id="logoClean">Clean</h1>
+                            <br />
+                            <h1 id="logoMeet">Meet</h1>
+                        </div>
+                        <span id="logoUp">Up</span>
+                    </div>
                     {/* Only show the menu option if user is logged in */}
                     {this.props.user.id && (
                         <>

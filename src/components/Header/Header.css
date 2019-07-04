@@ -1,24 +1,51 @@
 header {
-    background-color: rgba(0, 143, 12, 1);
+    background-color: #486b00;
     text-align: center;
 }
 #mainLogo {
+    display: inline-block;
   text-decoration: none;
+  min-width: 225px;
+  padding: 10px 0px 10px 25px;
 }
-header h1 {
+#mainLogo:hover {
+    cursor: pointer;
+}
+#mainLogo div {
+    display: inline-block;
+}
+header h1{  
     display: inline-block;
     color: white;
     font-weight: 300;
-    letter-spacing: 4px;
     margin: 0;
-    padding: 15px 0px;
+    padding: 0;
     text-transform: uppercase;
+}
+#logoClean {
+line-height: .9;
+    letter-spacing: 2px;
+}
+#logoMeet {
+    line-height: .9;
+    letter-spacing: 8px;
+    position: relative;
+    left: 4px;
+}
+#logoUp {
+    color: #ffc131;
+    text-transform: uppercase;
+    font-size: 4.75rem;
+    font-weight: 500;
+    position: relative;
+    left: -5px;
+    top: 2px;
 }
 #navDrawer {
     position: relative;
 }
 .MuiDrawer-paperAnchorLeft {
-    background-color: rgba(0, 143, 12, 1) !important;
+    background-color: #486b00 !important;
 }
 #logoutButton {
     position: absolute;
@@ -29,7 +56,7 @@ header h1 {
 }
 .nav-link {
   color: #f2f2f2;
-  background-color: rgba(0, 143, 12, 1);
+  background-color: #486b00;
   text-align: center;
   padding: 15px 30px;
   text-decoration: none;
@@ -42,7 +69,7 @@ header h1 {
 .close-drawer {
     text-align: right;
     outline: 0;
-    padding: 10px 5px;
+    padding: 0px 5px;
 }
 .nav-right {
   float: right;

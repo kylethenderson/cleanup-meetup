@@ -1,5 +1,5 @@
 footer {
-    background-color: rgba(0, 143, 12, 1);
+    background-color: #486b00;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -19,3 +19,21 @@ footer span {
     font-size: 10px;
     letter-spacing: 1px;
 }
+
+
+
+
+/* Color Palette
+#2e4600 - forest green
+#486b00 - grass
+#fffae1 - light
+#7d4427 - earth
+#afb3bc - foggy grey
+#d0b987 - oat
+#030305 - cinder
+#f2f4ef - birch
+#c2e3f4 - clear day
+#e5ba22 - corn
+#efb730 - ronchi
+
+*/

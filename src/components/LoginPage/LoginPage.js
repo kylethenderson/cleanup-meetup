@@ -41,7 +41,7 @@ class LoginPage extends Component {
             {this.props.errors.loginMessage}
           </h2>
         )}
-        <Grid container item xs={6} id="loginForm" className="grid-item-text-center" justify="center">
+        <Grid container item xs={9} id="loginForm" className="grid-item-text-center" justify="center">
           <Grid item xs={12}>
             <h1>Login</h1>
           </Grid>
