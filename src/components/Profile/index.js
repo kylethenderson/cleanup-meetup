@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
@@ -34,6 +35,7 @@ class Profile extends Component {
 
     updateUserData = () => {
         console.log(this.state);
+        // update the db with new data later
         this.setState({
             ...this.state, editMode: false,
         })
@@ -47,73 +49,79 @@ class Profile extends Component {
 
     render() {
         return (
-            <Grid container justify="center" id="profilePage">
-                <Grid item xs={9}>
-                    <h2>Profile</h2>
-                </Grid>
-                <Grid item xs={9}>
-                    <TextField
-                        onChange={this.handleChange}
-                        id="username"
-                        disabled={!this.state.editMode}
-                        fullWidth
-                        label="Username"
-                        value={this.state.username}
-                        margin="normal"
-                    />
-                </Grid>
-                <Grid item xs={9}>
-                    <TextField
-                        onChange={this.handleChange}
-                        id="firstName"
-                        disabled={!this.state.editMode}
-                        fullWidth
-                        label="First Name"
-                        value={this.state.firstName}
-                        margin="normal"
-                    />
-                </Grid>
-                <Grid item xs={9}>
-                    <TextField
-                        onChange={this.handleChange}
-                        id="lastName"
-                        disabled={!this.state.editMode}
-                        fullWidth
-                        label="Last Name"
-                        value={this.state.lastName}
-                        margin="normal"
-                    />
-                </Grid>
-                <Grid item xs={9}>
-                    <TextField
-                        onChange={this.handleChange}
-                        id="email"
-                        disabled={!this.state.editMode}
-                        fullWidth
-                        label="Email Address"
-                        value={this.state.email}
-                        margin="normal"
-                    />
-                </Grid>
-                <Grid item xs={9}>
-                    <TextField
-                        onChange={this.handleChange}
-                        id="phone"
-                        disabled={!this.state.editMode}
-                        fullWidth
-                        label="Phone Number"
-                        value={this.state.phone}
-                        margin="normal"
-                    />
-                </Grid>
-                <Grid item xs={9} className="grid-item-text-center">
-                    {this.state.editMode ?
-                        <Button size="large" onClick={this.updateUserData} variant="contained" color="primary">Update</Button>
-                        :
-                        <Button size="large" onClick={() => { this.setState({ ...this.state, editMode: true }) }} variant="contained" color="primary">Edit</Button>
-                    }
-                </Grid>
-            </Grid>
+            <>
+                {this.props.user.latitude ?
+                    <Grid container justify="center" id="profilePage">
+                        <Grid item xs={9}>
+                            <h2>Profile</h2>
+                        </Grid>
+                        <Grid item xs={9}>
+                            <TextField
+                                onChange={this.handleChange}
+                                id="username"
+                                disabled={!this.state.editMode}
+                                fullWidth
+                                label="Username"
+                                value={this.state.username}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={9}>
+                            <TextField
+                                onChange={this.handleChange}
+                                id="firstName"
+                                disabled={!this.state.editMode}
+                                fullWidth
+                                label="First Name"
+                                value={this.state.firstName}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={9}>
+                            <TextField
+                                onChange={this.handleChange}
+                                id="lastName"
+                                disabled={!this.state.editMode}
+                                fullWidth
+                                label="Last Name"
+                                value={this.state.lastName}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={9}>
+                            <TextField
+                                onChange={this.handleChange}
+                                id="email"
+                                disabled={!this.state.editMode}
+                                fullWidth
+                                label="Email Address"
+                                value={this.state.email}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={9}>
+                            <TextField
+                                onChange={this.handleChange}
+                                id="phone"
+                                disabled={!this.state.editMode}
+                                fullWidth
+                                label="Phone Number"
+                                value={this.state.phone}
+                                margin="normal"
+                            />
+                        </Grid>
+                        <Grid item xs={9} className="grid-item-text-center">
+                            {this.state.editMode ?
+                                <Button size="large" onClick={this.updateUserData} variant="contained" color="primary">Update</Button>
+                                :
+                                <Button size="large" onClick={() => { this.setState({ ...this.state, editMode: true }) }} variant="contained" color="primary">Edit</Button>
+                            }
+                        </Grid>
+                    </Grid>
+                    :
+                    <Redirect to="/home" />
+            }
+            </>
         )
     }
 }
