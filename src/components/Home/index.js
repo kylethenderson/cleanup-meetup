@@ -111,30 +111,7 @@ class TestMap extends Component {
                     <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
                 </div>
                 <Dialog open={this.state.dialogOpen} onClose={this.handleClose} id="descriptionDialog" aria-labelledby="simple-dialog-title">
-                    <Grid container justify="center">
-                        <Icon id="closeDialogIcon" onClick={this.closeDialog}>close</Icon>
-                        <Grid item xs={10}>
-                            <h2>Area description</h2>
-                        </Grid>
-                        <Grid item xs={10}>
-                            <TextField
-                                value={this.state.description}
-                                id="description"
-                                label="Description"
-                                margin="normal"
-                                multiline
-                                rows="6"
-                                fullWidth
-                                variant="outlined"
-                                onChange={this.handleChange}
-                            />
-                        </Grid>
-                        <Grid item xs={10} className="grid-item-text-center">
-                            <Button onClick={this.addPin} variant="outlined" color="primary" className="medium-button-text">
-                                Mark Location
-                            </Button>
-                        </Grid>
-                    </Grid>
+                   <p onClick={this.closeDialog}>Something</p>
                 </Dialog>
             </>
         )

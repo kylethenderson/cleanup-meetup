@@ -16,7 +16,7 @@ class Map extends Component {
     }
 
     componentDidMount() {
-        this.props.dispatch({type:'CLEAR_SELECTED_PIN'})
+        this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
     }
 
     setSelectedPin = (pin) => {
@@ -36,7 +36,7 @@ class Map extends Component {
     }
 
     deletePin = () => {
-        this.props.dispatch({type: 'DELETE_PIN', payload: this.props.selectedPin.pin_id})
+        this.props.dispatch({ type: 'DELETE_PIN', payload: this.props.selectedPin.pin_id })
         this.props.history.push('/home');
     }
 
@@ -59,6 +59,11 @@ class Map extends Component {
                                 return (
                                     <Marker
                                         key={pin.pin_id}
+                                        icon={pin.meetup_id ?
+                                            { url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' }
+                                            :
+                                            { url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }
+                                        }
                                         position={{
                                             lat: Number(pin.latitude),
                                             lng: Number(pin.longitude),

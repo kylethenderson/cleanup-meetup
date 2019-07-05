@@ -71,7 +71,6 @@ class Map extends Component {
                                 pixelOffset: {height: -40}
                             }}
                         >
-
                             {this.props.selectedPin.ref_organized_by ?
                                 <div id="infoWindow">
                                     <h4>Meetup Details</h4>

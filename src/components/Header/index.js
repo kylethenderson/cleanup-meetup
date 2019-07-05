@@ -19,7 +19,7 @@ class Header extends Component {
 
     logout = () => {
         this.props.dispatch({ type: 'LOGOUT' });
-        this.toggleDrawer('left', false);
+        this.toggleDrawer(false);
     }
 
     render() {

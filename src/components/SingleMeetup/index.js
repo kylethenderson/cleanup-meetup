@@ -73,6 +73,10 @@ class SingleMeetup extends Component {
         this.props.history.push('/home');
     }
 
+    joinMeetup = () => {
+        console.log('Meetup Joined', this.props.location.state.meetup_id, this.props.user.id)
+    }
+
     deleteMeetup = () => {
         console.log(this.props.location.state);
         this.props.dispatch({ type: 'DELETE_MEETUP', payload: this.props.location.state.meetup_id });
@@ -187,7 +191,7 @@ class SingleMeetup extends Component {
                                             }
                                         </>
                                         :
-                                        <></>
+                                        <Button variant="contained" color="primary" onClick={this.joinMeetup}>Join</Button>
                                     }
                                 </Grid>
                             </Grid>
