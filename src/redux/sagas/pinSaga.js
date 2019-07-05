@@ -1,13 +1,6 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-
-function* pinsSaga() {
-  yield takeLatest('FETCH_PINS', fetchPins);
-  yield takeLatest('ADD_PIN', addPin)
-}
-
-
 function* fetchPins(action) {
   try {
     const config = {
@@ -42,8 +35,9 @@ function* addPin(action) {
   }
 }
 
-// function formatDate(date) {
-//   return date.substring(5, 7) + "/" + date.substring(8, 10) + "/" + date.substring(0, 4)
-// }
+function* pinsSaga() {
+  yield takeLatest('FETCH_PINS', fetchPins);
+  yield takeLatest('ADD_PIN', addPin)
+}
 
 export default pinsSaga;

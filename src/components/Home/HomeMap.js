@@ -82,7 +82,7 @@ class Map extends Component {
                                 :
                                 <div id="infoWindow">
                                     <h4>Organize Meetup</h4>
-                                    <Button variant="contained" color="secondary" size="small" onClick={this.organizeMeetup}>Organize</Button>
+                                    <Button variant="contained" color="secondary" size="small" onClick={this.organizeMeetup}>Let's Go!</Button>
                                 </div>
                             }
                         </InfoWindow>

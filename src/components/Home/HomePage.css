@@ -35,3 +35,20 @@
 #infoWindow button {
     margin: 15px 0px 10px 0px;
 }
+#descriptionDialog {
+    position: relative;
+}
+#descriptionDialog #closeDialogIcon { 
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+#descriptionDialog h2{
+    text-transform: uppercase;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 0px;
+}
+#descriptionDialog button {
+    margin: 10px 0px 20px 0px;
+}

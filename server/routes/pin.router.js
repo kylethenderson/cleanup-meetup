@@ -20,7 +20,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = `INSERT INTO "pins" ("longitude", "latitude", "description", "ref_created_by") VALUES
     ($1, $2, $3, $4);`
-    pool.query(queryText, [req.body.longitude, req.body.latitude, '', 1])
+    pool.query(queryText, [req.body.longitude, req.body.latitude, req.body.description, req.user.id])
         .then(result => {
             res.sendStatus(200);
         })

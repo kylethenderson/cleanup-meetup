@@ -3,6 +3,10 @@ import WrappedMap from './HomeMap'
 import { connect } from 'react-redux'
 import { ClipLoader } from 'react-spinners';
 import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Icon from '@material-ui/core/Icon'
 
 import './HomePage.css'
 
@@ -10,6 +14,10 @@ import './HomePage.css'
 const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class TestMap extends Component {
+    state = {
+        dialogOpen: false,
+        description: '',
+    }
     componentDidMount() {
         this.getUserLocation();
     }
@@ -28,19 +36,48 @@ class TestMap extends Component {
         );
     }
 
-    addPin = () => {
+    handleChange = (event) => {
+        this.setState({
+            ...this.state, [event.target.id]: event.target.value
+        })
+    }
+
+    openDialog = () => {
+        this.setState({
+            dialogOpen: true,
+        });
         navigator.geolocation.getCurrentPosition(
             position => {
-                const userLocation = {
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                }
                 this.props.dispatch({
-                    type: 'ADD_PIN',
-                    payload: userLocation,
+                    type: 'SET_USER_LOCATION',
+                    payload: {
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude,
+                    }
                 })
             }
         );
+    }
+
+    closeDialog = () => {
+        this.setState({
+            dialogOpen: false,
+            description: '',
+        });
+    }
+
+    addPin = () => {
+        console.log({
+            latitude: this.props.user.latitude,
+            longitude: this.props.user.longitude,
+            description: this.state.description,
+        });
+        this.props.dispatch({type: 'ADD_PIN', payload: {
+            latitude: this.props.user.latitude,
+            longitude: this.props.user.longitude,
+            description: this.state.description,
+        }})
+        this.closeDialog();
     }
     render() {
         return (
@@ -70,8 +107,34 @@ class TestMap extends Component {
                     }
                 </div>
                 <div id="buttonContainer">
-                    <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.addPin}>Add Pin</Button>
+                    <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
                 </div>
+                <Dialog open={this.state.dialogOpen} onClose={this.handleClose} id="descriptionDialog" aria-labelledby="simple-dialog-title">
+                    <Grid container justify="center">
+                        <Icon id="closeDialogIcon" onClick={this.closeDialog}>close</Icon>
+                        <Grid item xs={10}>
+                            <h2>Area description</h2>
+                        </Grid>
+                        <Grid item xs={10}>
+                            <TextField
+                                value={this.state.description}
+                                id="description"
+                                label="Description"
+                                margin="normal"
+                                multiline
+                                rows="6"
+                                fullWidth
+                                variant="outlined"
+                                onChange={this.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={10} className="grid-item-text-center">
+                            <Button onClick={this.addPin} variant="outlined" color="primary" className="medium-button-text">
+                                Mark Location
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Dialog>
             </>
         )
     }
