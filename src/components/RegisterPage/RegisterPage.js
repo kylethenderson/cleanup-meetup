@@ -69,6 +69,7 @@ class RegisterPage extends Component {
             </Grid>
           </form>
           <Grid className="grid-item-text-center" item xs={12}>
+          <p id="caption">Back to Login</p>
             <Button
               type="button"
               onClick={() => { this.props.dispatch({ type: 'SET_TO_LOGIN_MODE' }) }}

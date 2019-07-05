@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { ClipLoader } from 'react-spinners';
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
-import Icon from '@material-ui/core/Icon'
+// import Grid from '@material-ui/core/Grid'
+// import TextField from '@material-ui/core/TextField'
+// import Icon from '@material-ui/core/Icon'
 
 import './HomePage.css'
 

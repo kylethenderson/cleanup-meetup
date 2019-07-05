@@ -84,10 +84,11 @@ class LoginPage extends Component {
           </Grid>
           */}
           <Grid item xs={12} className="grid-item-text-center">
+            <p id="caption">Not a registered user?</p>
             <Button
               type="button"
               onClick={() => { this.props.dispatch({ type: 'SET_TO_REGISTER_MODE' }) }}
-            >
+            >              
               Register
             </Button>
           </Grid>

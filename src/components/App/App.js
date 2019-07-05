@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {
   HashRouter as Router,
   Route,
-  Redirect,
   Switch,
 } from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -20,6 +19,7 @@ import MyMeetups from '../Meetups';
 import Profile from '../Profile';
 import Organize from '../OrganizeMeetup'
 import SingleMeetup from '../SingleMeetup'
+import WelcomePage from '../WelcomePage'
 
 
 import './App.css';
@@ -34,50 +34,27 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          <Header />
+          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Header /> } />
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            {/* <Redirect exact from="/" to="/home" /> */}
+            <Route exact path="/" component={WelcomePage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the HomePage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-            <ProtectedRoute
-              exact
-              path="/home"
-              component={Home}
-            />
+            <ProtectedRoute exact path="/home" component={Home} />
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
-            <ProtectedRoute
-              exact
-              path="/my-pins"
-              component={MyPins}
-            />
-            <ProtectedRoute
-              exact
-              path="/my-meetups"
-              component={MyMeetups}
-            />
-            <ProtectedRoute
-              exact
-              path="/profile"
-              component={Profile}
-            />
-            <ProtectedRoute
-              exact
-              path="/organize-meetup"
-              component={Organize}
-            />
-            <ProtectedRoute
-              exact
-              path="/meetup"
-              component={SingleMeetup}
-            />
+            <ProtectedRoute exact path="/my-pins" component={MyPins} />
+            <ProtectedRoute exact path="/my-meetups" component={MyMeetups} />
+            <ProtectedRoute exact path="/profile" component={Profile} />
+            <ProtectedRoute exact path="/organize-meetup" component={Organize} />
+            <ProtectedRoute exact path="/meetup" component={SingleMeetup} />
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
           </Switch>
-          <Footer />
+          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Footer /> } />
         </div>
       </Router>
   )}
