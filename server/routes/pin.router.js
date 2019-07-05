@@ -29,4 +29,16 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+    pool.query(`DELETE FROM "pins" WHERE "pin_id" = $1 AND "ref_created_by" = $2;`, [req.params.id, req.user.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            console.log('Error with DELETE query', error);
+            res.sendStatus(500);
+        })
+
+})
+
 module.exports = router;

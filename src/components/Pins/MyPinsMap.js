@@ -15,6 +15,10 @@ class Map extends Component {
         selectedPin: null,
     }
 
+    componentDidMount() {
+        this.props.dispatch({type:'CLEAR_SELECTED_PIN'})
+    }
+
     setSelectedPin = (pin) => {
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin });
     }
@@ -29,6 +33,11 @@ class Map extends Component {
 
     organizeMeetup = () => {
         this.props.history.push('/organize-meetup');
+    }
+
+    deletePin = () => {
+        this.props.dispatch({type: 'DELETE_PIN', payload: this.props.selectedPin.pin_id})
+        this.props.history.push('/home');
     }
 
     render() {
@@ -83,6 +92,7 @@ class Map extends Component {
                                     <div id="infoWindow">
                                         <h4>Organize Meetup: {this.props.selectedPin.pin_id}</h4>
                                         <Button variant="contained" color="primary" size="small" onClick={this.organizeMeetup}>Organize</Button>
+                                        <Button variant="contained" color="primary" size="small" onClick={this.deletePin}>Delete</Button>
                                     </div>
                                 }
                             </InfoWindow>

@@ -20,6 +20,7 @@ class TestMap extends Component {
     }
     componentDidMount() {
         this.getUserLocation();
+        this.props.dispatch({type:'CLEAR_SELECTED_PIN'})
     }
 
     getUserLocation = () => {

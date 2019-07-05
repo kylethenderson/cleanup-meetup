@@ -35,9 +35,14 @@ function* addPin(action) {
   }
 }
 
+function* deletePin(action) {
+  yield axios.delete(`/api/pins/${action.payload}`)
+}
+
 function* pinsSaga() {
   yield takeLatest('FETCH_PINS', fetchPins);
   yield takeLatest('ADD_PIN', addPin)
+  yield takeLatest('DELETE_PIN', deletePin)
 }
 
 export default pinsSaga;
