@@ -30,13 +30,18 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 })
 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
-    pool.query(`DELETE FROM "pins" WHERE "pin_id" = $1 AND "ref_created_by" = $2;`, [req.params.id, req.user.id])
-        .then(result => {
-            res.sendStatus(200);
-        })
-        .catch(error => {
-            console.log('Error with DELETE pin query', error);
-            res.sendStatus(500);
+    pool.query(`SELECT "ref_created_by" AS "id" from "pins" WHERE "pin_id" = $1;`, [req.params.id])
+        .then( result => {
+            if ( result.rows[0].id === req.user.id || req.user.admin) {
+                pool.query(`DELETE FROM "pins" WHERE "pin_id" = $1`, [req.params.id])
+                .then(result => {
+                    res.sendStatus(200);
+                })
+                .catch(error => {
+                    console.log('Error with DELETE pin query', error);
+                    res.sendStatus(500);
+                })
+            }
         })
 
 })

@@ -35,7 +35,7 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Header /> } />
+          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Header {...routerProps}/> } />
           <Switch>
             <Route exact path="/" component={WelcomePage} />
             {/* For protected routes, the view could show one of several things on the same route.

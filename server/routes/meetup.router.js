@@ -59,16 +59,22 @@ router.get('/joins', rejectUnauthenticated, (req, res) => {
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT "ref_organized_by" AS "id" FROM "meetups" WHERE "meetup_id" = $1;`, [req.params.id])
         .then(result => {
-            if (result.rows[0].id === req.user.id) {
+            if (result.rows[0].id === req.user.id || req.user.admin) {
                 pool.query(`DELETE FROM "meetup_joins" WHERE "ref_meetup_id" = $1;`, [req.params.id])
                     .then(result => {
                         pool.query(`DELETE FROM "meetups" WHERE "meetup_id" = $1`, [req.params.id])
                             .then(result => {
                                 res.sendStatus(200)
                             })
-                            .catch(error => res.sendStatus(500))
+                            .catch(error => {
+                                console.log('Error with DELETE from meetups query', error);
+                                res.sendStatus(500)
+                            })
                     })
-                    .catch(error => res.sendStatus(500))
+                    .catch(error => {
+                        console.log('Error with DELETE from meetup_joins query', error);
+                        res.sendStatus(500)
+                    })
             } else {
                 res.sendStatus(401)
             }

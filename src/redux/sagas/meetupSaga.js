@@ -39,6 +39,7 @@ function* editMeetup(action) {
 
 function* deleteMeetup(action) {
   try {
+    console.log('deleteMeetup payload:', action.payload);
     yield axios.delete(`/api/meetups/${action.payload}`)
     yield put({ type: 'FETCH_PINS'});
   } catch (error) {

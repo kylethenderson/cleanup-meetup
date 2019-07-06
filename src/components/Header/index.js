@@ -26,7 +26,7 @@ class Header extends Component {
         return (
             <>
                 <header>
-                    <div id="mainLogo" onClick={()=>this.props.history.push('/')}>
+                    <div id="mainLogo" onClick={()=>this.props.history.push('/home')}>
                         <div>
                             <h1 id="logoClean">Clean</h1>
                             <br />
