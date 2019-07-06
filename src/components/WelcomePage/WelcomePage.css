@@ -1,0 +1,75 @@
+#welcomePage {
+    height: 100vh;
+    background: linear-gradient(rgba(72, 107, 0, .85));
+}
+#welcomePage h3{
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: 2px;
+    text-transform: lowercase;
+    color: white;
+    text-align: center;
+    padding-top: 35px;
+}
+#welcomePage h2 {
+    margin: 5px;
+    font-weight: 300;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    text-align: center;
+    font-size: 2rem;
+}
+#welcomeIntro {
+    width: 80%;
+    margin: 0 auto;
+    color: white;
+    text-align: justify;
+    margin-top: 50px;
+}
+.circle-container {
+    position: relative;
+    width: 75vw;
+    height: 75vw;
+    /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
+    border: dashed 1px rgba(256, 256, 256, .5);
+    border-radius: 50%;
+    margin: 50px auto 0 auto;
+}
+.circle-container span {
+    display: inline-block;
+    color: white;
+    font-size: 2.5rem;
+    position: absolute;
+    top: calc(50% - 1.25rem);
+    left: calc(50% - 1.25rem);
+    /* width: 100%; */
+}
+#centerIcon {
+    font-size: 6rem;
+    margin: 0;
+    transform: translate(-1.75rem, -1.75rem);
+}
+/* 37.5vw = half the width of the wrapper */
+.deg0 { transform: translate(37vw); }
+.deg50 { transform: rotate(50deg) translate(37.5vw) rotate(-50deg); }
+.deg130 { transform: rotate(130deg) translate(37.5vw) rotate(-130deg); }
+.deg180 { transform: translate(-37.5vw); }
+.deg230 { transform: rotate(230deg) translate(37.5vw) rotate(-230deg); }
+.deg310 { transform: rotate(310deg) translate(37.5vw) rotate(-310deg); }
+
+#welcomePage a {
+    text-decoration: none;
+}
+#buttonWrapper {
+    text-align: center;
+    margin-top: 25px;
+}
+#letsGoButton {
+    border-radius: 100px;
+    border: 1px solid rgba(256, 256, 256, 1);
+    color: white;
+    padding: 10px 30px;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
