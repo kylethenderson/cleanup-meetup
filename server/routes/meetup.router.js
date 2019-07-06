@@ -44,12 +44,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 })
 
 router.get('/joins', rejectUnauthenticated, (req, res) => {
-    const queryText = `SELECT COUNT(*) FROM "meetups"
+    const queryText = `SELECT * FROM "meetups"
     LEFT JOIN "meetup_joins" ON "meetups"."meetup_id" = "meetup_joins"."ref_meetup_id"
     WHERE "meetups"."meetup_id" = $1;`
     pool.query(queryText, [req.query.id])
         .then(result => {
-            res.send(result.rows[0].count);
+            res.send(result.rows);
         })
         .catch(error => {
             console.log('Error in getting meetup joins', error);
@@ -78,7 +78,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
         })
 })
 
-router.put('/', (req, res) => {
+router.put('/', rejectUnauthenticated, (req, res) => {
     const updateText = `UPDATE "meetups" SET
                         "date" = $1,
                         "time" = $2,
@@ -101,7 +101,7 @@ router.put('/', (req, res) => {
         })
 })
 
-router.post('/join', (req, res) => {
+router.post('/join', rejectUnauthenticated, (req, res) => {
     pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id")
                 VALUES ($1, $2);`, [req.body.meetupId, req.user.id])
         .then(result => {
@@ -113,5 +113,8 @@ router.post('/join', (req, res) => {
         })
 })
 
+router.delete('/join/:id', (req, res) => {
+    pool.query(`DELETE FROM "meetup_joins" WHERE "ref_meetup_id" = $1 AND "ref_user_id" = $2`, [req.params.id, req.user.id])
+})
 
 module.exports = router;

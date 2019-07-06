@@ -55,12 +55,22 @@ function* joinMeetup(action) {
   }
 }
 
+function* leaveMeetup(action) {
+  try {
+    yield axios.delete('api/meetups/join', action.payload);
+    yield put({type: 'FETCH_PINS'});
+  } catch(error) {
+    console.log('Error leaving meetup', error);
+  }
+}
+
 function* meetupSaga() {
   yield takeLatest('ADD_MEETUP', addMeetup);
   yield takeLatest('FETCH_USER_MEETUPS', getMeetups)
   yield takeLatest('DELETE_MEETUP', deleteMeetup)
   yield takeLatest('EDIT_MEETUP', editMeetup)
   yield takeLatest('JOIN_MEETUP', joinMeetup)
+  yield takeLatest('LEAVE_MEETUP', leaveMeetup)
 }
 
 export default meetupSaga;

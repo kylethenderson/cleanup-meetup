@@ -13,12 +13,11 @@ class MeetupItem extends Component {
     }
 
     leaveMeetup = (id) => {
-        // this.props.dispatch({
-        //     type: 'LEAVE_MEETUP', 
-        //     payload: {
-        //         meetupId: id,
-        //         userId: this.props.user.id,
-        //     }});
+        this.props.dispatch({
+            type: 'LEAVE_MEETUP', 
+            payload: {
+                meetupId: id,
+            }});
         console.log(`meetupid: ${id}, userId: ${this.props.user.id}`);
     }
 

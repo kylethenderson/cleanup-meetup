@@ -14,7 +14,8 @@ const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class SingleMeetup extends Component {
     state = {
-        usersJoined: 0,
+        usersJoined: [],
+        userIsJoined: false,
         editMode: false,
         date: '',
         time: '',
@@ -39,9 +40,18 @@ class SingleMeetup extends Component {
         if (this.props.location.state) {
             axios.get(`/api/meetups/joins?id=${this.props.location.state.meetup_id}`)
                 .then(response => {
-                    this.setState({
-                        usersJoined: response.data
-                    })
+                    const userIsJoined = response.data.filter(obj => obj.ref_user_id === this.props.user.id)
+                    if ( userIsJoined.length ) {
+                        this.setState({
+                            ...this.state,
+                            usersJoined: response.data,
+                            userIsJoined: true,
+                        })
+                    } else {
+                        this.setState({
+                            usersJoined: response.data
+                        })
+                    }
                 })
                 .catch(error => {
                     console.log(error)
@@ -84,6 +94,15 @@ class SingleMeetup extends Component {
         this.props.history.push('/home');
     }
 
+    leaveMeetup = (id) => {
+        this.props.dispatch({
+            type: 'LEAVE_MEETUP', 
+            payload: {
+                meetupId: this.props.location.state.meetup_id,
+            }});
+        console.log(`meetupid: ${id}, userId: ${this.props.user.id}`);
+    }
+
     deleteMeetup = () => {
         console.log(this.props.location.state);
         this.props.dispatch({ type: 'DELETE_MEETUP', payload: this.props.location.state.meetup_id });
@@ -100,6 +119,8 @@ class SingleMeetup extends Component {
             <div id="singleMeetup">
                 {meetup ?
                     <>
+                    {JSON.stringify(this.state.userIsJoined)}
+                    {JSON.stringify(this.props.location.state.meetup_id)}
                         <div className="mapContainer">
                             <WrappedMap
                                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${MAPS_KEY}`}
@@ -178,7 +199,7 @@ class SingleMeetup extends Component {
                                 }
                             </Grid>
                             <Grid item xs={10}>
-                                <p>Users Joined: {this.state.usersJoined}</p>
+                                <p>Users Joined: {this.state.usersJoined.length}</p>
                             </Grid>
                             <Grid id="buttonContainer" item xs={10} container justify="center" className="grid-item-text-center">
                                 <Grid item xs={6}>
@@ -198,7 +219,13 @@ class SingleMeetup extends Component {
                                             }
                                         </>
                                         :
-                                        <Button variant="contained" color="primary" onClick={this.joinMeetup}>Join</Button>
+                                        <>
+                                        {this.state.userIsJoined ? 
+                                            <Button variant="contained" color="primary" onClick={this.leaveMeetup}>Leave</Button>
+                                            :
+                                            <Button variant="contained" color="primary" onClick={this.joinMeetup}>Join</Button>
+                                        }
+                                        </>
                                     }
                                 </Grid>
                             </Grid>
