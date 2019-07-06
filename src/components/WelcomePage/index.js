@@ -19,6 +19,7 @@ class WelcomePage extends Component {
                 <h3>Welcome to</h3>
                 <h2>CleanUp MeetUp</h2>
                 <div className="circle-container">
+                    <div className="circle-border"></div>
                     <Icon id="centerIcon">public</Icon>
                     <Icon className="deg0">delete_outline</Icon>
                     <Icon className="deg50">place</Icon>
@@ -30,12 +31,12 @@ class WelcomePage extends Component {
                 <div id="welcomeIntro">
                     <p>
                         CleanUp MeetUp allows users to mark local areas
-                        that need cleaned and organize a meetup to 
+                        that need cleaned and organize a meetup to
                         clean up your community.
                     </p>
                 </div>
                 <div id="buttonWrapper">
-                    <Button id="letsGoButton" variant="outlined" onClick={()=>this.props.history.push('/home')}>Let's Go!</Button>
+                    <Button id="letsGoButton" variant="outlined" onClick={() => this.props.history.push('/home')}>Let's Go!</Button>
                 </div>
             </div>
         )

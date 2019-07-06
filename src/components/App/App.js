@@ -20,6 +20,7 @@ import Profile from '../Profile';
 import Organize from '../OrganizeMeetup'
 import SingleMeetup from '../SingleMeetup'
 import WelcomePage from '../WelcomePage'
+import ErrorPage from '../ErrorPage'
 
 
 import './App.css';
@@ -36,8 +37,6 @@ class App extends Component {
         <div className="app">
           <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Header /> } />
           <Switch>
-            {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            {/* <Redirect exact from="/" to="/home" /> */}
             <Route exact path="/" component={WelcomePage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the HomePage if the user is logged in.
@@ -52,7 +51,8 @@ class App extends Component {
             <ProtectedRoute exact path="/organize-meetup" component={Organize} />
             <ProtectedRoute exact path="/meetup" component={SingleMeetup} />
             {/* If none of the other routes matched, we will show a 404. */}
-            <Route render={() => <h1>404</h1>} />
+            {/* <Route render={() => <h1>404</h1>} /> */}
+            <Route component={ErrorPage}/>
           </Switch>
           <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Footer /> } />
         </div>

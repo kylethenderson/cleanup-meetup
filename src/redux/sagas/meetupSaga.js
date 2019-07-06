@@ -13,7 +13,6 @@ function* addMeetup(action) {
     // If a user is logged in, this will return the meetups
     // for the logged in user.
     yield axios.post('/api/meetups/add', action.payload, config);
-    yield put({type: 'CLEAR_SELECTED_PIN'});
     yield put({ type: 'FETCH_PINS'});
   } catch (error) {
     console.log('Meetup post request failed', error);
@@ -32,6 +31,7 @@ function* getMeetups() {
 function* editMeetup(action) {
   try{
     yield axios.put('/api/meetups', action.payload);
+    yield put({ type: 'FETCH_PINS'});
   } catch(error) {
     console.log('Error in editing meetup', error)
   }
@@ -39,8 +39,8 @@ function* editMeetup(action) {
 
 function* deleteMeetup(action) {
   try {
-    const response = yield axios.delete(`/api/meetups/${action.payload}`)
-    console.log(response);
+    yield axios.delete(`/api/meetups/${action.payload}`)
+    yield put({ type: 'FETCH_PINS'});
   } catch (error) {
     console.log('Error deleting meetup', error);
   }
@@ -49,6 +49,7 @@ function* deleteMeetup(action) {
 function* joinMeetup(action) {
   try {
     yield axios.post('/api/meetups/join', action.payload)
+    yield put({ type: 'FETCH_PINS'});
   }catch (error) {
     console.log('Error joining meetup', error);
   }

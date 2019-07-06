@@ -13,8 +13,7 @@ function* fetchPins(action) {
     // If a user is logged in, this will return all of
     // pins in the database
     const response = yield axios.get('/api/pins', config);
-
-  yield put({ type: 'SET_PIN_LIST', payload: response.data });
+    yield put({ type: 'SET_PIN_LIST', payload: response.data });
 } catch (error) {
   console.log('User get request failed', error);
 }
@@ -26,9 +25,8 @@ function* addPin(action) {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     };
-
-
     yield axios.post('/api/pins', action.payload, config);
+    yield put({type: 'CLEAR_SELECTED_PIN'});
     yield put({ type: 'FETCH_PINS' });
   } catch (error) {
 
@@ -37,6 +35,7 @@ function* addPin(action) {
 
 function* deletePin(action) {
   yield axios.delete(`/api/pins/${action.payload}`)
+  yield put({ type: 'FETCH_PINS'});
 }
 
 function* pinsSaga() {
