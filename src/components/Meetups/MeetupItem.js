@@ -18,7 +18,7 @@ class MeetupItem extends Component {
             payload: {
                 meetupId: id,
             }});
-        console.log(`meetupid: ${id}, userId: ${this.props.user.id}`);
+        this.props.history.push('/home');
     }
 
     render() {

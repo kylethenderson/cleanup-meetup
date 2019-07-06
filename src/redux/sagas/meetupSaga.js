@@ -56,8 +56,9 @@ function* joinMeetup(action) {
 }
 
 function* leaveMeetup(action) {
+  console.log(action.payload);
   try {
-    yield axios.delete('api/meetups/join', action.payload);
+    yield axios.delete(`api/meetups/join/${action.payload.meetupId}`);
     yield put({type: 'FETCH_PINS'});
   } catch(error) {
     console.log('Error leaving meetup', error);

@@ -115,6 +115,13 @@ router.post('/join', rejectUnauthenticated, (req, res) => {
 
 router.delete('/join/:id', (req, res) => {
     pool.query(`DELETE FROM "meetup_joins" WHERE "ref_meetup_id" = $1 AND "ref_user_id" = $2`, [req.params.id, req.user.id])
+        .then(response => {
+            res.sendStatus(200)
+        })
+        .catch(error => {
+            res.sendStatus(500);
+            console.log('Error with DELETE join query', error)
+        })
 })
 
 module.exports = router;

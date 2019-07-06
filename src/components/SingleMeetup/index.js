@@ -100,7 +100,7 @@ class SingleMeetup extends Component {
             payload: {
                 meetupId: this.props.location.state.meetup_id,
             }});
-        console.log(`meetupid: ${id}, userId: ${this.props.user.id}`);
+        this.props.history.push('/home');
     }
 
     deleteMeetup = () => {
