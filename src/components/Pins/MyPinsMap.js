@@ -104,7 +104,7 @@ class Map extends Component {
                         }
                     </GoogleMap>
                     :
-                    <Redirect to="/" />
+                    <Redirect to="/home" />
                 }
             </>
         )

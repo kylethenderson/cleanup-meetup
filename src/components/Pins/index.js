@@ -45,7 +45,7 @@ class MyPins extends Component {
                     </>
                     :
                     <>
-                        <Redirect to="/" />
+                        <Redirect to="/home" />
                     </>
                 }
             </div>

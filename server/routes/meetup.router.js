@@ -91,13 +91,25 @@ router.put('/', (req, res) => {
                     res.sendStatus(200)
                 })
                 .catch(error => {
-                    console.log('Error with UPDATE query', error)
+                    console.log('Error with UPDATE meetup query', error)
                     res.sendStatus(500);
                 })
         })
         .catch( error => {
-            console.log('Error with UPDATE query', error)
+            console.log('Error with UPDATE meetup query', error)
             res.sendStatus(500)
+        })
+})
+
+router.post('/join', (req, res) => {
+    pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id")
+                VALUES ($1, $2);`, [req.body.meetupId, req.user.id])
+        .then(result => {
+            res.sendStatus(200)
+        })
+        .catch(error => {
+            res.sendStatus(500);
+            console.log('Error INSERT into meetup_joins', error);
         })
 })
 

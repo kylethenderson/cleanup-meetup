@@ -48,7 +48,7 @@ class MeetupForm extends Component {
             time: '',
             supplies: '',
         })
-        this.props.history.push('/');
+        this.props.history.push('/home');
     }
 
     render() {
@@ -95,7 +95,7 @@ class MeetupForm extends Component {
 
                     </Grid>
                     :
-                    <Redirect to="/" />
+                    <Redirect to="/home" />
                 }
             </>
         )

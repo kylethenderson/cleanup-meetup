@@ -23,16 +23,16 @@ class SingleMeetup extends Component {
     }
     componentDidMount() {
         this.getUsersJoined();
-        if ( this.props.location.state){
+        if (this.props.location.state) {
             this.setState({
-                ...this.state, 
-                date:  this.props.location.state.date.substring(0, 4) + "-" + this.props.location.state.date.substring(5, 7) + "-" + this.props.location.state.date.substring(8, 10),
+                ...this.state,
+                date: this.props.location.state.date.substring(0, 4) + "-" + this.props.location.state.date.substring(5, 7) + "-" + this.props.location.state.date.substring(8, 10),
                 time: this.props.location.state.time,
                 description: this.props.location.state.description,
                 supplies: this.props.location.state.supplies,
             })
         }
-        
+
     }
 
     getUsersJoined = () => {
@@ -63,9 +63,9 @@ class SingleMeetup extends Component {
             type: 'EDIT_MEETUP',
             payload: {
                 date: this.state.date,
-                time: this.state.time, 
-                supplies: this.state.supplies, 
-                description: this.state.description, 
+                time: this.state.time,
+                supplies: this.state.supplies,
+                description: this.state.description,
                 meetupId: this.props.location.state.meetup_id,
                 pinId: this.props.location.state.pin_id,
             }
@@ -74,7 +74,14 @@ class SingleMeetup extends Component {
     }
 
     joinMeetup = () => {
-        console.log('Meetup Joined', this.props.location.state.meetup_id, this.props.user.id)
+        // console.log('Meetup Joined', this.props.location.state.meetup_id, this.props.user.id)
+        this.props.dispatch({
+            type: 'JOIN_MEETUP',
+            payload: {
+                meetupId: this.props.location.state.meetup_id
+            }
+        })
+        this.props.history.push('/home');
     }
 
     deleteMeetup = () => {
@@ -200,7 +207,7 @@ class SingleMeetup extends Component {
                     </>
                     :
                     <>
-                        <Redirect to="/" />
+                        <Redirect to="/home" />
                     </>
                 }
             </div>

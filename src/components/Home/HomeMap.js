@@ -41,7 +41,7 @@ class Map extends Component {
                         controlSize: 20,
                         minZoom: 9,
                     }}
-                    defaultZoom={11.5}
+                    defaultZoom={10.75}
                     defaultCenter={{ lat: this.props.defaultLat, lng: this.props.defaultLong }}
                 >
                     {this.props.pinList && this.props.pinList.map(pin => (
