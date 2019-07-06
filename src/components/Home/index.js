@@ -4,9 +4,9 @@ import { connect } from 'react-redux'
 import { ClipLoader } from 'react-spinners';
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
-// import Grid from '@material-ui/core/Grid'
-// import TextField from '@material-ui/core/TextField'
-// import Icon from '@material-ui/core/Icon'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Icon from '@material-ui/core/Icon'
 
 import './HomePage.css'
 
@@ -20,7 +20,7 @@ class TestMap extends Component {
     }
     componentDidMount() {
         this.getUserLocation();
-        this.props.dispatch({type:'CLEAR_SELECTED_PIN'})
+        this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
     }
 
     getUserLocation = () => {
@@ -73,11 +73,13 @@ class TestMap extends Component {
             longitude: this.props.user.longitude,
             description: this.state.description,
         });
-        this.props.dispatch({type: 'ADD_PIN', payload: {
-            latitude: this.props.user.latitude,
-            longitude: this.props.user.longitude,
-            description: this.state.description,
-        }})
+        this.props.dispatch({
+            type: 'ADD_PIN', payload: {
+                latitude: this.props.user.latitude,
+                longitude: this.props.user.longitude,
+                description: this.state.description,
+            }
+        })
         this.closeDialog();
     }
     render() {
@@ -111,7 +113,29 @@ class TestMap extends Component {
                     <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
                 </div>
                 <Dialog open={this.state.dialogOpen} onClose={this.handleClose} id="descriptionDialog" aria-labelledby="simple-dialog-title">
-                   <p onClick={this.closeDialog}>Something</p>
+                    <Grid container justify="center">
+                        <Icon id="closeDialogIcon" onClick={this.closeDialog}>close</Icon>
+                        <Grid item xs={9} className="grid-item-text-center">
+                            <h2>Area Description</h2>
+                        </Grid>
+                        <Grid item xs={9} className="grid-item-text-center">
+                            <TextField
+                                value={this.state.description}
+                                id="description"
+                                label="Description"
+                                margin="normal"
+                                required
+                                multiline
+                                rows="4"
+                                fullWidth
+                                variant="outlined"
+                                onChange={this.handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={9} className="grid-item-text-center">
+                            <Button variant="outlined" color="primary" className="medium-button-text" onClick={this.addPin}>Mark Location</Button>
+                        </Grid>
+                    </Grid>
                 </Dialog>
             </>
         )
