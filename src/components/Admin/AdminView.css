@@ -1,6 +1,13 @@
+#adminView{
+    padding-bottom: 75px;
+}
 #adminView h2 {
     text-align: center;
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 4px;
+}
+#adminView .error-background {
+    background-color:  #8d230f;
+    color: white;
 }

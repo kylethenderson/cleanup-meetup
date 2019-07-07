@@ -46,9 +46,9 @@ function* editMeetup(action) {
   }
 }
 
+// deleteMeetup takes the id of the meetup to delete
 function* deleteMeetup(action) {
   try {
-    console.log('deleteMeetup payload:', action.payload);
     yield axios.delete(`/api/meetups/${action.payload}`)
     yield put({ type: 'FETCH_PINS'});
   } catch (error) {
@@ -66,7 +66,6 @@ function* joinMeetup(action) {
 }
 
 function* leaveMeetup(action) {
-  console.log(action.payload);
   try {
     yield axios.delete(`api/meetups/join/${action.payload.meetupId}`);
     yield put({type: 'FETCH_PINS'});

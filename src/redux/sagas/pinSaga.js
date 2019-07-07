@@ -33,6 +33,7 @@ function* addPin(action) {
   }
 }
 
+// deletePin takes the id of the pin to be deleted
 function* deletePin(action) {
   yield axios.delete(`/api/pins/${action.payload}`)
   yield put({ type: 'FETCH_PINS'});
