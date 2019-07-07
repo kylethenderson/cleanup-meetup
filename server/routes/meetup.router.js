@@ -54,6 +54,19 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.get('/single/:id', rejectUnauthenticated, (req, res) =>{
+    pool.query(`SELECT * FROM "meetups" JOIN 
+    "pins" ON "meetups"."ref_pin_id" = "pins"."pin_id"
+    WHERE "meetup_id" = $1 LIMIT 1;`, [req.params.id])
+        .then( result => {
+            res.send(result.rows[0]);
+        })
+        .catch(error => {
+            console.log('Error in SELECT single query', error);
+            res.sendStatus(500);
+        })
+})
+
 router.get('/joins', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM "meetups"
     LEFT JOIN "meetup_joins" ON "meetups"."meetup_id" = "meetup_joins"."ref_meetup_id"

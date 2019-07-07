@@ -18,7 +18,17 @@ const allMeetups = (state=[], action) => {
     }
 }
 
+const singleMeetup = (state={}, action) => {
+    switch(action.type) {
+        case ('SET_SINGLE_MEETUP'):
+            return action.payload;
+        default: 
+            return state;
+    }
+}
+
 export default combineReducers({
     userMeetups,
     allMeetups,
+    singleMeetup,
   });

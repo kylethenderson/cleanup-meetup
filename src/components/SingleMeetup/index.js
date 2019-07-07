@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import WrappedMap from './SingleMeetupMap'
 import Grid from '@material-ui/core/Grid'
@@ -23,25 +22,30 @@ class SingleMeetup extends Component {
         supplies: '',
     }
     componentDidMount() {
+        this.getSingleMeetup();
         this.getUsersJoined();
-        if (this.props.location.state) {
-            this.setState({
-                ...this.state,
-                date: this.props.location.state.date.substring(0, 4) + "-" + this.props.location.state.date.substring(5, 7) + "-" + this.props.location.state.date.substring(8, 10),
-                time: this.props.location.state.time,
-                description: this.props.location.state.description,
-                supplies: this.props.location.state.supplies,
-            })
-        }
-
     }
 
+    getSingleMeetup = () => {
+        this.props.dispatch({ type: 'FETCH_SINGLE_MEETUP', payload: Number(this.props.location.search.substring(1)) })
+    }
+
+    enableEdit = () => {
+        this.setState({
+            ...this.state,
+            date: this.props.singleMeetup.date.substring(0, 4) + "-" + this.props.singleMeetup.date.substring(5, 7) + "-" + this.props.singleMeetup.date.substring(8, 10),
+            time: this.props.singleMeetup.time,
+            description: this.props.singleMeetup.description,
+            supplies: this.props.singleMeetup.supplies,
+            editMode: true,
+        })
+    }
     getUsersJoined = () => {
-        if (this.props.location.state) {
-            axios.get(`/api/meetups/joins?id=${this.props.location.state.meetup_id}`)
+        if (this.props.location.search) {
+            axios.get(`/api/meetups/joins?id=${Number(this.props.location.search.substring(1))}`)
                 .then(response => {
                     const userIsJoined = response.data.filter(obj => obj.ref_user_id === this.props.user.id)
-                    if ( userIsJoined.length ) {
+                    if (userIsJoined.length) {
                         this.setState({
                             ...this.state,
                             usersJoined: response.data,
@@ -76,19 +80,18 @@ class SingleMeetup extends Component {
                 time: this.state.time,
                 supplies: this.state.supplies,
                 description: this.state.description,
-                meetupId: this.props.location.state.meetup_id,
-                pinId: this.props.location.state.pin_id,
+                meetupId: this.props.singleMeetup.meetup_id,
+                pinId: this.props.singleMeetup.pin_id,
             }
         })
-        this.props.history.push('/home');
     }
 
     joinMeetup = () => {
-        // console.log('Meetup Joined', this.props.location.state.meetup_id, this.props.user.id)
+        // console.log('Meetup Joined', this.props.singleMeetup.meetup_id, this.props.user.id)
         this.props.dispatch({
             type: 'JOIN_MEETUP',
             payload: {
-                meetupId: this.props.location.state.meetup_id
+                meetupId: Number(this.props.location.search.substring(1)),
             }
         })
         this.props.history.push('/home');
@@ -96,31 +99,32 @@ class SingleMeetup extends Component {
 
     leaveMeetup = (id) => {
         this.props.dispatch({
-            type: 'LEAVE_MEETUP', 
+            type: 'LEAVE_MEETUP',
             payload: {
-                meetupId: this.props.location.state.meetup_id,
-            }});
+                meetupId: Number(this.props.location.search.substring(1)),
+            }
+        });
         this.props.history.push('/home');
     }
 
     deleteMeetup = () => {
-        console.log(this.props.location.state);
-        this.props.dispatch({ type: 'DELETE_MEETUP', payload: this.props.location.state.meetup_id });
+        console.log(this.props.singleMeetup);
+        this.props.dispatch({ type: 'DELETE_MEETUP', payload: Number(this.props.location.search.substring(1)) });
         this.props.history.push('/home');
     }
 
-    formatDate = (dateString) => {
-        return dateString.substring(5, 7) + "/" + dateString.substring(8, 10) + "/" + dateString.substring(0, 4)
-    }
-
     render() {
-        const meetup = this.props.location.state;
+        const meetup = this.props.singleMeetup;
         return (
             <div id="singleMeetup">
-                {meetup ?
+                {meetup.meetup_id ?
                     <>
-                    {JSON.stringify(this.state.userIsJoined)}
-                    {JSON.stringify(this.props.location.state.meetup_id)}
+                        {/* {JSON.stringify(this.state.userIsJoined)}
+                        {JSON.stringify(meetup.meetup_id)}
+                        */}
+                        {/* <pre>
+                            {JSON.stringify(meetup, null, 2)}
+                        </pre> */}
                         <div className="mapContainer">
                             <WrappedMap
                                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${MAPS_KEY}`}
@@ -128,7 +132,7 @@ class SingleMeetup extends Component {
                                 containerElement={<div style={{ height: "100%" }} />}
                                 mapElement={<div style={{ height: "100%" }} />}
                                 className="mapWrapper"
-                                meetup={meetup}
+                                meetup={this.props.singleMeetup}
                                 defaultLat={Number(meetup.latitude)}
                                 defaultLong={Number(meetup.longitude)}
                             />
@@ -146,7 +150,7 @@ class SingleMeetup extends Component {
                                         onChange={this.handleChange}
                                     />
                                     :
-                                    <p>Date: {this.formatDate(meetup.date)}</p>
+                                    <p>Date: {meetup.date.substring(5, 7) + "/" + meetup.date.substring(8, 10) + "/" + meetup.date.substring(0, 4)}</p>
                                 }
                             </Grid>
                             <Grid item xs={5}>
@@ -215,16 +219,16 @@ class SingleMeetup extends Component {
                                             {this.state.editMode ?
                                                 <Button variant="contained" color="primary" onClick={this.editMeetup}>Update</Button>
                                                 :
-                                                <Button variant="contained" color="primary" onClick={() => this.setState({ ...this.state, editMode: true, })}>Edit</Button>
+                                                <Button variant="contained" color="primary" onClick={this.enableEdit}>Edit</Button>
                                             }
                                         </>
                                         :
                                         <>
-                                        {this.state.userIsJoined ? 
-                                            <Button variant="contained" color="primary" onClick={this.leaveMeetup}>Leave</Button>
-                                            :
-                                            <Button variant="contained" color="primary" onClick={this.joinMeetup}>Join</Button>
-                                        }
+                                            {this.state.userIsJoined ?
+                                                <Button variant="contained" color="primary" onClick={this.leaveMeetup}>Leave</Button>
+                                                :
+                                                <Button variant="contained" color="primary" onClick={this.joinMeetup}>Join</Button>
+                                            }
                                         </>
                                     }
                                 </Grid>
@@ -234,7 +238,6 @@ class SingleMeetup extends Component {
                     </>
                     :
                     <>
-                        <Redirect to="/home" />
                     </>
                 }
             </div>
@@ -244,6 +247,7 @@ class SingleMeetup extends Component {
 
 const mapStateToProps = reduxState => ({
     user: reduxState.user,
+    singleMeetup: reduxState.meetups.singleMeetup,
 })
 
 export default connect(mapStateToProps)(SingleMeetup)

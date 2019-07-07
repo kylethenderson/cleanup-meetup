@@ -11,13 +11,6 @@ class Meetups extends Component {
         this.props.dispatch({ type: 'FETCH_USER_MEETUPS' })
     }
 
-    viewMeetup = (meetup) => {
-        return this.props.history.push({
-            pathname: '/meetup',
-            state: meetup,
-        })
-    }
-
     render() {
         return (
             <>

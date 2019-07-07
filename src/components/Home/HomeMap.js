@@ -19,12 +19,17 @@ class Map extends Component {
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
     }
 
-    viewMeetup = (meetup) => {
-        this.props.history.push({
-            pathname: '/meetup',
-            state: meetup,
-        })
-        this.props.dispatch({type: 'CLEAR_SELECTED_PIN'})
+    // viewMeetup = (meetup) => {
+    //     this.props.history.push({
+    //         pathname: '/meetup',
+    //         state: meetup,
+    //     })
+    //     this.props.dispatch({type: 'CLEAR_SELECTED_PIN'})
+    // }
+
+    viewMeetup = () => {
+        this.props.history.push(`/meetup?${this.props.selectedPin.meetup_id}`);
+        this.props.dispatch({type: 'CLEAR_SELECTED_PIN'});
     }
 
     organizeMeetup = () => {
@@ -76,7 +81,7 @@ class Map extends Component {
                                     <h4>Meetup Details</h4>
                                     <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                     <h5>Time: {this.props.selectedPin.time}</h5>
-                                    <Button variant="contained" color="secondary" size="small" onClick={()=>this.viewMeetup(this.props.selectedPin)}>View</Button>
+                                    <Button variant="contained" color="secondary" size="small" onClick={this.viewMeetup}>View</Button>
                                 </div>
                                 :
                                 <div id="infoWindow">

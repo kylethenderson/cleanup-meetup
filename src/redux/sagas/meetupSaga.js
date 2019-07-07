@@ -28,6 +28,15 @@ function* getMeetups() {
   }
 }
 
+function* getSingleMeetup(action) {
+  try {
+    const singleMeetup = yield axios.get(`/api/meetups/single/${action.payload}`)
+    yield put({type: 'SET_SINGLE_MEETUP', payload: singleMeetup.data})
+  } catch(error) {
+    console.log('Error in get saga from single meetup', error)
+  }
+}
+
 function* getUserMeetups() {
     try {
         const userMeetups = yield axios.get('/api/meetups/user');
@@ -82,6 +91,7 @@ function* meetupSaga() {
   yield takeLatest('EDIT_MEETUP', editMeetup)
   yield takeLatest('JOIN_MEETUP', joinMeetup)
   yield takeLatest('LEAVE_MEETUP', leaveMeetup)
+  yield takeLatest('FETCH_SINGLE_MEETUP', getSingleMeetup)
 }
 
 export default meetupSaga;

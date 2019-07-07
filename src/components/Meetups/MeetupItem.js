@@ -5,11 +5,15 @@ import Button from '@material-ui/core/Button'
 
 class MeetupItem extends Component {
     
-    viewMeetup = (meetup) => {
-        return this.props.history.push({
-            pathname: '/meetup',
-            state: meetup,
-        })
+    // viewMeetup = (meetup) => {
+    //     return this.props.history.push({
+    //         pathname: '/meetup',
+    //         state: meetup,
+    //     })
+    // }
+
+    viewMeetup = () => {
+        this.props.history.push(`/meetup?${this.props.meetup.meetup_id}`);
     }
 
     leaveMeetup = (id) => {
@@ -32,7 +36,7 @@ class MeetupItem extends Component {
                 </Grid>
                 <Grid item xs={3} className="grid-item-text-center">
                     {this.props.meetup.ref_organized_by === this.props.user.id ?
-                        <Button onClick={() => this.viewMeetup(this.props.meetup)} size="small" variant="contained" color="primary">View</Button>
+                        <Button onClick={this.viewMeetup} size="small" variant="contained" color="primary">View</Button>
                         :
                         <Button onClick={() => this.leaveMeetup(this.props.meetup.meetup_id)} size="small" variant="contained" color="primary">Leave</Button>
                     }
