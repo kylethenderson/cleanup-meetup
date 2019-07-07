@@ -23,12 +23,17 @@ class Map extends Component {
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin });
     }
 
-    viewMeetup = (meetup) => {
-        this.props.history.push({
-            pathname: '/meetup',
-            state: meetup,
-        })
-        this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
+    // viewMeetup = (meetup) => {
+    //     this.props.history.push({
+    //         pathname: '/meetup',
+    //         state: meetup,
+    //     })
+    //     this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
+    // }
+
+    viewMeetup = () => {
+        this.props.history.push(`/meetup?${this.props.selectedPin.meetup_id}`);
+        this.props.dispatch({type: 'CLEAR_SELECTED_PIN'});
     }
 
     organizeMeetup = () => {
@@ -91,7 +96,7 @@ class Map extends Component {
                                         <h4>Meetup Details: {this.props.selectedPin.meetup_id}</h4>
                                         <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                         <h5>Time: {this.props.selectedPin.time}</h5>
-                                        <Button variant="contained" color="primary" size="small" onClick={() => this.viewMeetup(this.props.selectedPin)}>View</Button>
+                                        <Button variant="contained" color="primary" size="small" onClick={this.viewMeetup}>View</Button>
                                         <Button variant="contained" className="error-background" size="small" onClick={this.deletePin}>Delete</Button>
                                     </div>
                                     :
