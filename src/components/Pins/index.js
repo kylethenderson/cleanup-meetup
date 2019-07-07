@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import WrappedMap from './MyPinsMap'
 
+import './MyPins.css'
+
 // import the key from .env - keeps key secure
 const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 

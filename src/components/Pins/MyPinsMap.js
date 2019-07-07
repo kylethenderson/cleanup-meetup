@@ -92,12 +92,13 @@ class Map extends Component {
                                         <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                         <h5>Time: {this.props.selectedPin.time}</h5>
                                         <Button variant="contained" color="primary" size="small" onClick={() => this.viewMeetup(this.props.selectedPin)}>View</Button>
+                                        <Button variant="contained" className="error-background" size="small" onClick={this.deletePin}>Delete</Button>
                                     </div>
                                     :
                                     <div id="infoWindow">
                                         <h4>Organize Meetup: {this.props.selectedPin.pin_id}</h4>
                                         <Button variant="contained" color="primary" size="small" onClick={this.organizeMeetup}>Organize</Button>
-                                        <Button variant="contained" color="primary" size="small" onClick={this.deletePin}>Delete</Button>
+                                        <Button variant="contained" className="error-background" size="small" onClick={this.deletePin}>Delete</Button>
                                     </div>
                                 }
                             </InfoWindow>

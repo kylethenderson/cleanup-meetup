@@ -27,7 +27,7 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
 })
 
 
-router.get('/', rejectUnauthenticated, (req, res) => {
+router.get('/user', rejectUnauthenticated, (req, res) => {
     const queryText = `SELECT * FROM
     "meetups" JOIN "pins" ON "meetups"."ref_pin_id" = "pins"."pin_id"
     LEFT JOIN "meetup_joins" ON "meetups"."meetup_id" = "meetup_joins"."ref_meetup_id"
@@ -40,6 +40,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         .catch(error => {
             res.sendStatus(500);
             console.log('Error in user meetups query', error);
+        })
+})
+
+router.get('/all', rejectUnauthenticated, (req, res) => {
+    pool.query(`SELECT * FROM "meetups" ORDER BY "meetup_id";`)
+        .then(result => {
+            res.send(result.rows)
+        })
+        .catch(error => {
+            console.log('Error in meetup SELECT query', error)
+            res.sendStatus(500);
         })
 })
 

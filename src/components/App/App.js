@@ -21,6 +21,7 @@ import Organize from '../OrganizeMeetup'
 import SingleMeetup from '../SingleMeetup'
 import WelcomePage from '../WelcomePage'
 import ErrorPage from '../ErrorPage'
+import AdminView from '../Admin'
 
 
 import './App.css';
@@ -50,6 +51,7 @@ class App extends Component {
             <ProtectedRoute exact path="/profile" component={Profile} />
             <ProtectedRoute exact path="/organize-meetup" component={Organize} />
             <ProtectedRoute exact path="/meetup" component={SingleMeetup} />
+            <ProtectedRoute exact path="/admin" component={AdminView} />
             {/* If none of the other routes matched, we will show a 404. */}
             {/* <Route render={() => <h1>404</h1>} /> */}
             <Route component={ErrorPage}/>

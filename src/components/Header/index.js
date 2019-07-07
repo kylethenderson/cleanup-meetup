@@ -49,16 +49,21 @@ class Header extends Component {
                                 </button>
                                 <Link onClick={this.toggleDrawer(false)} className="nav-link" to="/home">
                                     Home
-                                    </Link>
+                                </Link>
                                 <Link onClick={this.toggleDrawer(false)} className="nav-link" to="/my-pins">
                                     My Pins
-                                    </Link>
+                                </Link>
                                 <Link onClick={this.toggleDrawer(false)} className="nav-link" to="/my-meetups">
                                     My Meetups
-                                    </Link>
+                                </Link>
                                 <Link onClick={this.toggleDrawer(false)} className="nav-link" to="/profile">
                                     Profile
+                                </Link>
+                                { this.props.user.admin && 
+                                    <Link onClick={this.toggleDrawer(false)} className="nav-link" to="/admin">
+                                        Admin
                                     </Link>
+                                }
                                 <button
                                     id="logoutButton"
                                     className="nav-link"

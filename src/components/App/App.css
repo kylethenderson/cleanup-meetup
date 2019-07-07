@@ -71,3 +71,7 @@ button.medium-button-text {
     font-size: 1rem;
     letter-spacing: 2px;
 }
+.error-background {
+    background-color:  #8d230f;
+    color: white;
+}

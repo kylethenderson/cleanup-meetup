@@ -20,8 +20,17 @@ function* addMeetup(action) {
 }
 
 function* getMeetups() {
+  try {
+    const allMeetups = yield axios.get('/api/meetups/all');
+    yield put({type: 'SET_ALL_MEETUPS', payload: allMeetups.data});
+  } catch(error) {
+    console.log('Error in fetching meetups', error);
+  }
+}
+
+function* getUserMeetups() {
     try {
-        const userMeetups = yield axios.get('/api/meetups');
+        const userMeetups = yield axios.get('/api/meetups/user');
         yield put({type: 'SET_USER_MEETUPS', payload: userMeetups.data});
     } catch( error ) {
         console.log('Meetup get request failed', error);
@@ -68,7 +77,8 @@ function* leaveMeetup(action) {
 
 function* meetupSaga() {
   yield takeLatest('ADD_MEETUP', addMeetup);
-  yield takeLatest('FETCH_USER_MEETUPS', getMeetups)
+  yield takeLatest('FETCH_USER_MEETUPS', getUserMeetups)
+  yield takeLatest('FETCH_MEETUPS', getMeetups)
   yield takeLatest('DELETE_MEETUP', deleteMeetup)
   yield takeLatest('EDIT_MEETUP', editMeetup)
   yield takeLatest('JOIN_MEETUP', joinMeetup)
