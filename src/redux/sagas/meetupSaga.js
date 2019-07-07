@@ -49,6 +49,7 @@ function* getUserMeetups() {
 function* editMeetup(action) {
   try{
     yield axios.put('/api/meetups', action.payload);
+    yield put({ type: 'FETCH_SINGLE_MEETUP', payload: action.payload.meetupId})
     yield put({ type: 'FETCH_PINS'});
   } catch(error) {
     console.log('Error in editing meetup', error)
@@ -59,7 +60,7 @@ function* editMeetup(action) {
 function* deleteMeetup(action) {
   try {
     yield axios.delete(`/api/meetups/${action.payload}`)
-    yield put({ type: 'FETCH_PINS'});
+    yield put({ type: 'FETCH_MEETUPS'});
   } catch (error) {
     console.log('Error deleting meetup', error);
   }

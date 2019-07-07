@@ -70,6 +70,7 @@ class SingleMeetup extends Component {
     }
 
     editMeetup = () => {
+        console.log(this.state);
         this.setState({
             ...this.state, editMode: false,
         })

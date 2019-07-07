@@ -38,11 +38,7 @@ class Header extends Component {
                     {this.props.user.id && (
                         <>
                             {/* Icon is only clickable once the user's location is updated */}
-                            {this.props.user.latitude ?
-                                <Icon size="large" onClick={this.toggleDrawer(true)} id="navMenuButton">menu</Icon>
-                                :
-                                <Icon size="large" id="navMenuButton">menu</Icon>
-                            }
+                            <Icon size="large" onClick={this.toggleDrawer(true)} id="navMenuButton">menu</Icon>
                             <Drawer id="navDrawer" open={this.state.drawer}>
                                 <button onClick={this.toggleDrawer(false)} className="nav-link close-drawer">
                                     <Icon onClick={this.toggleDrawer(false)}>close</Icon>

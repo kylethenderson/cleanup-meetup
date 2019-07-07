@@ -7,6 +7,14 @@
     text-transform: uppercase;
     letter-spacing: 4px;
 }
+#adminView h3 {
+    display: inline-block;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-left: 10px;
+    border-bottom: 1px solid rgba(34, 34, 34, .75);
+}
 #adminView .error-background {
     background-color:  #8d230f;
     color: white;
