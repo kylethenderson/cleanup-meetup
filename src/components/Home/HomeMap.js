@@ -19,14 +19,6 @@ class Map extends Component {
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
     }
 
-    // viewMeetup = (meetup) => {
-    //     this.props.history.push({
-    //         pathname: '/meetup',
-    //         state: meetup,
-    //     })
-    //     this.props.dispatch({type: 'CLEAR_SELECTED_PIN'})
-    // }
-
     viewMeetup = () => {
         this.props.history.push(`/meetup?${this.props.selectedPin.meetup_id}`);
         this.props.dispatch({type: 'CLEAR_SELECTED_PIN'});

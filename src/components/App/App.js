@@ -4,6 +4,7 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
+import { Redirect } from 'react-router-dom'
 import {connect} from 'react-redux';
 
 
@@ -36,9 +37,10 @@ class App extends Component {
     return (
       <Router>
         <div className="app">
-          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Header {...routerProps}/> } />
+          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/welcome") && <Header {...routerProps}/> } />
           <Switch>
-            <Route exact path="/" component={WelcomePage} />
+            <Redirect exact from="/" to="/welcome" /> 
+            <Route exact path="/welcome" component={WelcomePage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the HomePage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -56,7 +58,7 @@ class App extends Component {
             {/* <Route render={() => <h1>404</h1>} /> */}
             <Route component={ErrorPage}/>
           </Switch>
-          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/") && <Footer /> } />
+          <Route path="/" render={ ( routerProps ) => ( routerProps.location.pathname !== "/welcome") && <Footer /> } />
         </div>
       </Router>
   )}

@@ -220,7 +220,7 @@ class SingleMeetup extends Component {
                                             {this.state.editMode ?
                                                 <Button variant="contained" color="primary" onClick={this.editMeetup}>Update</Button>
                                                 :
-                                                <Button variant="contained" color="primary" onClick={this.enableEdit}>Edit</Button>
+                                                <Button variant="contained" color="primary" onClick={this.enableEdit}>Edit Meetup</Button>
                                             }
                                         </>
                                         :
