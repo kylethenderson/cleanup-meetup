@@ -5,6 +5,7 @@ import WrappedMap from './SingleMeetupMap'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
+import Dialog from '@material-ui/core/Dialog'
 
 import './SingleMeetup.css'
 
@@ -13,6 +14,7 @@ const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class SingleMeetup extends Component {
     state = {
+        dialogOpen: false,
         usersJoined: [],
         userIsJoined: false,
         editMode: false,
@@ -108,9 +110,16 @@ class SingleMeetup extends Component {
         this.props.history.push('/home');
     }
 
+    toggleDeleteDialog = () => {
+        this.setState({
+            ...this.state, dialogOpen: !this.state.dialogOpen,
+        })
+    }
+
     deleteMeetup = () => {
         console.log(this.props.singleMeetup);
         this.props.dispatch({ type: 'DELETE_MEETUP', payload: Number(this.props.location.search.substring(1)) });
+        this.toggleDeleteDialog();
         this.props.history.push('/home');
     }
 
@@ -209,7 +218,7 @@ class SingleMeetup extends Component {
                             <Grid id="buttonContainer" item xs={10} container justify="center" className="grid-item-text-center">
                                 <Grid item xs={6}>
                                     {this.props.user.admin || meetup.ref_created_by === this.props.user.id ?
-                                        <Button variant="contained" className="error-background" onClick={this.deleteMeetup}>Delete Meetup</Button>
+                                        <Button variant="contained" className="error-background" onClick={this.toggleDeleteDialog}>Delete Meetup</Button>
                                         :
                                         <></>
                                     }
@@ -236,6 +245,20 @@ class SingleMeetup extends Component {
                             </Grid>
                             {/* <pre>{JSON.stringify(meetup, null, 2)}</pre> */}
                         </Grid>
+                        <Dialog open={this.state.dialogOpen}>
+                            <Grid container justify="center" id="deleteDialog">
+                                <Grid item xs={9} className="grid-item-text-center">
+                                    <h2>This will delete the meetup for this pin.</h2>
+                                    <h3>Are you sure?</h3>
+                                </Grid>
+                                <Grid item xs={5} className="grid-item-text-center">
+                                    <Button variant="contained" color="secondary" onClick={this.toggleDeleteDialog}>No</Button>
+                                </Grid>
+                                <Grid item xs={5} className="grid-item-text-center">
+                                    <Button variant="contained" color="primary" onClick={this.deleteMeetup}>Yes</Button>
+                                </Grid>
+                            </Grid>
+                        </Dialog>
                     </>
                     :
                     <>
