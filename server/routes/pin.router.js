@@ -17,6 +17,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// get route to get a username by an id
 router.get('/username/:id', (req, res) => {
     pool.query('SELECT username FROM "user" WHERE "id" = $1;', [req.params.id])
         .then(result => {

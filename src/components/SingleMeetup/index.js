@@ -148,6 +148,9 @@ class SingleMeetup extends Component {
                             />
                         </div>
                         <Grid container justify="center" id="singleMeetDeets">
+                            <Grid item xs={10}>
+                                <h3>Organized by: {meetup.organizer}</h3>
+                            </Grid>
                             <Grid item xs={5}>
                                 {this.state.editMode ?
                                     <TextField
