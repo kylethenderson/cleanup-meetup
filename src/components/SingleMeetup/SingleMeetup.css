@@ -13,3 +13,14 @@
     background-color:  #8d230f;
     color: white;
 }
+#deleteDialog {
+    padding-bottom: 25px !important;
+}
+#deleteDialog h2 {
+    font-weight: 300;
+    font-size: 1.5rem;
+}
+#deleteDialog h3 {
+    font-weight: 400;
+    padding-bottom: 20px;
+}
