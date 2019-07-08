@@ -16,7 +16,9 @@ class Map extends Component {
     }
 
     setSelectedPin = (pin) => {
-        this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
+        // this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
+        console.log('Selected pin is', pin)
+        this.props.dispatch({type: 'SELECT_PIN', payload: pin});
     }
 
     viewMeetup = () => {
@@ -77,6 +79,7 @@ class Map extends Component {
                                 </div>
                                 :
                                 <div id="infoWindow">
+                                    <h4>Dropped by: {this.props.selectedPin.username}</h4>
                                     <h4>Organize Meetup</h4>
                                     <Button variant="contained" color="secondary" size="small" onClick={this.organizeMeetup}>Let's Go!</Button>
                                 </div>

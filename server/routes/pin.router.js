@@ -17,6 +17,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+router.get('/username/:id', (req, res) => {
+    pool.query('SELECT username FROM "user" WHERE "id" = $1;', [req.params.id])
+        .then(result => {
+            res.send(result.rows[0].username);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+            console.log('Error in getting single username', error);
+        })
+})
+
 router.post('/', rejectUnauthenticated, (req, res) => {
     const queryText = `INSERT INTO "pins" ("longitude", "latitude", "description", "ref_created_by") VALUES
     ($1, $2, $3, $4);`
@@ -29,6 +40,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// delete a pin route - requires the id passed at the end of the url 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // we need to delete the pin - req.params.id is the pin_id
     // we have to get ALL of the data from pins, meetups, and meetup_joins
