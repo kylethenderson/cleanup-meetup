@@ -1,0 +1,16 @@
+#errorPage {
+    text-align: center;
+}
+
+#errorPage h1 {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+#errorPage h4 {
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+#errorPage button {
+    margin-top: 25px;
+}
