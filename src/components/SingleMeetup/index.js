@@ -217,14 +217,14 @@ class SingleMeetup extends Component {
                             </Grid>
                             <Grid id="buttonContainer" item xs={10} container justify="center" className="grid-item-text-center">
                                 <Grid item xs={6}>
-                                    {this.props.user.admin || meetup.ref_created_by === this.props.user.id ?
+                                    {this.props.user.admin || meetup.ref_organized_by === this.props.user.id ?
                                         <Button variant="contained" className="error-background" onClick={this.toggleDeleteDialog}>Delete Meetup</Button>
                                         :
                                         <></>
                                     }
                                 </Grid>
                                 <Grid item xs={6}>
-                                    {meetup.ref_created_by === this.props.user.id ?
+                                    {meetup.ref_organized_by === this.props.user.id ?
                                         <>
                                             {this.state.editMode ?
                                                 <Button variant="contained" color="primary" onClick={this.editMeetup}>Update</Button>
