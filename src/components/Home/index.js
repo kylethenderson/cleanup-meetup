@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import WrappedMap from './HomeMap'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { ClipLoader } from 'react-spinners';
+import { BounceLoader } from 'react-spinners';
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import Grid from '@material-ui/core/Grid'
@@ -103,10 +103,9 @@ class TestMap extends Component {
                                 :
                                 <div id="mapLoader">
                                     <h4>Map Loading...</h4>
-                                    <ClipLoader
+                                    <BounceLoader
                                         sizeUnit={"px"}
                                         size={75}
-                                        width={5}
                                         color={'rgba(0, 143, 12, 1);'}
                                     />
                                 </div>

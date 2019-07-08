@@ -7,10 +7,14 @@
     position: relative;
     top: 12.5vh;
 }
+#mapLoader div:first-of-type{
+    margin: 0 auto;
+}
 #mapLoader h4 {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 300;
+    /* animation: pulse 1s linear infinite; */
 }
 #infoWindow {
     text-align: center;
@@ -51,4 +55,16 @@
 }
 #descriptionDialog button {
     margin: 10px 0px 20px 0px;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .25;
+    }
+    100% {
+        opacity: 1;
+    }
 }
