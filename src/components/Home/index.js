@@ -114,6 +114,16 @@ class TestMap extends Component {
                         <div id="buttonContainer">
                             <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
                         </div>
+                        <Grid container justify="center" id="markerLegend">
+                            <Grid item xs={5}>
+                                <img alt="green marker - has meetup" src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" />
+                                <h4>meetup <br />organized</h4>
+                            </Grid>
+                            <Grid item xs={5}>
+                                <img alt="red marker - doesn't have meetup" src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" />
+                                <h4>meetup <br />not organized</h4>
+                            </Grid>
+                        </Grid>
                         <Dialog open={this.state.dialogOpen} onClose={this.handleClose} id="descriptionDialog" aria-labelledby="simple-dialog-title">
                             <Grid container justify="center">
                                 <Icon id="closeDialogIcon" onClick={this.closeDialog}>close</Icon>

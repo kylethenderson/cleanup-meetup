@@ -9,10 +9,13 @@ import {
     InfoWindow,
 } from 'react-google-maps'
 import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
+import Dialog from '@material-ui/core/Dialog'
 
 class Map extends Component {
     state = {
         selectedPin: null,
+        dialogOpen: false,
     }
 
     componentDidMount() {
@@ -23,17 +26,15 @@ class Map extends Component {
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin });
     }
 
-    // viewMeetup = (meetup) => {
-    //     this.props.history.push({
-    //         pathname: '/meetup',
-    //         state: meetup,
-    //     })
-    //     this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
-    // }
+    toggleDeleteDialog = () => {
+        this.setState({
+            ...this.state, dialogOpen: !this.state.dialogOpen,
+        })
+    }
 
     viewMeetup = () => {
         this.props.history.push(`/meetup?${this.props.selectedPin.meetup_id}`);
-        this.props.dispatch({type: 'CLEAR_SELECTED_PIN'});
+        this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' });
     }
 
     organizeMeetup = () => {
@@ -49,6 +50,7 @@ class Map extends Component {
         return (
             <>
                 {this.props.pinList.length ?
+                <>
                     <GoogleMap
                         defaultOptions={{
                             streetViewControl: false,
@@ -101,14 +103,29 @@ class Map extends Component {
                                     </div>
                                     :
                                     <div id="infoWindow">
-                                        <h4>Organize Meetup: {this.props.selectedPin.pin_id}</h4>
+                                        <h4>Actions for this pin</h4>
                                         <Button variant="contained" color="primary" size="small" onClick={this.organizeMeetup}>Organize</Button>
-                                        <Button variant="contained" className="error-background" size="small" onClick={this.deletePin}>Delete</Button>
+                                        <Button variant="contained" className="error-background" size="small" onClick={this.toggleDeleteDialog}>Delete</Button>
                                     </div>
                                 }
                             </InfoWindow>
                         }
                     </GoogleMap>
+                    <Dialog open={this.state.dialogOpen}>
+                        <Grid container justify="center" id="deleteDialog">
+                            <Grid item xs={9} className="grid-item-text-center">
+                                <h2>This will delete this pin and any MeetUp organized on it.</h2>
+                                <h3>Are you sure?</h3>
+                            </Grid>
+                            <Grid item xs={5} className="grid-item-text-center">
+                                <Button variant="contained" color="secondary" onClick={this.toggleDeleteDialog}>No</Button>
+                            </Grid>
+                            <Grid item xs={5} className="grid-item-text-center">
+                                <Button variant="contained" color="primary" onClick={this.deletePin}>Yes</Button>
+                            </Grid>
+                        </Grid>
+                    </Dialog>
+                    </>
                     :
                     <Redirect to="/home" />
                 }
