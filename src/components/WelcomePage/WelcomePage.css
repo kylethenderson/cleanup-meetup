@@ -85,7 +85,7 @@
     font-size: 16px;
     letter-spacing: 2px;
 }
-
+/* 
 @keyframes spinIt {
     from {
         transform: rotate(0deg);
@@ -101,7 +101,7 @@
     to {
         transform: rotate(-360deg);
     }
-}
+} */
 /* @keyframes oppositeRotation {
     from {
         transform: rotate(0deg)
