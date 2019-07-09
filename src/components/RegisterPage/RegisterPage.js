@@ -8,6 +8,10 @@ class RegisterPage extends Component {
   state = {
     username: '',
     password: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
   };
 
   registerUser = (event) => {
@@ -54,6 +58,7 @@ class RegisterPage extends Component {
               value={this.state.username}
               onChange={this.handleInputChangeFor('username')}
               margin="normal"
+              required
             />
             <TextField
               fullWidth
@@ -62,6 +67,46 @@ class RegisterPage extends Component {
               type="password"
               value={this.state.password}
               onChange={this.handleInputChangeFor('password')}
+              margin="normal"
+              required
+            />
+            <TextField
+              fullWidth
+              id="firstName"
+              label="First Name"
+              type="text"
+              value={this.state.firstName}
+              onChange={this.handleInputChangeFor('firstName')}
+              margin="normal"
+              required
+            />
+            <TextField
+              fullWidth
+              id="lastName"
+              label="Last Name"
+              type="text"
+              value={this.state.lastName}
+              onChange={this.handleInputChangeFor('lastName')}
+              margin="normal"
+              required
+            />
+            <TextField
+              fullWidth
+              id="email"
+              label="Email Address"
+              type="text"
+              value={this.state.email}
+              onChange={this.handleInputChangeFor('email')}
+              margin="normal"
+              required
+            />
+            <TextField
+              fullWidth
+              id="phone"
+              label="Phone Number"
+              type="text"
+              value={this.state.phone}
+              onChange={this.handleInputChangeFor('phone')}
               margin="normal"
             />
             <Grid item xs={12}>

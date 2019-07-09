@@ -26,8 +26,7 @@
     top: 8px;
 }
 #loginForm {
-    position: relative;
-    top: 80px;
+    margin: 75px 0px;
     padding: 25px;
     border: 1px solid rgba(34, 34, 34, .25);
     border-radius: 5px;

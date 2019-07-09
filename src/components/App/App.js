@@ -13,6 +13,8 @@ import Header from '../Header'
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import LoginPage from '../LoginPage/LoginPage';
+import RegisterPage from '../RegisterPage/RegisterPage';
 
 import Home from '../Home';
 import MyPins from '../Pins';
@@ -41,6 +43,8 @@ class App extends Component {
           <Switch>
             <Redirect exact from="/" to="/welcome" /> 
             <Route exact path="/welcome" component={WelcomePage} />
+            <Route path="/register" component={LoginPage} />
+            <Route path="/register" component={RegisterPage} />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the HomePage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
