@@ -18,3 +18,6 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
+#myMeetups .meetup-card button {
+    margin: 0px 10px;
+}

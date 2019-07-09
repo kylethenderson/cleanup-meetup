@@ -18,6 +18,7 @@ class TestMap extends Component {
     state = {
         dialogOpen: false,
         description: '',
+        image: '',
     }
     componentDidMount() {
         this.getUserLocation();
@@ -41,6 +42,12 @@ class TestMap extends Component {
     handleChange = (event) => {
         this.setState({
             ...this.state, [event.target.id]: event.target.value
+        })
+    }
+
+    captureImage = (event) => {
+        this.setState({
+            ...this.state, image: event.target.files,
         })
     }
 
