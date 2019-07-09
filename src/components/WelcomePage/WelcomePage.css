@@ -1,5 +1,5 @@
 #welcomePage {
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(rgba(72, 107, 0, .85));
 }
 #welcomePage h3{
@@ -29,8 +29,8 @@
 }
 .circle-container {
     position: relative;
-    width: 75vw;
-    height: 75vw;
+    width: 75vmin;
+    height: 75vmin;
     /*2.8em = 2em*1.4 (2em = half the width of a link with img, 1.4 = sqrt(2))*/
     margin: 50px auto 0 auto;
 }
@@ -62,12 +62,12 @@
     animation: spinIt 10s infinite linear;
 }
 /* 37.5vw = half the width of the wrapper */
-.deg0 { transform: translate(37vw); }
-.deg50 { transform: rotate(50deg) translate(37.5vw) rotate(-50deg); }
-.deg130 { transform: rotate(130deg) translate(37.5vw) rotate(-130deg); }
-.deg180 { transform: translate(-37.5vw); }
-.deg230 { transform: rotate(230deg) translate(37.5vw) rotate(-230deg); }
-.deg310 { transform: rotate(310deg) translate(37.5vw) rotate(-310deg); }
+.deg0 { transform: translate(37.5vmin); }
+.deg50 { transform: rotate(50deg) translate(37.5vmin) rotate(-50deg); }
+.deg130 { transform: rotate(130deg) translate(37.5vmin) rotate(-130deg); }
+.deg180 { transform: translate(-37.5vmin); }
+.deg230 { transform: rotate(230deg) translate(37.5vmin) rotate(-230deg); }
+.deg310 { transform: rotate(310deg) translate(37.5vmin) rotate(-310deg); }
 
 #welcomePage a {
     text-decoration: none;
@@ -75,6 +75,7 @@
 #buttonWrapper {
     text-align: center;
     margin-top: 25px;
+    padding-bottom: 25px;
 }
 #letsGoButton {
     border-radius: 100px;
