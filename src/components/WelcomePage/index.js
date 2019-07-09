@@ -8,14 +8,6 @@ class WelcomePage extends Component {
     render() {
         return (
             <div id="welcomePage">
-                {/* <div id="welcomeLogo">
-                    <div>
-                        <h1 id="logoClean">Clean</h1>
-                        <br />
-                        <h1 id="logoMeet">Meet</h1>
-                    </div>
-                    <span id="logoUp">Up</span>
-                </div> */}
                 <h3>Welcome to</h3>
                 <h2>CleanUp MeetUp</h2>
                 <div className="circle-container">

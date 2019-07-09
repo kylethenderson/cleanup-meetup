@@ -116,11 +116,11 @@ class TestMap extends Component {
                         </div>
                         <Grid container justify="center" id="markerLegend">
                             <Grid item xs={5}>
-                                <img alt="green marker - has meetup" src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" />
+                                <img alt="green marker - has meetup" src="https://maps.google.com/mapfiles/ms/icons/green-dot.png" />
                                 <h4>meetup <br />organized</h4>
                             </Grid>
                             <Grid item xs={5}>
-                                <img alt="red marker - doesn't have meetup" src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" />
+                                <img alt="red marker - doesn't have meetup" src="https://maps.google.com/mapfiles/ms/icons/red-dot.png" />
                                 <h4>meetup <br />not organized</h4>
                             </Grid>
                         </Grid>
