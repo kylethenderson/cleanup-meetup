@@ -115,11 +115,11 @@ class TestMap extends Component {
                             <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
                         </div>
                         <Grid container justify="center" id="markerLegend">
-                            <Grid item xs={5}>
+                            <Grid item xs={5} className="grid-item-text-center">
                                 <img alt="green marker - has meetup" src="https://maps.google.com/mapfiles/ms/icons/green-dot.png" />
                                 <h4>meetup <br />organized</h4>
                             </Grid>
-                            <Grid item xs={5}>
+                            <Grid item xs={5} className="grid-item-text-center">
                                 <img alt="red marker - doesn't have meetup" src="https://maps.google.com/mapfiles/ms/icons/red-dot.png" />
                                 <h4>meetup <br />not organized</h4>
                             </Grid>
