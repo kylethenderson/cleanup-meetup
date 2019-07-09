@@ -64,11 +64,6 @@
 #markerLegend h4 {
     display: inline-block;
 }
-#markerLegend span {
-    position: relative;
-    top: -10px;
-    left: -5px;
-}
 @keyframes pulse {
     0% {
         opacity: 1;
