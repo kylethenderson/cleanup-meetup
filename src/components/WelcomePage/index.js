@@ -22,9 +22,13 @@ class WelcomePage extends Component {
                 </div>
                 <div id="welcomeIntro">
                     <p>
-                        With CleanUp MeetUp you can mark local areas
-                        that need cleaned and organize a meetup to
-                        clean up your community.
+                        Mark a location
+                    </p>
+                    <p>
+                        Organize a cleanup 
+                    </p>
+                    <p>
+                        Improve your community
                     </p>
                 </div>
                 <div id="buttonWrapper">

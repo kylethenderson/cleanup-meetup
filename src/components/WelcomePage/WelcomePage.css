@@ -24,9 +24,16 @@
     width: 80%;
     margin: 0 auto;
     color: white;
-    text-align: justify;
+    text-align: center;
     margin-top: 50px;
 }
+#welcomeIntro p {
+    margin: 5px 0px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 1.1rem;
+}
+
 .circle-container {
     position: relative;
     width: 75vmin;
