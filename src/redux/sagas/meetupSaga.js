@@ -32,9 +32,7 @@ function* getMeetups() {
 function* getSingleMeetup(action) {
   try {
     const singleMeetup = yield axios.get(`/api/meetups/single/${action.payload}`);
-    console.log(singleMeetup.data);
     const username = yield axios.get(`/api/pins/username/${singleMeetup.data.ref_organized_by}`);
-    console.log(username.data);
     yield put({type: 'SET_SINGLE_MEETUP', payload: {
         ...singleMeetup.data, organizer: username.data,
       }

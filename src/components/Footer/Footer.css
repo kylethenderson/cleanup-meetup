@@ -7,13 +7,13 @@ footer {
 }
 
 footer h4 {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 300;
     text-transform: uppercase;
     color: white;
     letter-spacing: 2px;
     margin: 0;
-    padding: 15px 0px;
+    padding: 10px 0px;
 }
 footer span {
     font-size: 10px;

@@ -67,9 +67,9 @@ class Map extends Component {
                                     <Marker
                                         key={pin.pin_id}
                                         icon={pin.meetup_id ?
-                                            { url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png' }
+                                            { url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png' }
                                             :
-                                            { url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png' }
+                                            { url: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png' }
                                         }
                                         position={{
                                             lat: Number(pin.latitude),

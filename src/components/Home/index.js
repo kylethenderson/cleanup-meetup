@@ -69,11 +69,6 @@ class TestMap extends Component {
     }
 
     addPin = () => {
-        console.log({
-            latitude: this.props.user.latitude,
-            longitude: this.props.user.longitude,
-            description: this.state.description,
-        });
         this.props.dispatch({
             type: 'ADD_PIN', payload: {
                 latitude: this.props.user.latitude,

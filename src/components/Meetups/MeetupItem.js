@@ -4,13 +4,6 @@ import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 
 class MeetupItem extends Component {
-    
-    // viewMeetup = (meetup) => {
-    //     return this.props.history.push({
-    //         pathname: '/meetup',
-    //         state: meetup,
-    //     })
-    // }
 
     viewMeetup = () => {
         this.props.history.push(`/meetup?${this.props.meetup.meetup_id}`);

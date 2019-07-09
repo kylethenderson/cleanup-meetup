@@ -36,7 +36,6 @@ class MeetupForm extends Component {
 
     submitMeetup = (event) => {
         event.preventDefault();
-        console.log(this.state);
         this.props.dispatch({
             type: 'ADD_MEETUP',
             payload: {

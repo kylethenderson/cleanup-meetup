@@ -16,8 +16,6 @@ class Map extends Component {
     }
 
     setSelectedPin = (pin) => {
-        // this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin});
-        console.log('Selected pin is', pin)
         this.props.dispatch({type: 'SELECT_PIN', payload: pin});
     }
 

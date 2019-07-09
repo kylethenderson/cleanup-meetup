@@ -67,22 +67,6 @@ class LoginPage extends Component {
               <Button className="submit-button" variant="contained" color="primary" type="submit">Log In</Button>
             </form>
           </Grid>
-          {/* <Grid item xs={12}>
-            <TextField
-              fullWidth
-              id="password"
-              label="Password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleInputChangeFor('password')}
-              margin="normal"
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Button className="submit-button" variant="contained" color="primary" type="submit">Log In</Button>
-          </Grid>
-          */}
           <Grid item xs={12} className="grid-item-text-center">
             <p id="caption">Not a registered user?</p>
             <Button

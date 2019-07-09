@@ -72,7 +72,6 @@ class SingleMeetup extends Component {
     }
 
     editMeetup = () => {
-        console.log(this.state);
         this.setState({
             ...this.state, editMode: false,
         })
@@ -117,7 +116,6 @@ class SingleMeetup extends Component {
     }
 
     deleteMeetup = () => {
-        console.log(this.props.singleMeetup);
         this.props.dispatch({ type: 'DELETE_MEETUP', payload: Number(this.props.location.search.substring(1)) });
         this.toggleDeleteDialog();
         this.props.history.push('/home');
@@ -129,12 +127,6 @@ class SingleMeetup extends Component {
             <div id="singleMeetup">
                 {meetup.meetup_id ?
                     <>
-                        {/* {JSON.stringify(this.state.userIsJoined)}
-                        {JSON.stringify(meetup.meetup_id)}
-                        */}
-                        {/* <pre>
-                            {JSON.stringify(meetup, null, 2)}
-                        </pre> */}
                         <div className="mapContainer">
                             <WrappedMap
                                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${MAPS_KEY}`}
