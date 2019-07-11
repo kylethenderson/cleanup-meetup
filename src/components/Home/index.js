@@ -51,7 +51,6 @@ class TestMap extends Component {
     }
 
     positionError = (error) => {
-        console.log('there was an error with the location', error);
         switch (error.code) {
             case 1:
                 this.setState({
@@ -149,7 +148,7 @@ class TestMap extends Component {
                                 />
                                 :
                                 <>
-                                    {!this.state.locationError ?
+                                    {!this.state.locationErrorMsg ?
                                         <div id="mapLoader">
                                             <h4>Map Loading...</h4>
                                             <BounceLoader
@@ -160,7 +159,8 @@ class TestMap extends Component {
                                         </div>
                                         :
                                         <>
-                                        </>}
+                                        </>
+                                    }
                                 </>
                             }
                         </div>
@@ -179,9 +179,9 @@ class TestMap extends Component {
                         </Grid>
 
                         {/* Below is the dialog for description when user tries to drop a pin */}
-                        <Dialog open={this.state.dialogOpen} onClose={this.handleClose} id="descriptionDialog" aria-labelledby="simple-dialog-title">
+                        <Dialog open={this.state.dialogOpen} onClose={this.handleClose} id="descriptionDialog" className="homePageDialog" aria-labelledby="simple-dialog-title">
                             <Grid container justify="center">
-                                <Icon id="closeDialogIcon" onClick={this.closeDialog}>close</Icon>
+                                <Icon className="closeDialogIcon" onClick={this.closeDialog}>close</Icon>
                                 <Grid item xs={9} className="grid-item-text-center">
                                     <h2>Area Description</h2>
                                 </Grid>
@@ -206,16 +206,14 @@ class TestMap extends Component {
                         </Dialog>
 
                         {/* Below is the dialog for error on getting user location */}
-                        <Dialog open={this.state.locationError} onClose={() => this.setState({ ...this.state, locationError: false })} id="descriptionDialog" aria-labelledby="simple-dialog-title">
+                        <Dialog open={this.state.locationError} onClose={() => this.setState({ ...this.state, locationError: false })}  id="errorDialog" className="homePageDialog" aria-labelledby="simple-dialog-title">
                             <Grid container justify="center">
-                                <Grid item xs={12}>
-                                    <p onClick={() => this.setState({ ...this.state, locationError: false })}>close</p>
+                                <Icon className="closeDialogIcon" onClick={() => this.setState({ ...this.state, locationError: false })}>close</Icon>
+                                <Grid item xs={12} className="grid-item-text-center">
+                                    <h2>Error retrieving location:<br/>{this.state.locationErrorMsg}</h2>
                                 </Grid>
-                                <Grid item xs={9}>
-                                    {this.state.locationErrorMsg}
-                                </Grid>
-                                <Grid item xs={9}>
-                                    <h4>App requires location to be enabled.</h4>
+                                <Grid item xs={10} className="grid-item-text-center">
+                                    <h3>Please enable location in your browser.</h3>
                                 </Grid>
                             </Grid>
                         </Dialog>

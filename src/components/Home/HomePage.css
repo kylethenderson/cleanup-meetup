@@ -39,10 +39,10 @@
 #infoWindow button {
     margin: 15px 5px 10px 5px;
 }
-#descriptionDialog {
+.homePageDialog {
     position: relative;
 }
-#descriptionDialog #closeDialogIcon { 
+.homePageDialog .closeDialogIcon { 
     position: absolute;
     top: 10px;
     right: 10px;
@@ -55,6 +55,15 @@
 }
 #descriptionDialog button {
     margin: 10px 0px 20px 0px;
+}
+#errorDialog h2 {
+    font-weight: 300;
+    font-size: 1.275rem;
+    margin-top: 40px;
+}
+#errorDialog h3 {
+    font-weight: 300;
+    font-size: 1.275rem;
 }
 #markerLegend {
     margin: 15px 0px;
