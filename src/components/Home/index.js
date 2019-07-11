@@ -16,27 +16,72 @@ const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class TestMap extends Component {
     state = {
+
         dialogOpen: false,
         description: '',
         image: '',
+        locationErrorMsg: '',
+        locationError: false,
     }
     componentDidMount() {
-        this.getUserLocation();
+        this.checkForLocation();
         this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
     }
 
-    getUserLocation = () => {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                this.props.dispatch({
-                    type: 'SET_USER_LOCATION',
-                    payload: {
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude,
-                    }
-                })
+    checkForLocation = () => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.getUserLocation, this.positionError);
+        } else {
+            this.setState({
+                ...this.state,
+                locationErrorMsg: "Geolocation is not supported by this browser.",
+                locationError: true,
+            })
+        }
+    }
+
+    getUserLocation = (position) => {
+        this.props.dispatch({
+            type: 'SET_USER_LOCATION',
+            payload: {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
             }
-        );
+        })
+    }
+
+    positionError = (error) => {
+        console.log('there was an error with the location', error);
+        switch (error.code) {
+            case 1:
+                this.setState({
+                    ...this.state,
+                    locationErrorMsg: "User denied the request for Geolocation.",
+                    locationError: true,
+                })
+                break;
+            case 2:
+                this.setState({
+                    ...this.state,
+                    locationErrorMsg: "Location information is unavailable.",
+                    locationError: true,
+                })
+                break;
+            case 3:
+                this.setState({
+                    ...this.state,
+                    locationErrorMsg: "The request to get user location timed out.",
+                    locationError: true,
+                })
+                break;
+            default:
+                this.setState({
+                    ...this.state,
+                    locationErrorMsg: "An unknown error occurred getting user location.",
+                    locationError: true,
+                })
+                break;
+        }
     }
 
     handleChange = (event) => {
@@ -103,18 +148,24 @@ class TestMap extends Component {
                                     history={this.props.history}
                                 />
                                 :
-                                <div id="mapLoader">
-                                    <h4>Map Loading...</h4>
-                                    <BounceLoader
-                                        sizeUnit={"px"}
-                                        size={75}
-                                        color={'rgba(0, 143, 12, 1);'}
-                                    />
-                                </div>
+                                <>
+                                    {!this.state.locationError ?
+                                        <div id="mapLoader">
+                                            <h4>Map Loading...</h4>
+                                            <BounceLoader
+                                                sizeUnit={"px"}
+                                                size={75}
+                                                color={'rgba(0, 143, 12, 1);'}
+                                            />
+                                        </div>
+                                        :
+                                        <>
+                                        </>}
+                                </>
                             }
                         </div>
                         <div id="buttonContainer">
-                            <Button className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
+                            <Button disabled={!this.props.user.latitude} className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
                         </div>
                         <Grid container justify="center" id="markerLegend">
                             <Grid item xs={5} className="grid-item-text-center">
@@ -126,6 +177,8 @@ class TestMap extends Component {
                                 <h4>meetup <br />not organized</h4>
                             </Grid>
                         </Grid>
+
+                        {/* Below is the dialog for description when user tries to drop a pin */}
                         <Dialog open={this.state.dialogOpen} onClose={this.handleClose} id="descriptionDialog" aria-labelledby="simple-dialog-title">
                             <Grid container justify="center">
                                 <Icon id="closeDialogIcon" onClick={this.closeDialog}>close</Icon>
@@ -148,6 +201,21 @@ class TestMap extends Component {
                                 </Grid>
                                 <Grid item xs={9} className="grid-item-text-center">
                                     <Button variant="outlined" color="primary" className="medium-button-text" onClick={this.addPin}>Mark Location</Button>
+                                </Grid>
+                            </Grid>
+                        </Dialog>
+
+                        {/* Below is the dialog for error on getting user location */}
+                        <Dialog open={this.state.locationError} onClose={() => this.setState({ ...this.state, locationError: false })} id="descriptionDialog" aria-labelledby="simple-dialog-title">
+                            <Grid container justify="center">
+                                <Grid item xs={12}>
+                                    <p onClick={() => this.setState({ ...this.state, locationError: false })}>close</p>
+                                </Grid>
+                                <Grid item xs={9}>
+                                    {this.state.locationErrorMsg}
+                                </Grid>
+                                <Grid item xs={9}>
+                                    <h4>App requires location to be enabled.</h4>
                                 </Grid>
                             </Grid>
                         </Dialog>
