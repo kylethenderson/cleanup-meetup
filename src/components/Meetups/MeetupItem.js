@@ -5,10 +5,12 @@ import Button from '@material-ui/core/Button'
 
 class MeetupItem extends Component {
 
+    // if user wants to view meetup, navigate to singleMeetup with the meetup id in the url
     viewMeetup = () => {
         this.props.history.push(`/meetup?${this.props.meetup.meetup_id}`);
     }
 
+    // if they want to leave a meetup they've joined, dispatch that action with the meetup id as payload
     leaveMeetup = (id) => {
         this.props.dispatch({
             type: 'LEAVE_MEETUP',

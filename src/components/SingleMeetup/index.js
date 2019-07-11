@@ -23,15 +23,19 @@ class SingleMeetup extends Component {
         description: '',
         supplies: '',
     }
+
+    // functions to get singleMeetup data and the array of users that are associate with this meeetup
     componentDidMount() {
         this.getSingleMeetup();
         this.getUsersJoined();
     }
 
+    // dispatches action to get single meetup data - payload is the id at the end of the url search query string
     getSingleMeetup = () => {
         this.props.dispatch({ type: 'FETCH_SINGLE_MEETUP', payload: Number(this.props.location.search.substring(1)) })
     }
 
+    // when user clicks to edit singleMeetup data, set local state to what is in the singleMeetup reducer
     enableEdit = () => {
         this.setState({
             ...this.state,
@@ -42,18 +46,25 @@ class SingleMeetup extends Component {
             editMode: true,
         })
     }
+
+    // function to get the users associated with this meetup - payload for action is id at end of url string
     getUsersJoined = () => {
         if (this.props.location.search) {
             axios.get(`/api/meetups/joins?id=${Number(this.props.location.search.substring(1))}`)
                 .then(response => {
+                    // we need to find if the current user is a part of this meetup - we find that with the filter method
                     const userIsJoined = response.data.filter(obj => obj.ref_user_id === this.props.user.id)
+                    // if filter finds the current user within the array of all users associated with this meetup, we
+                    // set local state with a true boolean for the user
                     if (userIsJoined.length) {
                         this.setState({
                             ...this.state,
                             usersJoined: response.data,
                             userIsJoined: true,
                         })
-                    } else {
+                    }
+                    // otherwise, we just set local state to the array of users associated with this meetup 
+                    else {
                         this.setState({
                             usersJoined: response.data
                         })
@@ -65,12 +76,14 @@ class SingleMeetup extends Component {
         }
     }
 
+    // handles change for inputs
     handleChange = (event) => {
         this.setState({
             ...this.state, [event.target.id]: event.target.value,
         })
     }
 
+    // when user clicks to save edited data, dispatch action to update db with requisite payload object
     editMeetup = () => {
         this.setState({
             ...this.state, editMode: false,
@@ -88,8 +101,8 @@ class SingleMeetup extends Component {
         })
     }
 
+    // if user wants to join the meetup, dispatch action to add them to the meetup_joins table in db with meetup id as the payload
     joinMeetup = () => {
-        // console.log('Meetup Joined', this.props.singleMeetup.meetup_id, this.props.user.id)
         this.props.dispatch({
             type: 'JOIN_MEETUP',
             payload: {
@@ -99,6 +112,7 @@ class SingleMeetup extends Component {
         this.props.history.push('/home');
     }
 
+    // if user wants to leave the meetup, dispatch action to remove them to the meetup_joins table in db with meetup id as the payload
     leaveMeetup = (id) => {
         this.props.dispatch({
             type: 'LEAVE_MEETUP',
@@ -109,12 +123,15 @@ class SingleMeetup extends Component {
         this.props.history.push('/home');
     }
 
+    // function to toggle the delete confirmation dialog box 
     toggleDeleteDialog = () => {
         this.setState({
             ...this.state, dialogOpen: !this.state.dialogOpen,
         })
     }
 
+    // dispatches action to delete the meetup - payload is the meetup id from the url string
+    // close the delete dialog box and then navigate home
     deleteMeetup = () => {
         this.props.dispatch({ type: 'DELETE_MEETUP', payload: Number(this.props.location.search.substring(1)) });
         this.toggleDeleteDialog();
@@ -143,6 +160,7 @@ class SingleMeetup extends Component {
                             <Grid item xs={10}>
                                 <h3>Organized by: {meetup.organizer}</h3>
                             </Grid>
+                            {/* Here, we display the data or an input based on the editMode boolean value in local state */}
                             <Grid item xs={5}>
                                 {this.state.editMode ?
                                     <TextField
@@ -238,8 +256,9 @@ class SingleMeetup extends Component {
                                     }
                                 </Grid>
                             </Grid>
-                            {/* <pre>{JSON.stringify(meetup, null, 2)}</pre> */}
                         </Grid>
+
+                        {/* Delete confirmation dialog box */}
                         <Dialog open={this.state.dialogOpen}>
                             <Grid container justify="center" id="deleteDialog">
                                 <Grid item xs={9} className="grid-item-text-center">

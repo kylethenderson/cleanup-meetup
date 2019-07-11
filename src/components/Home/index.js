@@ -16,18 +16,19 @@ const MAPS_KEY = `${process.env.REACT_APP_MAPS_KEY}`;
 
 class TestMap extends Component {
     state = {
-
         dialogOpen: false,
         description: '',
         image: '',
         locationErrorMsg: '',
         locationError: false,
     }
+    // on mount, try to get user location and clear any selected pin data in redux
     componentDidMount() {
         this.checkForLocation();
         this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
     }
 
+    // try to get user location, if unable, set error msg
     checkForLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.getUserLocation, this.positionError);
@@ -40,6 +41,7 @@ class TestMap extends Component {
         }
     }
 
+    // if get location was successful, set user location in redux
     getUserLocation = (position) => {
         this.props.dispatch({
             type: 'SET_USER_LOCATION',
@@ -50,6 +52,7 @@ class TestMap extends Component {
         })
     }
 
+    // if get user location unsuccessful, set error message based on error code
     positionError = (error) => {
         switch (error.code) {
             case 1:
@@ -83,22 +86,26 @@ class TestMap extends Component {
         }
     }
 
+    // handle change for the inputs
     handleChange = (event) => {
         this.setState({
             ...this.state, [event.target.id]: event.target.value
         })
     }
 
-    captureImage = (event) => {
-        this.setState({
-            ...this.state, image: event.target.files,
-        })
-    }
+    // function for handling image capture component when that is added
+    // captureImage = (event) => {
+    //     this.setState({
+    //         ...this.state, image: event.target.files,
+    //     })
+    // }
 
-    openDialog = () => {
+    // function that opens description dialog when user tries to drop pin.
+    openDescriptionDialog = () => {
         this.setState({
             dialogOpen: true,
         });
+        // get most current position and set that in redux
         navigator.geolocation.getCurrentPosition(
             position => {
                 this.props.dispatch({
@@ -112,6 +119,7 @@ class TestMap extends Component {
         );
     }
 
+    // function to close description dialog box 
     closeDialog = () => {
         this.setState({
             dialogOpen: false,
@@ -119,6 +127,7 @@ class TestMap extends Component {
         });
     }
 
+    // function to add pin - dispatches action to saga with user location and description
     addPin = () => {
         this.props.dispatch({
             type: 'ADD_PIN', payload: {
@@ -137,17 +146,18 @@ class TestMap extends Component {
                         <div className="mapContainer">
                             {this.props.user.latitude ?
                                 <WrappedMap
-                                    defaultLat={this.props.user.latitude}
-                                    defaultLong={this.props.user.longitude}
                                     googleMapURL={`https://maps.googleapis.com/maps/api/js?key=${MAPS_KEY}&v=3.exp&libraries=geometry,drawing,places`}
                                     loadingElement={<div style={{ height: "100%" }} />}
                                     containerElement={<div style={{ height: "100%" }} />}
                                     mapElement={<div style={{ height: "100%" }} />}
+                                    defaultLat={this.props.user.latitude}
+                                    defaultLong={this.props.user.longitude}
                                     className="mapWrapper"
                                     history={this.props.history}
                                 />
                                 :
                                 <>
+                                    {/* Only display the loader image as long as there's not an error with location */}
                                     {!this.state.locationErrorMsg ?
                                         <div id="mapLoader">
                                             <h4>Map Loading...</h4>
@@ -165,7 +175,7 @@ class TestMap extends Component {
                             }
                         </div>
                         <div id="buttonContainer">
-                            <Button disabled={!this.props.user.latitude} className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDialog}>Drop Pin</Button>
+                            <Button disabled={!this.props.user.latitude} className="large-button-text" size="large" variant="contained" color="primary" onClick={this.openDescriptionDialog}>Drop Pin</Button>
                         </div>
                         <Grid container justify="center" id="markerLegend">
                             <Grid item xs={5} className="grid-item-text-center">

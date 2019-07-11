@@ -7,6 +7,7 @@ import './Meetups.css'
 
 class Meetups extends Component {
 
+    // on mount, get all the meetups that belong to this user - ones they've created or joined
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_USER_MEETUPS' })
     }

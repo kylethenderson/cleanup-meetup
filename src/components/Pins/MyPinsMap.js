@@ -18,29 +18,36 @@ class Map extends Component {
         dialogOpen: false,
     }
 
+    // first thing, clear any selected pin that might still be in redux state
     componentDidMount() {
         this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' })
     }
 
+    // when user clicks on a pin, set that in redux state
     setSelectedPin = (pin) => {
         this.props.dispatch({ type: 'SET_SELECTED_PIN', payload: pin });
     }
 
+    // function to toggle the delete confirmation dialog box
     toggleDeleteDialog = () => {
         this.setState({
             ...this.state, dialogOpen: !this.state.dialogOpen,
         })
     }
 
+    // if user clicks to view meetup, navigate to that page with the meetup id in the url
+    // then clear the selected pin in redux
     viewMeetup = () => {
         this.props.history.push(`/meetup?${this.props.selectedPin.meetup_id}`);
         this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' });
     }
 
+    // if they want to organize, navigate to the organize page
     organizeMeetup = () => {
         this.props.history.push('/organize-meetup');
     }
 
+    // function to delete pin - dispatch the action with the pin id as the payload
     deletePin = () => {
         this.props.dispatch({ type: 'DELETE_PIN', payload: this.props.selectedPin.pin_id })
         this.props.history.push('/home');

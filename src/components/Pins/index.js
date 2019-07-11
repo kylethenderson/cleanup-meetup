@@ -13,6 +13,7 @@ class MyPins extends Component {
         this.getUserLocation();
     }
 
+    // get most recent user location and set that in redux 
     getUserLocation = () => {
         navigator.geolocation.getCurrentPosition(
             position => {

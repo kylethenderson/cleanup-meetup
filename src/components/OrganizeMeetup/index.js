@@ -13,6 +13,7 @@ class MeetupForm extends Component {
         supplies: '',
     }
 
+    // on mount, get the current date to use in the form
     componentDidMount() {
         this.getCurrentDate();
     }
@@ -28,12 +29,15 @@ class MeetupForm extends Component {
         })
     }
 
+    // handle input changes
     handleChange = (event) => {
         this.setState({
             ...this.state, [event.target.id]: event.target.value,
         })
     }
 
+    // submit the new meetup by dispatching the action with the requisite data
+    // reset local state, and navigate user back home
     submitMeetup = (event) => {
         event.preventDefault();
         this.props.dispatch({
@@ -106,40 +110,3 @@ const mapStateToProps = reduxState => ({
 })
 
 export default connect(mapStateToProps)(MeetupForm);
-
-
-
-// import React, {Component} from 'react'
-// import {connect} from 'react-redux'
-
-// class Organize extends Component {
-
-//     organizeMeetup = () => {
-//         console.log(this.props.selectedPin);
-//         this.props.dispatch({
-//             type: 'ADD_MEETUP',
-//             payload: {
-//                 pinId: this.props.selectedPin.pin_id,
-//                 userId: this.props.selectedPin.ref_created_by
-//             }
-//         })
-//     }
-
-//     render () {
-//         return (
-//             <>
-//                 <h1>Organize Meetup</h1>
-//             </>
-//         )
-//     }
-// }
-
-// const mapStateToProps = (reduxState) => ({
-//     reduxState,
-// })
-
-// export default connect(mapStateToProps)(Organize);
-
-
-
-
