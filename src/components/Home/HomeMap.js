@@ -8,6 +8,7 @@ import {
     InfoWindow,
 } from 'react-google-maps'
 import Button from '@material-ui/core/Button'
+import { isAbsolute } from 'path';
 
 class Map extends Component {
 
@@ -40,7 +41,7 @@ class Map extends Component {
                         streetViewControl: false,
                         fullscreenControl: false,
                         controlSize: 20,
-                        minZoom: 9,
+                        minZoom: 3.25,
                     }}
                     defaultZoom={10.75}
                     defaultCenter={{ lat: this.props.defaultLat, lng: this.props.defaultLong }}

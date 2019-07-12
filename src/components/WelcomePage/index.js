@@ -39,4 +39,4 @@ class WelcomePage extends Component {
     }
 }
 
-export default WelcomePage
+export default WelcomePage 

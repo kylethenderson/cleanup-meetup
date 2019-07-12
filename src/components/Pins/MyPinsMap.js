@@ -50,6 +50,9 @@ class Map extends Component {
     // function to delete pin - dispatch the action with the pin id as the payload
     deletePin = () => {
         this.props.dispatch({ type: 'DELETE_PIN', payload: this.props.selectedPin.pin_id })
+        this.setState({
+            dialogOpen: false,
+        })
         this.props.history.push('/home');
     }
 
@@ -106,7 +109,7 @@ class Map extends Component {
                                         <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                         <h5>Time: {this.props.selectedPin.time}</h5>
                                         <Button variant="contained" color="primary" size="small" onClick={this.viewMeetup}>View</Button>
-                                        <Button variant="contained" className="error-background" size="small" onClick={this.deletePin}>Delete</Button>
+                                        <Button variant="contained" className="error-background" size="small" onClick={this.toggleDeleteDialog}>Delete</Button>
                                     </div>
                                     :
                                     <div id="infoWindow">
@@ -118,6 +121,7 @@ class Map extends Component {
                             </InfoWindow>
                         }
                     </GoogleMap>
+
                     <Dialog open={this.state.dialogOpen}>
                         <Grid container justify="center" id="deleteDialog">
                             <Grid item xs={9} className="grid-item-text-center">
