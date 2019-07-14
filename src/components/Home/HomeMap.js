@@ -8,7 +8,6 @@ import {
     InfoWindow,
 } from 'react-google-maps'
 import Button from '@material-ui/core/Button'
-import { isAbsolute } from 'path';
 
 class Map extends Component {
 

@@ -72,7 +72,7 @@ class Map extends Component {
                         defaultCenter={{ lat: this.props.defaultLat, lng: this.props.defaultLong }}
                     >
                         {this.props.pinList.length && this.props.pinList.map(pin => {
-                            if (pin.ref_created_by === this.props.user.id) {
+                            if (pin.ref_pin_owner === this.props.user.id) {
                                 return (
                                     <Marker
                                         key={pin.pin_id}

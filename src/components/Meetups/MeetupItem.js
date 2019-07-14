@@ -28,11 +28,11 @@ class MeetupItem extends Component {
                     <p>{this.props.meetup.description}</p>
                 </Grid>
                 {this.props.meetup.ref_organized_by === this.props.user.id ?
-                    <Grid item xs={3} className="grid-item-text-center">
+                    <Grid item xs={6}>
                         <Button onClick={this.viewMeetup} size="small" variant="contained" color="primary">View</Button>
                     </Grid>
                     :
-                    <Grid item xs={6} className="grid-item-text-center">
+                    <Grid item xs={6}>
                         <Button onClick={this.viewMeetup} mx={2} size="small" variant="contained" color="primary">View</Button>
                         <Button onClick={() => this.leaveMeetup(this.props.meetup.meetup_id)} size="small" variant="contained" color="primary">Leave</Button>
                     </Grid>

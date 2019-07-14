@@ -10,13 +10,20 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, [req.body.pinId, req.user.id, req.body.date, req.body.time, req.body.supplies])
         .then(result => {
             const meetupId = result.rows[0].meetup_id;
-            pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id") VALUES
-            ($1, $2);`, [meetupId, req.user.id])
+            pool.query(`UPDATE "pins" SET "ref_pin_owner" = $1 WHERE "pin_id" = $2;`, [req.user.id, req.body.pinId])
                 .then(result => {
-                    res.sendStatus(200);
+                    pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id") VALUES
+                            ($1, $2);`, [meetupId, req.user.id])
+                        .then(result => {
+                            res.sendStatus(200);
+                        })
+                        .catch(error => {
+                            console.log('Error inserting join from meetup', error);
+                        })
                 })
                 .catch(error => {
-                    console.log('Error inserting join from meetup', error);
+                    res.sendStatus(500)
+                    console.log('Error in updating pin ownership', error)
                 })
 
         })
@@ -54,11 +61,11 @@ router.get('/all', rejectUnauthenticated, (req, res) => {
         })
 })
 
-router.get('/single/:id', rejectUnauthenticated, (req, res) =>{
+router.get('/single/:id', rejectUnauthenticated, (req, res) => {
     pool.query(`SELECT * FROM "meetups" JOIN 
     "pins" ON "meetups"."ref_pin_id" = "pins"."pin_id"
     WHERE "meetup_id" = $1 LIMIT 1;`, [req.params.id])
-        .then( result => {
+        .then(result => {
             res.send(result.rows[0]);
         })
         .catch(error => {
@@ -115,7 +122,7 @@ router.put('/', rejectUnauthenticated, (req, res) => {
                         "supplies" = $3
                         WHERE "meetup_id" = $4;`
     pool.query(updateText, [req.body.date, req.body.time, req.body.supplies, req.body.meetupId])
-        .then( result => {
+        .then(result => {
             pool.query(`UPDATE "pins" SET "description" = $1 WHERE "pin_id" = $2;`, [req.body.description, req.body.pinId])
                 .then(result => {
                     res.sendStatus(200)
@@ -125,7 +132,7 @@ router.put('/', rejectUnauthenticated, (req, res) => {
                     res.sendStatus(500);
                 })
         })
-        .catch( error => {
+        .catch(error => {
             console.log('Error with UPDATE meetup query', error)
             res.sendStatus(500)
         })

@@ -21,7 +21,7 @@ function* fetchPins(action) {
 
 function* fetchPin(action) {
   try {
-    const username = yield axios.get(`/api/pins/username/${action.payload.ref_created_by}`)
+    const username = yield axios.get(`/api/pins/username/${action.payload.ref_pin_owner}`)
     yield put({type:'SET_SELECTED_PIN', payload: {
       ...action.payload, 
       username: username.data,

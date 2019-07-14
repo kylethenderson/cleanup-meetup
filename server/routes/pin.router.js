@@ -30,7 +30,7 @@ router.get('/username/:id', (req, res) => {
 })
 
 router.post('/', rejectUnauthenticated, (req, res) => {
-    const queryText = `INSERT INTO "pins" ("longitude", "latitude", "description", "ref_created_by") VALUES
+    const queryText = `INSERT INTO "pins" ("longitude", "latitude", "description", "ref_pin_owner") VALUES
     ($1, $2, $3, $4);`
     pool.query(queryText, [req.body.longitude, req.body.latitude, req.body.description, req.user.id])
         .then(result => {
@@ -48,7 +48,7 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // because if a pin has a meetup, we have to delete the joins, then the meetup, 
     // and then we can delete the pin itself
     // first make sure that the current user either created the pin or is admin
-    pool.query(`SELECT "ref_created_by" AS "id" from "pins" WHERE "pin_id" = $1;`, [req.params.id])
+    pool.query(`SELECT "ref_pin_owner" AS "id" from "pins" WHERE "pin_id" = $1;`, [req.params.id])
         .then(result => {
             if (result.rows[0].id === req.user.id || req.user.admin) {
                 // if they created it or are admin, get all that data mentioned above
