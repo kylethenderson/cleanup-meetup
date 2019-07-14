@@ -18,6 +18,7 @@ class Map extends Component {
                         fullscreenControl: false,
                         controlSize: 20,
                         minZoom: 8,
+                        draggable: true,
                     }}
                     defaultZoom={15}
                     defaultCenter={{ lat: this.props.defaultLat, lng: this.props.defaultLong }}

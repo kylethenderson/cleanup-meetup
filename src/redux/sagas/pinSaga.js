@@ -46,6 +46,11 @@ function* addPin(action) {
   }
 }
 
+function* updatePinLocation(action) {
+  yield axios.put('/api/pins/update', action.payload);
+  yield put({type: 'FETCH_PINS'});
+}
+
 // deletePin takes the id of the pin to be deleted
 function* deletePin(action) {
   yield axios.delete(`/api/pins/${action.payload}`)
@@ -57,6 +62,7 @@ function* pinsSaga() {
   yield takeLatest('SELECT_PIN', fetchPin);
   yield takeLatest('ADD_PIN', addPin)
   yield takeLatest('DELETE_PIN', deletePin)
+  yield takeLatest('UPDATE_PIN_LOCATION', updatePinLocation)
 }
 
 export default pinsSaga;

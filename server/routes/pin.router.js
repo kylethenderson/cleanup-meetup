@@ -41,6 +41,17 @@ router.post('/', rejectUnauthenticated, (req, res) => {
         })
 })
 
+// function to update pin location in the db
+router.put('/update', rejectUnauthenticated, (req, res) => {
+    pool.query(`UPDATE "pins" SET "longitude"=$1, "latitude"=$2 WHERE "pin_id" = $3;`, [req.body.longitude, req.body.latitude, req.body.id])
+        .then(result => {
+            res.sendStatus(200);
+        })
+        .catch(error => {
+            res.sendStatus(500);
+        })
+})
+
 // delete a pin route - requires the id passed at the end of the url 
 router.delete('/:id', rejectUnauthenticated, (req, res) => {
     // we need to delete the pin - req.params.id is the pin_id
