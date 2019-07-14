@@ -158,7 +158,7 @@ class TestMap extends Component {
                                 :
                                 <>
                                     {/* Only display the loader image as long as there's not an error with location */}
-                                    {!this.state.locationErrorMsg ?
+                                    {!this.state.locationErrorMsg &&
                                         <div id="mapLoader">
                                             <h4>Map Loading...</h4>
                                             <BounceLoader
@@ -167,9 +167,6 @@ class TestMap extends Component {
                                                 color={'rgba(0, 143, 12, 1);'}
                                             />
                                         </div>
-                                        :
-                                        <>
-                                        </>
                                     }
                                 </>
                             }
