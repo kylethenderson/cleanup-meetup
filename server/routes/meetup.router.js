@@ -3,27 +3,50 @@ const pool = require('../modules/pool');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const router = express.Router();
 
+// import modules for twilio
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 router.post('/add', rejectUnauthenticated, (req, res) => {
     const queryText = `INSERT INTO "meetups" ("ref_pin_id", "ref_organized_by", "date", "time", "supplies") VALUES
                         ($1, $2, $3, $4, $5) RETURNING "meetup_id";`
     pool.query(queryText, [req.body.pinId, req.user.id, req.body.date, req.body.time, req.body.supplies])
         .then(result => {
-            const meetupId = result.rows[0].meetup_id;
-            pool.query(`UPDATE "pins" SET "ref_pin_owner" = $1 WHERE "pin_id" = $2;`, [req.user.id, req.body.pinId])
+            // after the meetup is added to the db, notify the owner of the pin
+            // get the phone number of the og owner of the pin to send twilio text
+            pool.query(`SELECT "user"."id", "user"."phone" FROM
+            "pins" JOIN "user" ON "pins"."ref_pin_owner" = "user"."id" 
+            WHERE "pins"."pin_id" = $1;`, [req.body.pinId])
                 .then(result => {
-                    pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id") VALUES
-                            ($1, $2);`, [meetupId, req.user.id])
+                    console.log('phone number is', result.rows[0].phone)
+                    // only send a msg if the pin owner has a phone number listed AND is NOT the current user
+                    if (result.rows[0].phone && result.rows[0].id !== req.user.id) {
+                        console.log('sending sms message');
+                        client.messages
+                            .create({
+                                body: 'A MeetUp has been organized on one of your pins.',
+                                from: '+18065471942',
+                                to: `+1${result.rows[0].phone}`
+                            })
+                            .then(message => console.log(message.sid));
+                    }
+                    const meetupId = result.rows[0].meetup_id;
+                    pool.query(`UPDATE "pins" SET "ref_pin_owner" = $1 WHERE "pin_id" = $2;`, [req.user.id, req.body.pinId])
                         .then(result => {
-                            res.sendStatus(200);
+                            pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id") VALUES
+                            ($1, $2);`, [meetupId, req.user.id])
+                                .then(result => {
+                                    res.sendStatus(200);
+                                })
+                                .catch(error => {
+                                    console.log('Error inserting join from meetup', error);
+                                })
                         })
                         .catch(error => {
-                            console.log('Error inserting join from meetup', error);
+                            res.sendStatus(500)
+                            console.log('Error in updating pin ownership', error)
                         })
-                })
-                .catch(error => {
-                    res.sendStatus(500)
-                    console.log('Error in updating pin ownership', error)
                 })
 
         })

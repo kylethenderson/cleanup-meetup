@@ -2,7 +2,7 @@
   "name": "prime-solo-project",
   "version": "0.1.0",
   "private": true,
-  "engines" : {
+  "engines": {
     "node": "10.15.3"
   },
   "proxy": "http://localhost:5000",
@@ -28,7 +28,8 @@
     "react-spinners": "^0.5.4",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^1.0.2"
+    "redux-saga": "^1.0.2",
+    "twilio": "^3.33.1"
   },
   "scripts": {
     "start": "node server/server.js",
