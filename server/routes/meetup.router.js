@@ -32,6 +32,7 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
                             })
                             .then(message => console.log(message.sid));
                     }
+                    // after meetup is added and pin_owner notified, change pin owner to user that is organizing meetup
                     pool.query(`UPDATE "pins" SET "ref_pin_owner" = $1 WHERE "pin_id" = $2;`, [req.user.id, req.body.pinId])
                         .then(result => {
                             pool.query(`INSERT INTO "meetup_joins" ("ref_meetup_id", "ref_user_id") VALUES
