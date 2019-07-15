@@ -22,6 +22,8 @@ const singleMeetup = (state={}, action) => {
     switch(action.type) {
         case ('SET_SINGLE_MEETUP'):
             return action.payload;
+        case ('CLEAR_SINGLE_MEETUP'):
+            return {};
         default: 
             return state;
     }

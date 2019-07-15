@@ -38,8 +38,9 @@ class Map extends Component {
     // if user clicks to view meetup, navigate to that page with the meetup id in the url
     // then clear the selected pin in redux
     viewMeetup = () => {
-        this.props.history.push(`/meetup?${this.props.selectedPin.meetup_id}`);
+        this.props.dispatch({type: 'CLEAR_SINGLE_MEETUP'})
         this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' });
+        this.props.history.push(`/meetup?${this.props.selectedPin.meetup_id}`);
     }
 
     // if they want to organize, navigate to the organize page

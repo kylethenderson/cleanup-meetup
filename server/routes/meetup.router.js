@@ -14,16 +14,17 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, [req.body.pinId, req.user.id, req.body.date, req.body.time, req.body.supplies])
         .then(result => {
             const meetupId = result.rows[0].meetup_id;
+            console.log('getting phone number for pin', req.body.pinId);
             // after the meetup is added to the db, notify the owner of the pin
             // get the phone number of the og owner of the pin to send twilio text
             pool.query(`SELECT "user"."id", "user"."phone" FROM
             "pins" JOIN "user" ON "pins"."ref_pin_owner" = "user"."id" 
             WHERE "pins"."pin_id" = $1;`, [req.body.pinId])
                 .then(result => {
-                    const userPhone = result.rows[0].phone
+                    let userPhone = result.rows[0].phone;
                     // only send a msg if the pin owner has a phone number listed AND is NOT the current user
                     if (userPhone && result.rows[0].id !== req.user.id) {
-                        console.log('sending sms message');
+                        console.log('sending sms message to', userPhone);
                         client.messages
                             .create({
                                 body: 'A MeetUp has been organized on one of your pins.',

@@ -143,7 +143,7 @@ class SingleMeetup extends Component {
         return (
             <div id="singleMeetup">
                 {meetup.meetup_id ?
-                    <>
+                    <>  
                         <div className="mapContainer">
                             <WrappedMap
                                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${MAPS_KEY}`}
