@@ -14,7 +14,6 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
     pool.query(queryText, [req.body.pinId, req.user.id, req.body.date, req.body.time, req.body.supplies])
         .then(result => {
             const meetupId = result.rows[0].meetup_id;
-            console.log('getting phone number for pin', req.body.pinId);
             // after the meetup is added to the db, notify the owner of the pin
             // get the phone number of the og owner of the pin to send twilio text
             pool.query(`SELECT "user"."id", "user"."phone" FROM

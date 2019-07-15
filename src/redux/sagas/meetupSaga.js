@@ -66,6 +66,7 @@ function* deleteMeetup(action) {
   try {
     yield axios.delete(`/api/meetups/${action.payload}`)
     yield put({ type: 'FETCH_PINS'});
+    yield put({type: 'FETCH_MEETUPS'})
   } catch (error) {
     console.log('Error deleting meetup', error);
   }

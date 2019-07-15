@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button'
 class MeetupItem extends Component {
 
     handleClick = () => {
+        console.log('deleting meetup', this.props.meetup.meetup_id)
         this.props.dispatch({ type: 'DELETE_MEETUP', payload: this.props.meetup.meetup_id });
     }
 
