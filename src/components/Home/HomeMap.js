@@ -19,19 +19,11 @@ class Map extends Component {
     // on mount, get all the pins from the db
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PINS' });
-        this.setState({
-            lat: Number(this.props.defaultLat),
-            long: Number(this.props.defaultLong),
-        })
     }
 
     // when one pin is clicked, set the data for that pin in redux
     setSelectedPin = (pin) => {
         this.props.dispatch({ type: 'SELECT_PIN', payload: pin });
-        this.setState({
-            lat: Number(pin.latitude),
-            long: Number(pin.longitude),
-        })
     }
 
     // if user clicks to view meetup, push to the singleMeetup page with the id in the url and clear selected pin in redux
@@ -49,7 +41,7 @@ class Map extends Component {
     render() {
         return (
             <>
-            {this.state.lat && 
+            {this.props.pinList && 
                 <GoogleMap
                     defaultOptions={{
                         streetViewControl: false,
@@ -58,7 +50,7 @@ class Map extends Component {
                         minZoom: 3.25,
                     }}
                     defaultZoom={10.75}
-                    center={{ lat: this.state.lat, lng: this.state.long }}
+                    defaultCenter={{ lat: this.props.defaultLat, lng: this.props.defaultLong }}
                 >
                     {/* map through the list of pins in redux and put a marker on the map for each one */}
                     {this.props.pinList && this.props.pinList.map(pin => (
@@ -85,9 +77,7 @@ class Map extends Component {
                                 lng: Number(this.props.selectedPin.longitude),
                             }}
                             onCloseClick={() => { this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' }) }}
-                            defaultOptions={{
-                                pixelOffset: { height: -40 }
-                            }}
+
                         >
                             {this.props.selectedPin.ref_organized_by ?
                                 <div id="infoWindow">

@@ -113,9 +113,6 @@ class Map extends Component {
                                         lng: Number(this.props.selectedPin.longitude),
                                     }}
                                     onCloseClick={() => { this.props.dispatch({ type: 'CLEAR_SELECTED_PIN' }) }}
-                                    defaultOptions={{
-                                        pixelOffset: { height: -40 }
-                                    }}
                                 >
 
                                     {this.props.selectedPin.ref_organized_by ?

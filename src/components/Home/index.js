@@ -138,6 +138,7 @@ class TestMap extends Component {
         })
         this.closeDialog();
     }
+    
     render() {
         return (
             <>
