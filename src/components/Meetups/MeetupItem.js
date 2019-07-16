@@ -18,7 +18,6 @@ class MeetupItem extends Component {
                 meetupId: id,
             }
         });
-        this.props.history.push('/home');
     }
 
     render() {
