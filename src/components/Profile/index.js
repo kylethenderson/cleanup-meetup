@@ -34,7 +34,6 @@ class Profile extends Component {
     }
 
     updateUserData = () => {
-        console.log(this.state);
         // update the db with new data later
         this.props.dispatch({
             type: 'UPDATE_USER_DATA',
@@ -54,7 +53,7 @@ class Profile extends Component {
     render() {
         return (
             <>
-                {this.props.user.latitude ?
+                {this.props.user ?
                     <Grid container justify="center" id="profilePage">
                         <Grid item xs={9}>
                             <h2>Profile</h2>
