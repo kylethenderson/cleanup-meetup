@@ -4,9 +4,9 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const router = express.Router();
 
 // import modules for twilio
-// const accountSid = process.env.TWILIO_ACCOUNT_SID;
-// const authToken = process.env.TWILIO_AUTH_TOKEN;
-// const client = require('twilio')(accountSid, authToken);
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 router.post('/add', rejectUnauthenticated, (req, res) => {
     const queryText = `INSERT INTO "meetups" ("ref_pin_id", "ref_organized_by", "date", "time", "supplies") VALUES
@@ -22,16 +22,16 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
                 .then(result => {
                     let userPhone = result.rows[0].phone;
                     // only send a msg if the pin owner has a phone number listed AND is NOT the current user
-                    // if (userPhone && result.rows[0].id !== req.user.id) {
-                    //     console.log('sending sms message to', userPhone);
-                    //     client.messages
-                    //         .create({
-                    //             body: 'A MeetUp has been organized on one of your pins.',
-                    //             from: '+18065471942',
-                    //             to: `+1${userPhone}`
-                    //         })
-                    //         .then(message => console.log(message.sid));
-                    // }
+                    if (userPhone && result.rows[0].id !== req.user.id) {
+                        console.log('sending sms message to', userPhone);
+                        client.messages
+                            .create({
+                                body: 'A MeetUp has been organized on one of your pins.',
+                                from: '+18065471942',
+                                to: `+1${userPhone}`
+                            })
+                            .then(message => console.log(message.sid));
+                    }
                     // after meetup is added and pin_owner notified, change pin owner to user that is organizing meetup
                     pool.query(`UPDATE "pins" SET "ref_pin_owner" = $1 WHERE "pin_id" = $2;`, [req.user.id, req.body.pinId])
                         .then(result => {

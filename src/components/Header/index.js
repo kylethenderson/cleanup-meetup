@@ -65,7 +65,7 @@ class Header extends Component {
                                     className="nav-link"
                                     onClick={this.logout}
                                 >
-                                    Log Out
+                                    Log Out {this.props.user.first_name}
                                 </button>
                             </Drawer>
                         </>

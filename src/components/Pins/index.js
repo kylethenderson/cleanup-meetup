@@ -45,6 +45,9 @@ class MyPins extends Component {
                                 history={this.props.history}
                             />
                         </div>
+                        <h4>
+                            *Click and drag pin to move location
+                        </h4>
                     </>
                     :
                     <>

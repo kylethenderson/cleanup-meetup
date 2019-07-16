@@ -1,6 +1,6 @@
 #welcomePage {
     min-height: 100vh;
-    background-color: rgba(72, 107, 0, .85);
+    background: linear-gradient(rgba(72, 107, 0, .85), rgba(72, 107, 0, .85),rgba(72, 107, 0, 1));
 }
 #welcomePage h3{
     margin: 0;
@@ -43,6 +43,7 @@
 }
 .circle-border {
     position: absolute;
+    background-color: rgba(256, 256, 256, .15);
     top: 0;
     left: 0;
     width: 100%;
@@ -52,6 +53,7 @@
     animation: spinBackwards 45s infinite linear;
 }
 .circle-container span {
+    border-radius: 50%;
     display: inline-block;
     color: white;
     font-size: 2.5rem;
@@ -61,11 +63,12 @@
     /* width: 100%; */
 }
 #centerIcon {
-    font-size: 6rem;
+    font-size: 8rem;
+    background-color: transparent;
     margin: 0;
     position: relative;
-    top: calc(50% - 3rem);
-    left: calc(50% - 3rem);
+    top: calc(50% - 4rem);
+    left: calc(50% - 4rem);
     animation: spinIt 10s infinite linear;
 }
 /* 37.5vw = half the width of the wrapper */

@@ -2,3 +2,10 @@
     background-color:  #8d230f;
     color: white;
 }
+#myPins h4 {
+    text-align: center;
+    margin: 0;
+    font-weight: 400;
+    position: relative;
+    top: -25px;
+}
