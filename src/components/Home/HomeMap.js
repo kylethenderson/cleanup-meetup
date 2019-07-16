@@ -83,7 +83,7 @@ class Map extends Component {
                                 <div id="infoWindow">
                                     <h4>Meetup Details</h4>
                                     <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
-                                    <h5>Time: {this.props.selectedPin.time}</h5>
+                                    <h5>Time: {this.props.selectedPin.time.substring(0,5)}</h5>
                                     <Button variant="contained" color="secondary" size="small" onClick={this.viewMeetup}>View</Button>
                                 </div>
                                 :

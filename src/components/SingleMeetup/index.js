@@ -26,6 +26,7 @@ class SingleMeetup extends Component {
 
     // functions to get singleMeetup data and the array of users that are associate with this meeetup
     componentDidMount() {
+        this.props.dispatch({type: 'CLEAR_SINGLE_MEETUP'})
         this.getSingleMeetup();
         this.getUsersJoined();
     }
