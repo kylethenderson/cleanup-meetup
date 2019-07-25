@@ -7,6 +7,12 @@ import {
     Marker,
     InfoWindow,
 } from 'react-google-maps'
+
+import * as geolib from 'geolib';
+
+import { getDistance } from 'geolib';
+
+// Material UI Components
 import Button from '@material-ui/core/Button'
 
 class Map extends Component {
@@ -38,6 +44,16 @@ class Map extends Component {
         this.props.history.push('/organize-meetup');
     }
 
+
+    getDistance = () => {
+        const distance = geolib.getDistance(
+            { latitude: this.props.user.latitude, longitude: this.props.user.longitude},
+            { latitude: this.props.selectedPin.latitude, longitude: this.props.selectedPin.longitude}
+        );
+        this.setState({
+            ...this.state, distance: distance,
+        })
+    }
     render() {
         return (
             <>
@@ -90,13 +106,15 @@ class Map extends Component {
                                 <div id="infoWindow">
                                     <h4>Dropped by: {this.props.selectedPin.username}</h4>
                                     <h4>Organize Meetup</h4>
-                                    <Button variant="contained" color="secondary" size="small" onClick={this.organizeMeetup}>Let's Go!</Button>
+                                    <Button variant="contained" color="secondary" size="small" onClick={this.getDistance}>{this.state.distance} meters</Button>
                                 </div>
                             }
                         </InfoWindow>
                     }
                 </GoogleMap>
             }
+            <button onClick={this.getDistance}>Test distance</button>
+            <pre>{JSON.stringify(this.state.distance, null, 2)}</pre>
             </>
         )
     }
@@ -105,6 +123,7 @@ class Map extends Component {
 const mapReduxStateToProps = (reduxState) => ({
     pinList: reduxState.pins.pinList,
     selectedPin: reduxState.pins.selectedPin,
+    user: reduxState.user,
 })
 
 const WrappedMap = withScriptjs(withGoogleMap(Map));

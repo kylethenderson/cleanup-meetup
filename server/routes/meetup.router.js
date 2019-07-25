@@ -9,6 +9,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
 router.post('/add', rejectUnauthenticated, (req, res) => {
+    const routeId = 3;
     const queryText = `INSERT INTO "meetups" ("ref_pin_id", "ref_organized_by", "date", "time", "supplies") VALUES
                         ($1, $2, $3, $4, $5) RETURNING "meetup_id";`
     pool.query(queryText, [req.body.pinId, req.user.id, req.body.date, req.body.time, req.body.supplies])
@@ -26,7 +27,7 @@ router.post('/add', rejectUnauthenticated, (req, res) => {
                         console.log('sending sms message to', userPhone);
                         client.messages
                             .create({
-                                body: 'A MeetUp has been organized on one of your pins.',
+                                body: `http://primeacademy.io/${routeId}`,
                                 from: '+18065471942',
                                 to: `+1${userPhone}`
                             })
