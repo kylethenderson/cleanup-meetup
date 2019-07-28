@@ -8,9 +8,6 @@ import {
     InfoWindow,
 } from 'react-google-maps'
 
-import * as geolib from 'geolib';
-
-import { getDistance } from 'geolib';
 
 // Material UI Components
 import Button from '@material-ui/core/Button'
@@ -30,6 +27,10 @@ class Map extends Component {
     // when one pin is clicked, set the data for that pin in redux
     setSelectedPin = (pin) => {
         this.props.dispatch({ type: 'SELECT_PIN', payload: pin });
+        this.props.dispatch({type: 'SET_USER_DISTANCE', payload: {
+            userCoords: {latitude: this.props.user.latitude, longitude: this.props.user.longitude},
+            venueCoords: {latitude: pin.latitude, longitude: pin.longitude}
+        }})
     }
 
     // if user clicks to view meetup, push to the singleMeetup page with the id in the url and clear selected pin in redux
@@ -44,16 +45,6 @@ class Map extends Component {
         this.props.history.push('/organize-meetup');
     }
 
-
-    getDistance = () => {
-        const distance = geolib.getDistance(
-            { latitude: this.props.user.latitude, longitude: this.props.user.longitude},
-            { latitude: this.props.selectedPin.latitude, longitude: this.props.selectedPin.longitude}
-        );
-        this.setState({
-            ...this.state, distance: distance,
-        })
-    }
     render() {
         return (
             <>
@@ -98,6 +89,7 @@ class Map extends Component {
                             {this.props.selectedPin.ref_organized_by ?
                                 <div id="infoWindow">
                                     <h4>Meetup Details</h4>
+                                    { this.props.user.distance && <h4>You are {this.props.user.distance} meters away.</h4>}
                                     <h5>Date: {this.props.selectedPin.date.substring(5, 7) + "/" + this.props.selectedPin.date.substring(8, 10) + "/" + this.props.selectedPin.date.substring(0, 4)}</h5>
                                     <h5>Time: {this.props.selectedPin.time.substring(0,5)}</h5>
                                     <Button variant="contained" color="secondary" size="small" onClick={this.viewMeetup}>View</Button>
@@ -106,15 +98,14 @@ class Map extends Component {
                                 <div id="infoWindow">
                                     <h4>Dropped by: {this.props.selectedPin.username}</h4>
                                     <h4>Organize Meetup</h4>
-                                    <Button variant="contained" color="secondary" size="small" onClick={this.getDistance}>{this.state.distance} meters</Button>
+                                    { this.props.user.distance && <h4>You are {this.props.user.distance} meters away.</h4>}
+                                    <Button variant="contained" color="secondary" size="small" onClick={this.organizeMeetup}>Let's Go!</Button>
                                 </div>
-                            }
+                            } 
                         </InfoWindow>
                     }
                 </GoogleMap>
             }
-            <button onClick={this.getDistance}>Test distance</button>
-            <pre>{JSON.stringify(this.state.distance, null, 2)}</pre>
             </>
         )
     }

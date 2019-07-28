@@ -1,3 +1,5 @@
+import getDistance from 'geolib/es/getDistance';
+
 const userReducer = (state = {}, action) => {
   switch (action.type) {
     case 'SET_USER':
@@ -9,6 +11,15 @@ const userReducer = (state = {}, action) => {
         ...state, 
         latitude: action.payload.latitude,
         longitude: action.payload.longitude, 
+      }
+    case 'SET_USER_DISTANCE':
+      const distance = getDistance(
+        action.payload.userCoords,
+        action.payload.venueCoords
+      );
+      return {
+        ...state,
+        distance: distance,
       }
     default:
       return state;
